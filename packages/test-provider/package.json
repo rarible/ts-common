@@ -1,0 +1,43 @@
+{
+  "name": "@rarible/test-provider",
+  "version": "0.0.1",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "/build"
+  ],
+  "keywords": [
+    "rarible",
+    "common",
+    "types"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig-build.json",
+    "clean": "rimraf ./build",
+    "test": "jest --silent",
+    "verify": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rariblecom/types.git"
+  },
+  "dependencies": {
+    "eth-sig-util": "^3.0.1",
+    "ethereumjs-tx": "^2.1.2",
+    "ethereumjs-util": "^7.1.0",
+    "ethereumjs-wallet": "^1.0.1",
+    "web3-provider-engine": "16.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "26.0.24",
+    "@types/web3-provider-engine": "14.0.1",
+    "cpx": "1.5.0",
+    "jest": "27.0.6",
+    "ts-jest": "27.0.3",
+    "typescript": "4.3.5"
+  }
+}
