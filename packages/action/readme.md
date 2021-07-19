@@ -22,6 +22,10 @@ const action: Action<Id, [number, string]> = ActionBuilder.create<Id>()
 //then
 const firstStageResult: number = await action.run(0) //resolves to 10
 const secondStageResult: string = await action.run(1) //resolved to hash-10
+
 //also this can be used to get final result (the same as .run(1))
 const finalResult: string = await action.result
+
+//get array of stage ids
+const ids = action.ids // ["approve", "send-tx"]
 ```
