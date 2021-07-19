@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsc --project tsconfig-build.json",
     "clean": "rimraf ./build",
-    "test": "jest --silent",
+    "test": "jest --silent --passWithNoTests",
     "verify": "tsc --noEmit"
   },
   "publishConfig": {
