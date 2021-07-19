@@ -32,6 +32,7 @@ describe("Action", () => {
 		simple.promise.resolve(10)
 
 		expect(await simple.action.result).toEqual(10)
+		expect(simple.action.ids).toStrictEqual(["one"])
 	})
 
 	test("action works for some stages", async () => {
@@ -52,6 +53,8 @@ describe("Action", () => {
 		expect(await s2).toBe("str-10")
 		expect(await action.result).toBe("str-10")
 		expect(s2).toBe(action.result)
+
+		expect(action.ids).toStrictEqual(["s1", "s2"])
 	})
 })
 
