@@ -24,5 +24,5 @@ export function toWord(value: string): Word {
 export const ZERO_WORD = "0x0000000000000000000000000000000000000000000000000000000000000000" as Word
 
 export function randomWord() {
-	return randomBinary(32)
+	return toWord(randomBinary(32))
 }

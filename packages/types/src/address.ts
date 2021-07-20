@@ -24,5 +24,5 @@ export function toAddress(value: string): Address {
 export const ZERO_ADDRESS: Address = "0x0000000000000000000000000000000000000000" as Address
 
 export function randomAddress() {
-	return randomBinary(20)
+	return toAddress(randomBinary(20))
 }
