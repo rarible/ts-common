@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/rariblecom/ts-common/compare/@rarible/test-provider@0.1.2...@rarible/test-provider@0.1.3) (2021-07-20)
+
+
+### Bug Fixes
+
+* minor code fixes ([b91ab48](https://github.com/rariblecom/ts-common/commit/b91ab48c1d385dc8464b7e31d5da8d2c513a57ef))
+
+
+
+
+
 ## [0.1.2](https://github.com/rariblecom/ts-common/compare/@rarible/test-provider@0.1.1...@rarible/test-provider@0.1.2) (2021-07-20)
 
 
