@@ -1,6 +1,6 @@
 // @ts-ignore
 import HookedWalletSubprovider from "web3-provider-engine/subproviders/hooked-wallet"
-import ethUtil from "ethereumjs-util"
+import { addHexPrefix } from "ethereumjs-util"
 import { Transaction } from "ethereumjs-tx"
 import Wallet from "ethereumjs-wallet"
 // eslint-disable-next-line
@@ -17,7 +17,7 @@ export class TestSubprovider extends HookedWalletSubprovider {
 				// defaults
 				if (txData.gas !== undefined) txData.gasLimit = txData.gas
 				txData.value = txData.value || "0x00"
-				txData.data = ethUtil.addHexPrefix(txData.data)
+				txData.data = addHexPrefix(txData.data)
 
 				const tx = new Transaction(txData)
 				tx.sign(wallet.getPrivateKey())
