@@ -9,6 +9,7 @@
     "clean": "yarn workspaces run clean",
     "build-all": "sh build-all.sh",
     "build-types": "yarn workspace @rarible/types run build",
+    "build-action": "yarn workspace @rarible/action run build",
     "build-test-provider": "yarn workspace @rarible/test-provider run build",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
     "prettify": "prettier --write **/src/**/*",

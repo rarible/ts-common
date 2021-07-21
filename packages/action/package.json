@@ -9,7 +9,8 @@
   "keywords": [
     "rarible",
     "common",
-    "action"
+    "action",
+    "protocol"
   ],
   "scripts": {
     "build": "tsc --project tsconfig-build.json",
