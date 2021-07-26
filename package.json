@@ -12,7 +12,7 @@
     "build-action": "yarn workspace @rarible/action run build",
     "build-test-provider": "yarn workspace @rarible/test-provider run build",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
-    "release": "lerna version --no-commit-hooks",
+    "release": "lerna publish from-package",
     "prettify": "prettier --write **/src/**/*",
     "test": "yarn workspaces run test",
     "verify": "yarn workspaces run verify"

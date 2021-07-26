@@ -18,7 +18,9 @@ pipeline {
 		}
 		stage('release') {
 			steps {
-				sh 'yarn release'
+				withCredentials([string(credentialsId: 'nexus-ci-npm-token', variable: 'NPM_TOKEN')]) {
+					sh 'yarn release'
+        }
 			}
 		}
 	}
