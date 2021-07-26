@@ -16,6 +16,11 @@ pipeline {
 				sh 'yarn build-all'
 			}
 		}
+		stage('release') {
+			steps {
+				sh 'lerna version --no-commit-hooks'
+			}
+		}
 	}
 
 	post {
