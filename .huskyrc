@@ -1,5 +1,5 @@
 {
 	"hooks": {
-		"pre-commit": "yarn run verify && lint-staged && yarn run lint"
+		"pre-commit": "NPM_TOKEN=na yarn run verify && NPM_TOKEN=na lint-staged && NPM_TOKEN=na yarn run lint"
 	}
 }

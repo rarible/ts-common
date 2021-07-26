@@ -13,16 +13,10 @@ describe("TestProvider", function() {
 	test("e2e chain works", async () => {
 		expect.assertions(1)
 		const from = wallet.getAddressString()
-		const promi = web3.eth.sendTransaction({ 
+		const result = await web3.eth.sendTransaction({
 			from,
 			to: from,
 			value: 0
-		})
-		const result = await new Promise<any>((resolve, reject) => {
-			promi.once("receipt", resolve)
-			promi.once("confirmation", resolve)
-			promi.once("transactionHash", resolve)
-			promi.once("error", reject)
 		})
 		expect(result).toBeTruthy()
 	})
@@ -44,8 +38,8 @@ function createE2eProvider() {
 		networkId: 17,
 		chainId: 17
 	}))
-	provider.addProvider(new RpcSubprovider({ 
-		rpcUrl: "https://node-e2e.rarible.com" 
+	provider.addProvider(new RpcSubprovider({
+		rpcUrl: "https://node-e2e.rarible.com"
 	}))
 	const web3 = new Web3(provider)
 
