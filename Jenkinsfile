@@ -8,18 +8,11 @@ pipeline {
 	}
 
 	stages {
-		stage('build') {
-			steps {
-				sh 'NPM_TOKEN=na yarn install'
-				sh 'NPM_TOKEN=na yarn bootstrap'
-				sh 'NPM_TOKEN=na yarn clean'
-				sh 'NPM_TOKEN=na yarn build-all'
-			}
-		}
 		stage('release') {
 			steps {
-				withCredentials([string(credentialsId: 'nexus-ci-npm-token', variable: 'TOKEN')]) {
-					sh "NPM_TOKEN=$TOKEN yarn release"
+				withCredentials([string(credentialsId: 'nexus-ci-npm-token', variable: 'NPM_TOKEN')]) {
+					sh 'echo NPM_TOKEN'
+					sh 'yarn release'
         }
 			}
 		}
