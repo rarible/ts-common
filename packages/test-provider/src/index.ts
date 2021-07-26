@@ -10,7 +10,6 @@ export type TestProviderChain = {
 	chainId: number
 }
 
-// noinspection JSUnusedGlobalSymbols
 export class TestSubprovider extends HookedWalletSubprovider {
 	constructor(wallet: Wallet, chain?: TestProviderChain) {
 		const privateKey = wallet.getPrivateKey()
