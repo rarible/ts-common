@@ -10,10 +10,10 @@ pipeline {
 	stages {
 		stage('build') {
 			steps {
-				sh 'yarn install'
-				sh 'yarn bootstrap'
-				sh 'yarn clean'
-				sh 'yarn build-all'
+				sh 'NPM_TOKEN=na yarn install'
+				sh 'NPM_TOKEN=na yarn bootstrap'
+				sh 'NPM_TOKEN=na yarn clean'
+				sh 'NPM_TOKEN=na yarn build-all'
 			}
 		}
 		stage('release') {
