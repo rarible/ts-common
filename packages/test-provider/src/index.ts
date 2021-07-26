@@ -10,6 +10,7 @@ export type TestProviderChain = {
 	chainId: number
 }
 
+// noinspection JSUnusedGlobalSymbols
 export class TestSubprovider extends HookedWalletSubprovider {
 	constructor(wallet: Wallet, chain?: TestProviderChain) {
 		const privateKey = wallet.getPrivateKey()
@@ -31,7 +32,7 @@ export class TestSubprovider extends HookedWalletSubprovider {
 				const signedTx = tx.sign(privateKey)
 				cb(null, "0x" + signedTx.serialize().toString("hex"))
 			},
-			
+
 			signMessage: function(msgParams: any, cb: any) {
 				const dataBuff = ethUtil.toBuffer(msgParams.data)
 				const msgHash = ethUtil.hashPersonalMessage(dataBuff)
@@ -39,23 +40,23 @@ export class TestSubprovider extends HookedWalletSubprovider {
 				const serialized = ethUtil.bufferToHex(concatSig(sig.v, sig.r, sig.s))
 				cb(null, serialized)
 			},
-			
+
 			signPersonalMessage: function(msgParams: any, cb: any) {
-				const serialized = sigUtil.signTypedMessage(privateKey, { 
-					data: JSON.parse(msgParams.data) 
+				const serialized = sigUtil.signTypedMessage(privateKey, {
+					data: JSON.parse(msgParams.data)
 				}, "V4")
 				cb(null, serialized)
 			},
-			
+
 			signTypedMessage: function(msgParams: any, cb: any) {
-				const serialized = sigUtil.signTypedData(privateKey, { 
-					data: JSON.parse(msgParams.data) 
+				const serialized = sigUtil.signTypedData(privateKey, {
+					data: JSON.parse(msgParams.data)
 				})
 				cb(null, serialized)
 			}
 		})
 
-		
+
 	}
 }
 
