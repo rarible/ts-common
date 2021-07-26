@@ -8,6 +8,12 @@ pipeline {
 	}
 
 	stages {
+		stage('build') {
+			steps {
+				sh 'NPM_TOKEN=na yarn install'
+				sh 'NPM_TOKEN=na yarn bootstrap'
+			}
+		}
 		stage('release') {
 			steps {
 				withCredentials([string(credentialsId: 'nexus-ci-npm-token', variable: 'NPM_TOKEN')]) {
