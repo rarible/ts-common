@@ -1,27 +1,52 @@
 import Web3ProviderEngine from "web3-provider-engine"
 import Wallet from "ethereumjs-wallet"
-import { TestSubprovider } from "@rarible/test-provider"
 import Web3 from "web3"
-// @ts-ignore
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc"
 import { randomWord } from "@rarible/types/src"
+import { signTypedData } from "./utils"
+import { testOrderData } from "./mocks"
+import { TestSubprovider } from "./index"
 
-describe("TestProvider", function () {
+describe("TestProvider", function() {
 	const { web3, wallet } = createE2eProvider()
 
 	test("e2e chain works", async () => {
+		expect.assertions(1)
 		const from = wallet.getAddressString()
-		await web3.eth.sendTransaction({ from, to: from, value: 0 })
+		const promi = web3.eth.sendTransaction({ 
+			from,
+			to: from,
+			value: 0
+		})
+		const result = await new Promise<any>((resolve, reject) => {
+			promi.once("receipt", resolve)
+			promi.once("confirmation", resolve)
+			promi.once("transactionHash", resolve)
+			promi.once("error", reject)
+		})
+		expect(result).toBeTruthy()
+	})
+
+	test("sign typed data works", async () => {
+		expect.assertions(1)
+		const signature = await signTypedData(web3, testOrderData, wallet.getAddressString())
+		expect(signature).toBeTruthy()
 	})
 })
 
-export function createE2eProvider() {
+function createE2eProvider() {
 	const key = randomWord().substring(2)
 
 	const provider = new Web3ProviderEngine()
 	const wallet = new Wallet(Buffer.from(key, "hex"))
-	provider.addProvider(new TestSubprovider(wallet))
-	provider.addProvider(new RpcSubprovider({ rpcUrl: "https://node-e2e.rarible.com" }))
+
+	provider.addProvider(new TestSubprovider(wallet, {
+		networkId: 17,
+		chainId: 17
+	}))
+	provider.addProvider(new RpcSubprovider({ 
+		rpcUrl: "https://node-e2e.rarible.com" 
+	}))
 	const web3 = new Web3(provider)
 
 	beforeAll(() => {
@@ -32,8 +57,5 @@ export function createE2eProvider() {
 		provider.stop()
 	})
 
-	return {
-		web3,
-		wallet,
-	}
+	return { web3, wallet }
 }
