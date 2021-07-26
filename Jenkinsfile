@@ -18,7 +18,7 @@ pipeline {
 		}
 		stage('release') {
 			steps {
-				sh 'lerna version --no-commit-hooks'
+				sh 'yarn release'
 			}
 		}
 	}
