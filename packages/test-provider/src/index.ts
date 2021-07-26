@@ -10,21 +10,22 @@ export type TestProviderChain = {
 	chainId: number
 }
 
-// noinspection JSUnusedGlobalSymbols
 export class TestSubprovider extends HookedWalletSubprovider {
 	constructor(wallet: Wallet, chain?: TestProviderChain) {
 		const privateKey = wallet.getPrivateKey()
 
-		const common = chain && Common.forCustomChain("mainnet", {
-			name: "dev",
-      ...chain
-		})
+		const common =
+			chain &&
+			Common.forCustomChain("mainnet", {
+				name: "dev",
+				...chain,
+			})
 		super({
 			getAccounts: function (cb: any) {
 				cb(null, [wallet.getAddressString()])
 			},
 
-			signTransaction: function(txData: any, cb: any) {
+			signTransaction: function (txData: any, cb: any) {
 				if (txData.gas !== undefined) txData.gasLimit = txData.gas
 				txData.value = txData.value || "0x00"
 				txData.data = ethUtil.addHexPrefix(txData.data)
@@ -33,7 +34,7 @@ export class TestSubprovider extends HookedWalletSubprovider {
 				cb(null, "0x" + signedTx.serialize().toString("hex"))
 			},
 
-			signMessage: function(msgParams: any, cb: any) {
+			signMessage: function (msgParams: any, cb: any) {
 				const dataBuff = ethUtil.toBuffer(msgParams.data)
 				const msgHash = ethUtil.hashPersonalMessage(dataBuff)
 				const sig = ethUtil.ecsign(msgHash, privateKey)
@@ -41,22 +42,24 @@ export class TestSubprovider extends HookedWalletSubprovider {
 				cb(null, serialized)
 			},
 
-			signPersonalMessage: function(msgParams: any, cb: any) {
-				const serialized = sigUtil.signTypedMessage(privateKey, {
-					data: JSON.parse(msgParams.data)
-				}, "V4")
+			signPersonalMessage: function (msgParams: any, cb: any) {
+				const serialized = sigUtil.signTypedMessage(
+					privateKey,
+					{
+						data: JSON.parse(msgParams.data),
+					},
+					"V4"
+				)
 				cb(null, serialized)
 			},
 
-			signTypedMessage: function(msgParams: any, cb: any) {
+			signTypedMessage: function (msgParams: any, cb: any) {
 				const serialized = sigUtil.signTypedData(privateKey, {
-					data: JSON.parse(msgParams.data)
+					data: JSON.parse(msgParams.data),
 				})
 				cb(null, serialized)
-			}
+			},
 		})
-
-
 	}
 }
 
@@ -68,4 +71,4 @@ function concatSig(v: any, r: any, s: any) {
 	s = ethUtil.toUnsigned(s).toString("hex").padStart(64, "0")
 	v = ethUtil.stripHexPrefix(ethUtil.intToHex(v))
 	return ethUtil.addHexPrefix(r.concat(s, v).toString("hex")) as any
-  }
+}
