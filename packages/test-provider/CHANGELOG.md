@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4](https://github.com/rariblecom/ts-common/compare/@rarible/test-provider@0.1.3...@rarible/test-provider@0.1.4) (2021-07-26)
+
+
+### Bug Fixes
+
+* lint ([f7da17a](https://github.com/rariblecom/ts-common/commit/f7da17a03baf3e6278413135ff2c45a4a14fc7a0))
+* test e2e network tx ([36f4b86](https://github.com/rariblecom/ts-common/commit/36f4b86aa6c7da6f4068c525e60396c62137204f))
+
+
+
+
+
 ## [0.1.3](https://github.com/rariblecom/ts-common/compare/@rarible/test-provider@0.1.2...@rarible/test-provider@0.1.3) (2021-07-20)
 
 
