@@ -3,10 +3,8 @@ import HookedWalletSubprovider from "web3-provider-engine/subproviders/hooked-wa
 import { addHexPrefix } from "ethereumjs-util"
 import { Transaction } from "ethereumjs-tx"
 import Wallet from "ethereumjs-wallet"
-// eslint-disable-next-line
 import { personalSign, signTypedData_v4 } from "eth-sig-util"
 
-// noinspection JSUnusedGlobalSymbols
 export class TestSubprovider extends HookedWalletSubprovider {
 	constructor(private readonly wallet: Wallet) {
 		super({
