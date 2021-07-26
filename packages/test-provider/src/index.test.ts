@@ -7,7 +7,7 @@ import { signTypedData } from "./utils"
 import { testOrderData } from "./mocks"
 import { TestSubprovider } from "./index"
 
-describe("TestProvider", function() {
+describe("TestProvider", function () {
 	const { web3, wallet } = createE2eProvider()
 
 	test("e2e chain works", async () => {
@@ -16,7 +16,7 @@ describe("TestProvider", function() {
 		const result = await web3.eth.sendTransaction({
 			from,
 			to: from,
-			value: 0
+			value: 0,
 		})
 		expect(result).toBeTruthy()
 	})
@@ -34,13 +34,17 @@ function createE2eProvider() {
 	const provider = new Web3ProviderEngine()
 	const wallet = new Wallet(Buffer.from(key, "hex"))
 
-	provider.addProvider(new TestSubprovider(wallet, {
-		networkId: 17,
-		chainId: 17
-	}))
-	provider.addProvider(new RpcSubprovider({
-		rpcUrl: "https://node-e2e.rarible.com"
-	}))
+	provider.addProvider(
+		new TestSubprovider(wallet, {
+			networkId: 17,
+			chainId: 17,
+		})
+	)
+	provider.addProvider(
+		new RpcSubprovider({
+			rpcUrl: "https://node-e2e.rarible.com",
+		})
+	)
 	const web3 = new Web3(provider)
 
 	beforeAll(() => {
