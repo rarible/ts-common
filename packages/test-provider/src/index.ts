@@ -44,14 +44,8 @@ export class TestSubprovider extends HookedWalletSubprovider {
 			},
 
 			signPersonalMessage: function (msgParams: any, cb: any) {
-				const serialized = sigUtil.signTypedMessage(
-					privateKey,
-					{
-						data: JSON.parse(msgParams.data),
-					},
-					"V4"
-				)
-				cb(null, serialized)
+				const serialized = sigUtil.personalSign(privateKey, msgParams);
+				cb(null, serialized);
 			},
 
 			signTypedMessage: function (msgParams: any, cb: any) {
