@@ -23,6 +23,13 @@ export class Action<Id, Rs extends Arr> {
 		return this.stages.map(s => s.id)
 	}
 
+	async runAll(): Promise<LastItemType<Rs>> {
+		for (let i = 0; i < this.ids.length; i++) {
+			await this.run(i)
+		}
+		return await this.result
+	}
+
 	run<T extends keyof Rs & number>(idx: T): Promise<Rs[T]> {
 		if (idx === 0) {
 			return this.runInternal(idx, null)
