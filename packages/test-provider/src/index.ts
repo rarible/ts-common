@@ -49,10 +49,7 @@ export class TestSubprovider extends HookedWalletSubprovider {
 			},
 
 			signTypedMessage: function (msgParams: any, cb: any) {
-				const serialized = sigUtil.signTypedData(privateKey, {
-					data: JSON.parse(msgParams.data),
-				})
-				cb(null, serialized)
+				cb(null, sigUtil.signTypedData_v4(privateKey, { data: msgParams.data }))
 			},
 		})
 	}
