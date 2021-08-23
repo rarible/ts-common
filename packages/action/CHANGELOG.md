@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.1.2...@rarible/action@0.2.0) (2021-08-23)
+
+
+### Features
+
+* ActionBuilder.thenAction support ([4063220](https://github.com/rariblecom/ts-common/commit/4063220d9b072299fbfd05eb2a1f2627d8b1eedb))
+* ActionBuilder.thenAction support ([2b540d5](https://github.com/rariblecom/ts-common/commit/2b540d5e605d22c4f3ad232ba2c39fcdfb4cc17d))
+
+
+
+
+
 ## [0.1.2](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.1.1...@rarible/action@0.1.2) (2021-07-30)
 
 
