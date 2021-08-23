@@ -15,17 +15,18 @@ describe("Action", () => {
 	})
 
 	test("action builders can be appended to other action builders", async () => {
-		const simple = generateSimpleAction<number>()
+		const simple = ActionBuilder.create({
+			id: "first",
+			run: (value: string) => Promise.resolve(parseInt(value)),
+		}).then({ id: "second", run: value => Promise.resolve(value - 3) })
 
 		const append = ActionBuilder.create({ id: "next", run: (value: number) => Promise.resolve(value * 2) }).then({
 			id: "one-more",
 			run: value => Promise.resolve(value + 2),
 		})
 
-		const action = simple.action.thenAction(append).build()
-		const result = action.runAll()
-		simple.promise.resolve(10)
-		expect(await result).toBe(22)
+		const action = simple.thenAction(append).build("10")
+		expect(await action.runAll()).toBe(16)
 	})
 
 	test("action doesn't save promise for stage if rejected", async () => {
