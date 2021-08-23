@@ -9,11 +9,11 @@ type Stage<Id, T, R> = {
 
 type PromiseState<T> = { status: "pending" } | { status: "rejected"; error: any } | { status: "resolved"; value: T }
 
-export class Action<Id, Rs extends Arr> {
+export class Action<Id, In, Rs extends Arr> {
 	private readonly state: PromiseState<unknown>[]
 	private readonly promises: Promise<unknown>[]
 
-	constructor(readonly stages: Stage<Id, unknown, unknown>[]) {
+	constructor(private readonly input: In, private readonly stages: Stage<Id, unknown, unknown>[]) {
 		// @ts-ignore
 		this.state = new Array(stages.length)
 		this.promises = new Array(stages.length)
@@ -32,7 +32,7 @@ export class Action<Id, Rs extends Arr> {
 
 	run<T extends keyof Rs & number>(idx: T): Promise<Rs[T]> {
 		if (idx === 0) {
-			return this.runInternal(idx, null)
+			return this.runInternal(idx, this.input)
 		}
 		if (idx >= this.stages.length) {
 			throw new Error(`Stage with index ${idx} not found`)
@@ -75,21 +75,28 @@ export class Action<Id, Rs extends Arr> {
 	}
 }
 
-export class ActionBuilder<Id, Rs extends Arr> {
+export class ActionBuilder<Id, In, Rs extends Arr> {
 	constructor(private readonly stages: Stage<Id, unknown, unknown>[]) {}
 
-	then<T>(stage: Stage<Id, LastItemType<Rs>, T>): ActionBuilder<Id, [...Rs, T]> {
+	then<NewId, T>(stage: Stage<NewId, LastItemType<Rs>, T>): ActionBuilder<Id | NewId, In, [...Rs, T]> {
 		// @ts-ignore
 		return new ActionBuilder([...this.stages, stage])
 	}
 
-	build(): Action<Id, Rs> {
+	thenAction<NewId, NewRs extends Arr>(
+		action: ActionBuilder<NewId, LastItemType<Rs>, NewRs>
+	): ActionBuilder<Id | NewId, In, [...Rs, ...NewRs]> {
 		// @ts-ignore
-		return new Action(this.stages)
+		return new ActionBuilder([...this.stages, ...action.stages])
 	}
 
-	static create<Id>() {
+	build(input: In): Action<Id, In, Rs> {
 		// @ts-ignore
-		return new ActionBuilder([]) as ActionBuilder<Id, []>
+		return new Action(input, this.stages)
+	}
+
+	static create<Id, R, In = void>(stage: Stage<Id, In, R>): ActionBuilder<Id, In, [R]> {
+		// @ts-ignore
+		return new ActionBuilder([stage]) as ActionBuilder<Id, []>
 	}
 }

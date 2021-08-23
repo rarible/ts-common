@@ -3,43 +3,59 @@ import { Action, ActionBuilder } from "./index"
 describe("Action", () => {
 	test("action saves promise for stage if not rejected", async () => {
 		const simple = generateSimpleAction<number>()
+		const action = simple.action.build()
 
-		const promise1 = simple.action.run(0)
-		expect(promise1).toBe(simple.action.run(0))
+		const promise1 = action.run(0)
+		expect(promise1).toBe(action.run(0))
 
 		simple.promise.resolve(10)
 		expect(await promise1).toEqual(10)
 
-		expect(promise1).toBe(simple.action.run(0))
+		expect(promise1).toBe(action.run(0))
+	})
+
+	test("action builders can be appended to other action builders", async () => {
+		const simple = generateSimpleAction<number>()
+
+		const append = ActionBuilder.create({ id: "next", run: (value: number) => Promise.resolve(value * 2) }).then({
+			id: "one-more",
+			run: value => Promise.resolve(value + 2),
+		})
+
+		const action = simple.action.thenAction(append).build()
+		const result = action.runAll()
+		simple.promise.resolve(10)
+		expect(await result).toBe(22)
 	})
 
 	test("action doesn't save promise for stage if rejected", async () => {
 		const simple = generateSimpleAction<number>()
+		const action = simple.action.build()
 
-		const promise1 = simple.action.run(0)
-		expect(promise1).toBe(simple.action.run(0))
+		const promise1 = action.run(0)
+		expect(promise1).toBe(action.run(0))
 
 		simple.promise.reject(new Error("rejected"))
 		await expect(async () => await promise1).rejects.toThrow(new Error("rejected"))
 
-		expect(simple.action.run(0)).not.toBe(promise1)
+		expect(action.run(0)).not.toBe(promise1)
 	})
 
 	test("action returns result", async () => {
 		const simple = generateSimpleAction<number>()
+		const action = simple.action.build()
 
-		simple.action.run(0).then()
+		action.run(0).then()
 		simple.promise.resolve(10)
 
-		expect(await simple.action.result).toEqual(10)
-		expect(simple.action.ids).toStrictEqual(["one"])
+		expect(await action.result).toEqual(10)
+		expect(action.ids).toStrictEqual(["one"])
 	})
 
 	test("action works for some stages", async () => {
 		const promise1 = generatePromise<number>()
 
-		const action = ActionBuilder.create<string>()
-			.then({ id: "s1", run: () => promise1.promise() })
+		const action = ActionBuilder.create({ id: "s1", run: () => promise1.promise() })
 			.then({ id: "s2", run: async value => `str-${value}` })
 			.build()
 
@@ -62,9 +78,7 @@ function generateSimpleAction<T>() {
 	const promise = generatePromise<T>()
 	return {
 		promise,
-		action: ActionBuilder.create<string>()
-			.then({ id: "one", run: () => promise.promise() })
-			.build(),
+		action: ActionBuilder.create({ id: "one", run: () => promise.promise() }),
 	}
 }
 
