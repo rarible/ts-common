@@ -1,4 +1,4 @@
-import { Action, ActionBuilder } from "./index"
+import { ActionBuilder } from "./index"
 
 describe("Action", () => {
 	test("action saves promise for stage if not rejected", async () => {

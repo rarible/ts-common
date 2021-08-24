@@ -2,7 +2,7 @@ import HookedWalletSubprovider from "web3-provider-engine/subproviders/hooked-wa
 import * as ethUtil from "ethereumjs-util"
 import { TransactionFactory } from "@ethereumjs/tx"
 import Common from "@ethereumjs/common"
-import Wallet from "ethereumjs-wallet"
+import type Wallet from "ethereumjs-wallet"
 import * as sigUtil from "eth-sig-util"
 
 export type TestProviderChain = {

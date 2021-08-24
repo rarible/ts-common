@@ -1,4 +1,4 @@
-import Web3 from "web3"
+import type Web3 from "web3"
 import type { AbstractProvider, HttpProvider, IpcProvider, WebsocketProvider } from "web3-core"
 
 export function signTypedData(web3: Web3, data: any, signer: string) {
