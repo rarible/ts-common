@@ -12,12 +12,15 @@
     "build-action": "yarn workspace @rarible/action run build",
     "build-test-provider": "yarn workspace @rarible/test-provider run build",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx ./ --fix",
     "release": "lerna publish from-package",
     "prettify:packages": "lerna exec -- sort-package-json && sort-package-json",
     "prettify:code": "prettier --write **/src/**/*",
     "prettify": "run-s prettify:*",
     "test": "lerna run test --parallel",
-    "verify": "lerna run verify --parallel"
+    "verify": "lerna run verify --parallel",
+    "lint-staged": "lint-staged",
+    "precommit": "run-s verify lint-staged lint"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
