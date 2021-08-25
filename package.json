@@ -11,6 +11,7 @@
     "build-types": "yarn workspace @rarible/types run build",
     "build-action": "yarn workspace @rarible/action run build",
     "build-test-provider": "yarn workspace @rarible/test-provider run build",
+    "build-utils": "yarn workspace @rarible/utils run build",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx ./ --fix",
     "release": "lerna publish from-package",
