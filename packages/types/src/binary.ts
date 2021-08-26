@@ -1,7 +1,5 @@
-declare const validBinary: unique symbol
-
 export type Binary = string & {
-	[validBinary]: true
+	"__IS_BINARY__": true
 }
 
 export function toBinary(value: string): Binary {

@@ -1,9 +1,7 @@
 import { randomBinary } from "./binary"
 
-declare const validWord: unique symbol
-
 export type Word = string & {
-	[validWord]: true
+	"__IS_WORD__": true
 }
 
 export function toWord(value: string): Word {
