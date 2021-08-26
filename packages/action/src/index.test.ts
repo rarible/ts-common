@@ -1,6 +1,7 @@
 import { ActionBuilder } from "./index"
 
 describe("Action", () => {
+
 	test("action saves promise for stage if not rejected", async () => {
 		const simple = generateSimpleAction<number>()
 		const action = simple.action.build()
