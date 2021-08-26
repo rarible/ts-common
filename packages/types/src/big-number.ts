@@ -1,7 +1,5 @@
-declare const validBigNumber: unique symbol
-
 export type BigNumber = string & {
-	[validBigNumber]: true
+	"__IS_BIG_NUMBER__": true
 }
 
 export function toBigNumber(value: string): BigNumber {

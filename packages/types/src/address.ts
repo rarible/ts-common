@@ -1,9 +1,7 @@
 import { randomBinary } from "./binary"
 
-declare const validAddress: unique symbol
-
 export type Address = string & {
-	[validAddress]: true
+	"__IS_ADDRESS__": true
 }
 
 export function toAddress(value: string): Address {
