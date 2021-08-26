@@ -24,9 +24,6 @@
     "precommit": "run-s verify lint-staged lint"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "yarn run prettify:code"
-    ],
     "**/src/package.json": [
       "yarn run prettify:packages"
     ],
