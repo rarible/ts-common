@@ -6,6 +6,7 @@
 		"skipLibCheck": true,
 		"importHelpers": true,
 		"strict": true,
+		"declaration": true,
 		"noImplicitReturns": true,
 		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,
