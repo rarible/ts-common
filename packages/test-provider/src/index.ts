@@ -49,13 +49,18 @@ export class TestSubprovider extends HookedWalletSubprovider {
 			},
 
 			signTypedMessage: function (msgParams: any, cb: any) {
-				cb(
-					null,
-					sigUtil.signTypedData(privateKey, {
-						data: JSON.parse(msgParams.data),
-					})
-				)
+				cb(null, signTypedData(privateKey, msgParams.data))
 			},
+		})
+	}
+}
+
+function signTypedData(privateKey: Buffer, data: string) {
+	try {
+		return sigUtil.signTypedData_v4(privateKey, { data })
+	} catch (_) {
+		return sigUtil.signTypedData(privateKey, {
+			data: JSON.parse(data),
 		})
 	}
 }
