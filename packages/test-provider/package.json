@@ -1,6 +1,6 @@
 {
   "name": "@rarible/test-provider",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "keywords": [
     "rarible",
     "common",
@@ -23,7 +23,7 @@
     "verify": "tsc --noEmit"
   },
   "dependencies": {
-    "@rarible/types": "^0.1.4"
+    "@rarible/types": "^0.1.5"
   },
   "devDependencies": {
     "@types/jest": "26.0.24",
