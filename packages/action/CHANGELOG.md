@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.2.2...@rarible/action@0.2.3) (2021-08-26)
+
+
+### Bug Fixes
+
+* rename then to thenStage ([a0733c1](https://github.com/rariblecom/ts-common/commit/a0733c12407d22554a901efc3d534e5f67e81676))
+* rename then to thenStage ([e03da2f](https://github.com/rariblecom/ts-common/commit/e03da2ffffbc3bf58f07c4ec8f346f7661b77ce1))
+
+
+
+
+
 ## [0.2.2](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.2.1...@rarible/action@0.2.2) (2021-08-26)
 
 
