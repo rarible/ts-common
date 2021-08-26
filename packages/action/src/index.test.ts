@@ -15,15 +15,13 @@ describe("Action", () => {
 	})
 
 	test("action builders can be appended to other action builders", async () => {
-		const simple = ActionBuilder.create({
-			id: "first",
-			run: (value: string) => Promise.resolve(parseInt(value)),
-		}).thenStage({ id: "second", run: value => Promise.resolve(value - 3) })
+		const simple = ActionBuilder
+			.create({ id: "first", run: (value: string) => Promise.resolve(parseInt(value)) })
+			.thenStage({ id: "second", run: value => Promise.resolve(value - 3) })
 
-		const append = ActionBuilder.create({ id: "next", run: (value: number) => Promise.resolve(value * 2) }).thenStage({
-			id: "one-more",
-			run: value => Promise.resolve(value + 2),
-		})
+		const append = ActionBuilder
+			.create({ id: "next", run: (value: number) => Promise.resolve(value * 2) })
+			.thenStage({ id: "one-more", run: value => Promise.resolve(value + 2) })
 
 		const action = simple.thenAction(append).build("10")
 		expect(await action.runAll()).toBe(16)
@@ -56,7 +54,8 @@ describe("Action", () => {
 	test("action works for some stages", async () => {
 		const promise1 = generatePromise<number>()
 
-		const action = ActionBuilder.create({ id: "s1", run: () => promise1.promise() })
+		const action = ActionBuilder
+			.create({ id: "s1", run: () => promise1.promise() })
 			.thenStage({ id: "s2", run: async value => `str-${value}` })
 			.build()
 
