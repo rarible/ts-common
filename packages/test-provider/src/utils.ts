@@ -1,4 +1,4 @@
-import Web3 from "web3"
+import type Web3 from "web3"
 import type { AbstractProvider, HttpProvider, IpcProvider, WebsocketProvider } from "web3-core"
 
 export function signTypedData(web3: Web3, data: any, signer: string) {
@@ -6,7 +6,7 @@ export function signTypedData(web3: Web3, data: any, signer: string) {
 		const send = getSendMethodOrThrow(web3.currentProvider)
 		return send(
 			{
-				method: "eth_signTypedData_v4",
+				method: "eth_signTypedData",
 				params: [signer, JSON.stringify(data)],
 				jsonrpc: "2.0",
 				id: new Date().getTime(),

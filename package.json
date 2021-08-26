@@ -6,31 +6,48 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap && lerna link",
-    "clean": "yarn workspaces run clean",
-    "build-all": "sh build-all.sh",
+    "clean": "lerna run clean --parallel",
+    "build-all": "sh ./scripts/build.sh",
     "build-types": "yarn workspace @rarible/types run build",
     "build-action": "yarn workspace @rarible/action run build",
     "build-test-provider": "yarn workspace @rarible/test-provider run build",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx ./ --fix",
     "release": "lerna publish from-package",
-    "prettify": "prettier --write **/src/**/*",
-    "test": "yarn workspaces run test",
-    "verify": "yarn workspaces run verify"
+    "prettify:packages": "lerna exec -- sort-package-json && sort-package-json",
+    "prettify:code": "prettier --write **/src/**/*",
+    "prettify": "run-s prettify:*",
+    "test": "lerna run test --parallel",
+    "verify": "lerna run verify --parallel",
+    "lint-staged": "lint-staged",
+    "precommit": "run-s verify lint-staged lint"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "yarn run prettify"
+      "yarn run prettify:code"
+    ],
+    "**/src/package.json": [
+      "yarn run prettify:packages"
+    ],
+    "package.json": [
+      "yarn run prettify:packages"
     ]
   },
-  "dependencies": {
-  },
   "devDependencies": {
+    "@ethereumjs/common": "2.4.0",
+    "@ethereumjs/tx": "3.3.0",
     "@roborox/eslint-config-default": "2.2.0",
     "eslint": "7.10.0",
     "eslint-config-prettier": "6.11.0",
+    "eth-sig-util": "3.0.1",
+    "ethereumjs-util": "7.1.0",
+    "ethereumjs-wallet": "1.0.1",
     "husky": "4.3.0",
-    "lerna": "^3.20.2",
+    "lerna": "4.0.0",
     "lint-staged": "10.4.0",
-    "prettier": "2.1.2"
+    "npm-run-all": "4.1.5",
+    "prettier": "2.1.2",
+    "sort-package-json": "1.50.0",
+    "tslib": "2.3.1"
   }
 }

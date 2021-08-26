@@ -1,16 +1,21 @@
 {
   "name": "@rarible/action",
   "version": "0.2.0",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "files": [
-    "/build"
-  ],
   "keywords": [
     "rarible",
     "common",
     "action",
     "protocol"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rariblecom/ts-common.git"
+  },
+  "license": "Apache-2.0",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "/build"
   ],
   "scripts": {
     "build": "tsc --project tsconfig-build.json",
@@ -18,18 +23,16 @@
     "test": "jest --silent",
     "verify": "tsc --noEmit"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rariblecom/ts-common.git"
-  },
   "devDependencies": {
     "@types/jest": "26.0.24",
     "jest": "27.0.6",
     "ts-jest": "27.0.3",
     "typescript": "4.3.5"
+  },
+  "peerDependencies": {
+    "tslib": "2.3.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
