@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/rariblecom/ts-common.git"
   },
-  "license": "Apache-2.0",
+  "license": "MIT",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "files": [
