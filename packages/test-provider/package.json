@@ -22,10 +22,8 @@
     "test": "jest --passWithNoTests",
     "verify": "tsc --noEmit"
   },
-  "dependencies": {
-    "@rarible/types": "^0.1.5"
-  },
   "devDependencies": {
+    "@rarible/types": "^0.1.5",
     "@types/jest": "26.0.24",
     "@types/web3-provider-engine": "14.0.1",
     "cpx": "1.5.0",
