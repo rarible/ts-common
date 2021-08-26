@@ -78,7 +78,7 @@ export class Action<Id, In, Rs extends Arr> {
 export class ActionBuilder<Id, In, Rs extends Arr> {
 	constructor(private readonly stages: Stage<Id, unknown, unknown>[]) {}
 
-	then<NewId, T>(stage: Stage<NewId, LastItemType<Rs>, T>): ActionBuilder<Id | NewId, In, [...Rs, T]> {
+	thenStage<NewId, T>(stage: Stage<NewId, LastItemType<Rs>, T>): ActionBuilder<Id | NewId, In, [...Rs, T]> {
 		// @ts-ignore
 		return new ActionBuilder([...this.stages, stage])
 	}

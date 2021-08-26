@@ -18,9 +18,9 @@ describe("Action", () => {
 		const simple = ActionBuilder.create({
 			id: "first",
 			run: (value: string) => Promise.resolve(parseInt(value)),
-		}).then({ id: "second", run: value => Promise.resolve(value - 3) })
+		}).thenStage({ id: "second", run: value => Promise.resolve(value - 3) })
 
-		const append = ActionBuilder.create({ id: "next", run: (value: number) => Promise.resolve(value * 2) }).then({
+		const append = ActionBuilder.create({ id: "next", run: (value: number) => Promise.resolve(value * 2) }).thenStage({
 			id: "one-more",
 			run: value => Promise.resolve(value + 2),
 		})
@@ -57,7 +57,7 @@ describe("Action", () => {
 		const promise1 = generatePromise<number>()
 
 		const action = ActionBuilder.create({ id: "s1", run: () => promise1.promise() })
-			.then({ id: "s2", run: async value => `str-${value}` })
+			.thenStage({ id: "s2", run: async value => `str-${value}` })
 			.build()
 
 		expect(() => action.run(1)).toThrowError(new Error("Stage 0 hasn't been run yet"))
