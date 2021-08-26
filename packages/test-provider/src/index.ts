@@ -44,23 +44,13 @@ export class TestSubprovider extends HookedWalletSubprovider {
 			},
 
 			signPersonalMessage: function (msgParams: any, cb: any) {
-				const serialized = sigUtil.personalSign(privateKey, msgParams)
-				cb(null, serialized)
+				cb(null, sigUtil.personalSign(privateKey, msgParams))
 			},
 
 			signTypedMessage: function (msgParams: any, cb: any) {
-				cb(null, signTypedData(privateKey, msgParams.data))
+				const data = typeof msgParams.data === "string" ? JSON.parse(msgParams.data) : msgParams.data
+				cb(null, sigUtil.signTypedData_v4(privateKey, { data }))
 			},
-		})
-	}
-}
-
-function signTypedData(privateKey: Buffer, data: string) {
-	try {
-		return sigUtil.signTypedData_v4(privateKey, { data })
-	} catch (_) {
-		return sigUtil.signTypedData(privateKey, {
-			data: JSON.parse(data),
 		})
 	}
 }
