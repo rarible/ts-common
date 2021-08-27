@@ -1,0 +1,42 @@
+{
+	"name": "@rarible/eslint-config-ts",
+	"version": "0.0.1",
+	"private": false,
+	"description": "Config for eslint",
+	"keywords": [
+		"Eslint",
+		"Config",
+		"Prettier"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rariblecom/ts-common.git"
+	},
+	"license": "MIT",
+	"main": "index.js",
+	"files": [
+		"index.js",
+		"CHANGELOG.md"
+	],
+	"scripts": {
+		"lint": "eslint --ext .js ./",
+		"lint:fix": "eslint --ext .js ./ --fix"
+	},
+	"dependencies": {
+		"@babel/eslint-parser": "7.15.0",
+		"@typescript-eslint/eslint-plugin": "4.29.3",
+		"@typescript-eslint/parser": "4.29.3",
+		"confusing-browser-globals": "1.0.10",
+		"eslint-plugin-import": "2.24.2",
+		"eslint-plugin-jest": "24.4.0",
+		"eslint-plugin-unicorn": "35.0.0"
+	},
+	"devDependencies": {
+		"eslint": "7.32.0",
+		"typescript": "4.3.5"
+	},
+	"peerDependencies": {
+		"eslint": ">=7.7.0",
+		"typescript": ">=4.0.7"
+	}
+}

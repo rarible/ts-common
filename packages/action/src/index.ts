@@ -14,7 +14,6 @@ export class Action<Id, In, Rs extends Arr> {
 	private readonly promises: Promise<unknown>[]
 
 	constructor(private readonly input: In, private readonly stages: Stage<Id, unknown, unknown>[]) {
-		// @ts-ignore
 		this.state = new Array(stages.length)
 		this.promises = new Array(stages.length)
 	}
@@ -48,7 +47,6 @@ export class Action<Id, In, Rs extends Arr> {
 	}
 
 	private runInternal<T extends keyof Rs & number>(idx: T, input: any): Promise<Rs[T]> {
-		// @ts-ignore
 		const state: PromiseState<Rs[T]> = this.state[idx]
 		if (state != null && (state.status === "pending" || state.status === "resolved")) {
 			return this.promises[idx]
@@ -70,33 +68,34 @@ export class Action<Id, In, Rs extends Arr> {
 	}
 
 	get result(): Promise<LastItemType<Rs>> {
-		// @ts-ignore
-		return this.run(this.stages.length - 1)
+		return this.run(this.stages.length - 1) as Promise<LastItemType<Rs>>
 	}
 }
 
-export class ActionBuilder<Id, In, Rs extends Arr> {
+export class ActionBuilder<Id extends string, In, Rs extends Arr> {
 	constructor(private readonly stages: Stage<Id, unknown, unknown>[]) {}
 
-	thenStage<NewId, T>(stage: Stage<NewId, LastItemType<Rs>, T>): ActionBuilder<Id | NewId, In, [...Rs, T]> {
-		// @ts-ignore
-		return new ActionBuilder([...this.stages, stage])
+	thenStage<NewId extends string, T>(stage: Stage<NewId, LastItemType<Rs>, T>) {
+		return new ActionBuilder<Id | NewId, In, [...Rs, T]>([
+			...this.stages as Stage<Id, unknown, Rs>[],
+			stage as Stage<NewId, unknown, T>,
+		])
 	}
 
-	thenAction<NewId, NewRs extends Arr>(
+	thenAction<NewId extends string, NewRs extends Arr>(
 		action: ActionBuilder<NewId, LastItemType<Rs>, NewRs>
 	): ActionBuilder<Id | NewId, In, [...Rs, ...NewRs]> {
-		// @ts-ignore
-		return new ActionBuilder([...this.stages, ...action.stages])
+		return new ActionBuilder<Id | NewId, In, [...Rs, ...NewRs]>([
+			...this.stages as Stage<Id, unknown, Rs>[],
+			...action.stages as Stage<NewId, unknown, NewRs>[],
+		])
 	}
 
 	build(input: In): Action<Id, In, Rs> {
-		// @ts-ignore
 		return new Action(input, this.stages)
 	}
 
-	static create<Id, R, In = void>(stage: Stage<Id, In, R>): ActionBuilder<Id, In, [R]> {
-		// @ts-ignore
-		return new ActionBuilder([stage]) as ActionBuilder<Id, []>
+	static create<Id extends string, R, In = void>(stage: Stage<Id, In, R>): ActionBuilder<Id, In, [R]> {
+		return new ActionBuilder([stage as Stage<Id, unknown, R>])
 	}
 }
