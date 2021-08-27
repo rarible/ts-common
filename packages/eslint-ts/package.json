@@ -1,6 +1,6 @@
 {
 	"name": "@rarible/eslint-config-ts",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"private": false,
 	"description": "Config for eslint",
 	"keywords": [
