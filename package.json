@@ -32,6 +32,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "7.15.0",
     "@ethereumjs/common": "2.4.0",
     "@ethereumjs/tx": "3.3.0",
     "@roborox/eslint-config-default": "2.2.0",
