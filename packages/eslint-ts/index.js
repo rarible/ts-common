@@ -104,21 +104,8 @@ module.exports = {
 			},
 		],
 		"no-unused-labels": "warn",
-		"no-unused-vars": [
-			"warn",
-			{
-				args: "none",
-				ignoreRestSiblings: true,
-			},
-		],
-		"no-use-before-define": [
-			"warn",
-			{
-				functions: false,
-				classes: false,
-				variables: false,
-			},
-		],
+		"no-unused-vars": "off",
+		"no-use-before-define": "off",
 		"no-useless-computed-key": "warn",
 		"no-useless-concat": "warn",
 		"no-useless-constructor": "off",
@@ -254,6 +241,7 @@ module.exports = {
 		"no-nested-ternary": "error",
 
 		/** Typescript extension */
+		"@typescript-eslint/no-unused-vars": "warn",
 		"@typescript-eslint/no-use-before-define": "off",
 		"@typescript-eslint/quotes": [
 			"error",
