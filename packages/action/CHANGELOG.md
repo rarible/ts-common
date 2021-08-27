@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.7](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.2.6...@rarible/action@0.2.7) (2021-08-27)
+
+
+### Bug Fixes
+
+* gitHead ([2186ea6](https://github.com/rariblecom/ts-common/commit/2186ea686e5eb3393a8e3896826756086d3b05de))
+
+
+
+
+
 ## [0.2.6](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.2.5...@rarible/action@0.2.6) (2021-08-27)
 
 **Note:** Version bump only for package @rarible/action
