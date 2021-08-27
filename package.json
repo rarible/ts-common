@@ -16,7 +16,6 @@
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx ./ --fix",
     "release": "lerna publish from-package",
     "prettify:packages": "lerna exec -- sort-package-json && sort-package-json",
-    "prettify:code": "prettier --write **/src/**/*",
     "prettify": "run-s prettify:*",
     "test": "lerna run test --parallel",
     "verify": "lerna run verify --parallel",
@@ -35,9 +34,7 @@
     "@babel/core": "7.15.0",
     "@ethereumjs/common": "2.4.0",
     "@ethereumjs/tx": "3.3.0",
-    "@roborox/eslint-config-default": "2.2.0",
-    "eslint": "7.10.0",
-    "eslint-config-prettier": "6.11.0",
+    "eslint": "7.32.0",
     "eth-sig-util": "3.0.1",
     "ethereumjs-util": "7.1.0",
     "ethereumjs-wallet": "1.0.1",
@@ -45,8 +42,8 @@
     "lerna": "4.0.0",
     "lint-staged": "10.4.0",
     "npm-run-all": "4.1.5",
-    "prettier": "2.1.2",
     "sort-package-json": "1.50.0",
-    "tslib": "2.3.1"
+    "tslib": "2.3.1",
+    "typescript": "4.3.5"
   }
 }

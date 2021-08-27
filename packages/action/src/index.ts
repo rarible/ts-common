@@ -77,8 +77,8 @@ export class ActionBuilder<Id extends string, In, Rs extends Arr> {
 
 	thenStage<NewId extends string, T>(stage: Stage<NewId, LastItemType<Rs>, T>) {
 		return new ActionBuilder<Id | NewId, In, [...Rs, T]>([
-			...this.stages as Stage<Id, unknown, Rs>[], 
-			stage as Stage<NewId, unknown, T>
+			...this.stages as Stage<Id, unknown, Rs>[],
+			stage as Stage<NewId, unknown, T>,
 		])
 	}
 
@@ -86,8 +86,8 @@ export class ActionBuilder<Id extends string, In, Rs extends Arr> {
 		action: ActionBuilder<NewId, LastItemType<Rs>, NewRs>
 	): ActionBuilder<Id | NewId, In, [...Rs, ...NewRs]> {
 		return new ActionBuilder<Id | NewId, In, [...Rs, ...NewRs]>([
-			...this.stages as Stage<Id, unknown, Rs>[], 
-			...action.stages as Stage<NewId, unknown, NewRs>[]
+			...this.stages as Stage<Id, unknown, Rs>[],
+			...action.stages as Stage<NewId, unknown, NewRs>[],
 		])
 	}
 
