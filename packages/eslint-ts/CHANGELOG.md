@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/rariblecom/ts-common/compare/@rarible/eslint-config-ts@0.0.4...@rarible/eslint-config-ts@0.0.5) (2021-09-10)
+
+
+### Bug Fixes
+
+* comma-dangle always multiline ([9ea4873](https://github.com/rariblecom/ts-common/commit/9ea4873ec37e95b8e1f1a7b4cdcb425ba01c6135))
+
+
+
+
+
 ## [0.0.4](https://github.com/rariblecom/ts-common/compare/@rarible/eslint-config-ts@0.0.3...@rarible/eslint-config-ts@0.0.4) (2021-08-27)
 
 **Note:** Version bump only for package @rarible/eslint-config-ts
