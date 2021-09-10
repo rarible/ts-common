@@ -194,13 +194,7 @@ module.exports = {
 		],
 		"comma-dangle": [
 			"error",
-			{
-				arrays: "always-multiline",
-				objects: "always-multiline",
-				imports: "never",
-				exports: "never",
-				functions: "never",
-			},
+			"always-multiline",
 		],
 		"comma-style": [
 			"error", "last",
