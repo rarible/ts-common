@@ -35,7 +35,6 @@
     "web3-provider-engine": "16.0.3"
   },
   "peerDependencies": {
-    "@babel/core": ">=7.4.0",
     "@ethereumjs/common": "^2.4.0",
     "@ethereumjs/tx": "^3.3.0",
     "eth-sig-util": "^3.0.1",
