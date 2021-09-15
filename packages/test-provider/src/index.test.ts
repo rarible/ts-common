@@ -31,7 +31,7 @@ describe("TestProvider", function () {
 function createE2eProvider() {
 	const key = randomWord().substring(2)
 
-	const provider = new Web3ProviderEngine()
+	const provider = new Web3ProviderEngine({ pollingInterval: 100 })
 	const wallet = new Wallet(Buffer.from(key, "hex"))
 
 	provider.addProvider(
