@@ -24,8 +24,10 @@ describe("Action", () => {
 			.create({ id: "next", run: (value: number) => Promise.resolve(value * 2) })
 			.thenStage({ id: "one-more", run: value => Promise.resolve(value + 2) })
 
-		const action = simple.thenAction(append).build("10")
-		expect(await action.runAll()).toBe(16)
+		const ab = simple.thenAction(append)
+		const action = ab.build("10")
+		expect(await action()).toBe(16)
+		expect(await ab("100")).toBe(196)
 	})
 
 	test("action doesn't save promise for stage if rejected", async () => {
@@ -79,7 +81,7 @@ function generateSimpleAction<T>() {
 	const promise = generatePromise<T>()
 	return {
 		promise,
-		action: ActionBuilder.create({ id: "one", run: () => promise.promise() }),
+		action: ActionBuilder.create({ id: "one" as const, run: () => promise.promise() }),
 	}
 }
 
