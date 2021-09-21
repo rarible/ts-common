@@ -1,6 +1,6 @@
 import BN from "bignumber.js"
 
-interface EthersBigNumber {
+type EthersBigNumber = {
 	_isBigNumber: boolean
 	_hex: string
 }
