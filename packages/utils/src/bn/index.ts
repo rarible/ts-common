@@ -1,6 +1,14 @@
 import BN from "bignumber.js"
 
-export function toBn(number: BN.Value, base?: number) {
+type EthersBigNumber = {
+	_isBigNumber: boolean
+	_hex: string
+}
+
+export function toBn(number: BN.Value | EthersBigNumber, base?: number) {
+	if (typeof number === "object" && "_isBigNumber" in number) {
+		return new BN(number._hex, 16)
+	}
 	return new BN(number, base)
 }
 
