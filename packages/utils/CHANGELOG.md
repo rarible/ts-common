@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.6](https://github.com/rariblecom/ts-common/compare/@rarible/utils@0.0.5...@rarible/utils@0.0.6) (2021-09-21)
+
+
+### Bug Fixes
+
+* fix toBN ([e0ec2fa](https://github.com/rariblecom/ts-common/commit/e0ec2fa8db08d657b3a49ae5e022032e8fe91fc3))
+
+
+
+
+
 ## [0.0.5](https://github.com/rariblecom/ts-common/compare/@rarible/utils@0.0.4...@rarible/utils@0.0.5) (2021-09-21)
 
 
