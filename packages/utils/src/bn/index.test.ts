@@ -11,4 +11,9 @@ describe("BN", () => {
 	it("should correctly convert ethers.js BigNumber", () => {
 		expect(toBn(ethers.BigNumber.from("100")).toString()).toBe("100")
 	})
+
+	it("should correctly convert BN", () => {
+		expect(toBn(toBn(100)).toString()).toBe("100")
+	})
+
 })
