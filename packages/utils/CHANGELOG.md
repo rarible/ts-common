@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.4](https://github.com/rariblecom/ts-common/compare/@rarible/utils@0.0.3...@rarible/utils@0.0.4) (2021-09-21)
+
+
+### Bug Fixes
+
+* support ethers.js ([9df16cb](https://github.com/rariblecom/ts-common/commit/9df16cbc208ae5305cfba43408add99dd03d8231))
+
+
+
+
+
 ## [0.0.3](https://github.com/rariblecom/ts-common/compare/@rarible/utils@0.0.2...@rarible/utils@0.0.3) (2021-08-26)
 
 **Note:** Version bump only for package @rarible/utils
