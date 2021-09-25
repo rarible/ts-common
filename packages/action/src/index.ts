@@ -11,7 +11,7 @@ type Stage<Id, T, R> = {
 
 type PromiseState<T> = { status: "pending" } | { status: "rejected"; error: any } | { status: "resolved"; value: T }
 
-export class Action<In, Ids extends Arr, Rs extends Arr> extends CallableInstance<[], LastItemType<Rs>>{
+export class Execution<In, Ids extends Arr, Rs extends Arr> extends CallableInstance<[], LastItemType<Rs>>{
 	private readonly state: PromiseState<unknown>[]
 	private readonly promises: Promise<unknown>[]
 
@@ -79,7 +79,7 @@ export class Action<In, Ids extends Arr, Rs extends Arr> extends CallableInstanc
 	}
 }
 
-export class ActionBuilder<In, Ids extends Arr, Rs extends Arr>
+export class Action<In, Ids extends Arr, Rs extends Arr>
 	extends CallableInstance<[In], Promise<LastItemType<Rs>>> {
 
 	private constructor(private readonly stages: Stage<unknown, unknown, unknown>[]) {
@@ -91,26 +91,26 @@ export class ActionBuilder<In, Ids extends Arr, Rs extends Arr>
 	}
 
 	thenStage<NewId, T>(stage: Stage<NewId, LastItemType<Rs>, T>) {
-		return new ActionBuilder<In, [...Ids, NewId], [...Rs, T]>([
+		return new Action<In, [...Ids, NewId], [...Rs, T]>([
 			...this.stages,
 			stage as Stage<NewId, unknown, T>,
 		])
 	}
 
 	thenAction<NewIds extends Arr, NewRs extends Arr>(
-		action: ActionBuilder<LastItemType<Rs>, NewIds, NewRs>
-	): ActionBuilder<In, [...Ids, ...NewIds], [...Rs, ...NewRs]> {
-		return new ActionBuilder<In, [...Ids, ...NewIds], [...Rs, ...NewRs]>([
+		action: Action<LastItemType<Rs>, NewIds, NewRs>
+	): Action<In, [...Ids, ...NewIds], [...Rs, ...NewRs]> {
+		return new Action<In, [...Ids, ...NewIds], [...Rs, ...NewRs]>([
 			...this.stages,
 			...action.stages as Stage<unknown, unknown, NewRs>[],
 		])
 	}
 
-	build(input: In): Action<In, Ids, Rs> {
-		return new Action(input, this.stages)
+	build(input: In): Execution<In, Ids, Rs> {
+		return new Execution(input, this.stages)
 	}
 
-	static create<Id, R, In = void>(stage: Stage<Id, In, R>): ActionBuilder<In, [Id], [R]> {
-		return new ActionBuilder([stage as Stage<Id, unknown, R>])
+	static create<Id, R, In = void>(stage: Stage<Id, In, R>): Action<In, [Id], [R]> {
+		return new Action([stage as Stage<Id, unknown, R>])
 	}
 }
