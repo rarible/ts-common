@@ -1,3 +1,5 @@
+import CallableInstance from "callable-instance"
+
 type Arr = readonly unknown[]
 
 type LastItemType<T> = T extends [...Arr, infer Last] ? Last : void
@@ -9,17 +11,22 @@ type Stage<Id, T, R> = {
 
 type PromiseState<T> = { status: "pending" } | { status: "rejected"; error: any } | { status: "resolved"; value: T }
 
-export class Action<Id, In, Rs extends Arr> {
+export class Execution<In, Ids extends Arr, Rs extends Arr> extends CallableInstance<[], LastItemType<Rs>>{
 	private readonly state: PromiseState<unknown>[]
 	private readonly promises: Promise<unknown>[]
 
-	constructor(private readonly input: In, private readonly stages: Stage<Id, unknown, unknown>[]) {
+	constructor(private readonly input: In, private readonly stages: Stage<unknown, unknown, unknown>[]) {
+		super("instanceMethod")
 		this.state = new Array(stages.length)
 		this.promises = new Array(stages.length)
 	}
 
-	get ids(): Id[] {
-		return this.stages.map(s => s.id)
+	instanceMethod() {
+		return this.runAll()
+	}
+
+	get ids(): Ids {
+		return this.stages.map(s => s.id) as any
 	}
 
 	async runAll(): Promise<LastItemType<Rs>> {
@@ -72,30 +79,38 @@ export class Action<Id, In, Rs extends Arr> {
 	}
 }
 
-export class ActionBuilder<Id extends string, In, Rs extends Arr> {
-	constructor(private readonly stages: Stage<Id, unknown, unknown>[]) {}
+export class Action<In, Ids extends Arr, Rs extends Arr>
+	extends CallableInstance<[In], Promise<LastItemType<Rs>>> {
 
-	thenStage<NewId extends string, T>(stage: Stage<NewId, LastItemType<Rs>, T>) {
-		return new ActionBuilder<Id | NewId, In, [...Rs, T]>([
-			...this.stages as Stage<Id, unknown, Rs>[],
+	private constructor(private readonly stages: Stage<unknown, unknown, unknown>[]) {
+		super("instanceMethod")
+	}
+
+	instanceMethod(input: In) {
+		return this.build(input).runAll()
+	}
+
+	thenStage<NewId, T>(stage: Stage<NewId, LastItemType<Rs>, T>) {
+		return new Action<In, [...Ids, NewId], [...Rs, T]>([
+			...this.stages,
 			stage as Stage<NewId, unknown, T>,
 		])
 	}
 
-	thenAction<NewId extends string, NewRs extends Arr>(
-		action: ActionBuilder<NewId, LastItemType<Rs>, NewRs>
-	): ActionBuilder<Id | NewId, In, [...Rs, ...NewRs]> {
-		return new ActionBuilder<Id | NewId, In, [...Rs, ...NewRs]>([
-			...this.stages as Stage<Id, unknown, Rs>[],
-			...action.stages as Stage<NewId, unknown, NewRs>[],
+	thenAction<NewIds extends Arr, NewRs extends Arr>(
+		action: Action<LastItemType<Rs>, NewIds, NewRs>
+	): Action<In, [...Ids, ...NewIds], [...Rs, ...NewRs]> {
+		return new Action<In, [...Ids, ...NewIds], [...Rs, ...NewRs]>([
+			...this.stages,
+			...action.stages as Stage<unknown, unknown, NewRs>[],
 		])
 	}
 
-	build(input: In): Action<Id, In, Rs> {
-		return new Action(input, this.stages)
+	build(input: In): Execution<In, Ids, Rs> {
+		return new Execution(input, this.stages)
 	}
 
-	static create<Id extends string, R, In = void>(stage: Stage<Id, In, R>): ActionBuilder<Id, In, [R]> {
-		return new ActionBuilder([stage as Stage<Id, unknown, R>])
+	static create<Id, R, In = void>(stage: Stage<Id, In, R>): Action<In, [Id], [R]> {
+		return new Action([stage as Stage<Id, unknown, R>])
 	}
 }
