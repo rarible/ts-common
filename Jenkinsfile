@@ -1,32 +1,43 @@
-@Library('shared-library') _
-
 pipeline {
-	agent any
+  agent none
 
-	options {
-		disableConcurrentBuilds()
-	}
+  options {
+    disableConcurrentBuilds()
+  }
 
-	stages {
-		stage('build') {
-			steps {
-				sh 'NPM_TOKEN=na yarn install'
-				sh 'NPM_TOKEN=na yarn bootstrap'
-			}
-		}
-		stage('release') {
-			steps {
-				withCredentials([string(credentialsId: 'nexus-ci-npm-token', variable: 'NPM_TOKEN')]) {
-					sh 'echo $NPM_TOKEN'
-					sh 'yarn release'
+  stages {
+    stage('test') {
+      environment {
+	      NPM_TOKEN = "na"
+      }
+      agent any
+      steps {
+				sh 'yarn'
+				sh 'yarn bootstrap'
+				sh 'yarn clean'
+				sh 'yarn build-all'
+				sh 'yarn test'
+      }
+    }
+    stage('build and deploy') {
+      agent any
+      when { tag "v*" }
+      steps {
+        withCredentials([string(credentialsId: 'npm-token', variable: 'NPM_TOKEN')]) {
+					sh 'yarn'
+					sh 'yarn bootstrap'
+					sh 'yarn clean'
+					sh 'yarn build-all'
+					sh 'yarn publish-all'
         }
-			}
-		}
-	}
-
-	post {
-		always {
-			sh 'rm -rf node_modules'
-		}
-	}
+      }
+    }
+  }
+  post {
+    always {
+      node("") {
+        cleanWs()
+      }
+    }
+  }
 }
