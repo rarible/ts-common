@@ -52,7 +52,7 @@ export class Execution<In, Id, T> {
 	private runInternal(idx: number, input: any): Promise<void> {
 		const state: PromiseState<any> = this.state[idx]
 		if (state != null && (state.status === "pending" || state.status === "resolved")) {
-			return this.promises[idx].then(() => {})
+			return this.promises[idx] as Promise<void>
 		} else {
 			this.state[idx] = { status: "pending" }
 			const promise = this.stages[idx].run(input)
@@ -66,7 +66,7 @@ export class Execution<In, Id, T> {
 					this.state[idx] = { status: "rejected", error: err }
 					return Promise.reject(err)
 				})
-			return promise.then(() => {})
+			return promise as Promise<void>
 		}
 	}
 
