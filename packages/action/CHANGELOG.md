@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.11](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.2.10...@rarible/action@0.2.11) (2021-10-06)
+
+
+### Bug Fixes
+
+* export IAction ([d5952ad](https://github.com/rariblecom/ts-common/commit/d5952ade9425327e1d9f2c576b0dd5e9f4a7afc3))
+* tests ([ac05050](https://github.com/rariblecom/ts-common/commit/ac05050dda8e5a1e8ab1191aea486c1502749d8d))
+
+
+
+
+
 ## [0.2.10](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.2.9...@rarible/action@0.2.10) (2021-10-06)
 
 
