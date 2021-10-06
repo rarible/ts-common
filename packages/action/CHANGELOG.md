@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.9](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.2.8...@rarible/action@0.2.9) (2021-10-06)
+
+
+### Bug Fixes
+
+* simplify Action types ([39a768e](https://github.com/rariblecom/ts-common/commit/39a768e623380728493e677479c56bd780904757))
+
+
+
+
+
 ## [0.2.8](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.2.7...@rarible/action@0.2.8) (2021-09-29)
 
 **Note:** Version bump only for package @rarible/action
