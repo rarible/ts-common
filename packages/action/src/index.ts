@@ -77,7 +77,7 @@ export class Execution<In, Id, T> {
 
 type F<In, T> = (arg: In) => T
 
-interface IAction<In, Id, T> extends F<In, Promise<T>> {
+export interface IAction<In, Id, T> extends F<In, Promise<T>> {
 	build(arg: In): Execution<In, Id, T>
 }
 
