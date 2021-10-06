@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.8](https://github.com/rariblecom/ts-common/compare/@rarible/types@0.1.7...@rarible/types@0.1.8) (2021-10-06)
+
+
+### Bug Fixes
+
+* add new ids: ItemId, OwnershipId, UnionAddress, OrderId, ActivityId ([68d083a](https://github.com/rariblecom/ts-common/commit/68d083ae76eea5f167997b973fa64399e920a2f8))
+
+
+
+
+
 ## [0.1.7](https://github.com/rariblecom/ts-common/compare/@rarible/types@0.1.6...@rarible/types@0.1.7) (2021-08-26)
 
 **Note:** Version bump only for package @rarible/types
