@@ -17,12 +17,12 @@ describe("Action", () => {
 
 	test("action builders can be appended to other action builders", async () => {
 		const simple = Action
-			.create({ id: "first", run: (value: string) => Promise.resolve(parseInt(value)) })
-			.thenStage({ id: "second", run: value => Promise.resolve(value - 3) })
+			.create({ id: "first" as const, run: (value: string) => Promise.resolve(parseInt(value)) })
+			.thenStage({ id: "second" as const, run: value => Promise.resolve(value - 3) })
 
 		const append = Action
-			.create({ id: "next", run: (value: number) => Promise.resolve(value * 2) })
-			.thenStage({ id: "one-more", run: value => Promise.resolve(value + 2) })
+			.create({ id: "next" as const, run: (value: number) => Promise.resolve(value * 2) })
+			.thenStage({ id: "one-more" as const, run: value => Promise.resolve(value + 2) })
 
 		const ab = simple.thenAction(append)
 		const action = ab.build("10")
