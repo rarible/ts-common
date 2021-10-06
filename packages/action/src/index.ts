@@ -1,9 +1,5 @@
 import CallableInstance from "callable-instance"
 
-type Arr = readonly unknown[]
-
-type LastItemType<T> = T extends [...Arr, infer Last] ? Last : void
-
 type Stage<Id, T, R> = {
 	id: Id
 	run: (value: T) => Promise<R>
@@ -11,32 +7,32 @@ type Stage<Id, T, R> = {
 
 type PromiseState<T> = { status: "pending" } | { status: "rejected"; error: any } | { status: "resolved"; value: T }
 
-export class Execution<In, Id, Rs extends Arr> extends CallableInstance<[], LastItemType<Rs>>{
+export class Execution<In, Id, T> {
 	private readonly state: PromiseState<unknown>[]
 	private readonly promises: Promise<unknown>[]
 
 	constructor(private readonly input: In, private readonly stages: Stage<unknown, unknown, unknown>[]) {
-		super("instanceMethod")
 		this.state = new Array(stages.length)
 		this.promises = new Array(stages.length)
-	}
-
-	instanceMethod() {
-		return this.runAll()
 	}
 
 	get ids(): Id[] {
 		return this.stages.map(s => s.id) as any
 	}
 
-	async runAll(): Promise<LastItemType<Rs>> {
+	async runAll(): Promise<T> {
 		for (let i = 0; i < this.ids.length; i++) {
 			await this.run(i)
 		}
-		return await this.result
+		const last = this.state[this.ids.length - 1]
+		if (last.status === "resolved") {
+			return last.value as any
+		} else {
+			throw new Error("Should never happen")
+		}
 	}
 
-	run<T extends keyof Rs & number>(idx: T): Promise<Rs[T]> {
+	run(idx: number): Promise<void> {
 		if (idx === 0) {
 			return this.runInternal(idx, this.input)
 		}
@@ -53,10 +49,10 @@ export class Execution<In, Id, Rs extends Arr> extends CallableInstance<[], Last
 		return this.runInternal(idx, prevState.value)
 	}
 
-	private runInternal<T extends keyof Rs & number>(idx: T, input: any): Promise<Rs[T]> {
-		const state: PromiseState<Rs[T]> = this.state[idx]
+	private runInternal(idx: number, input: any): Promise<void> {
+		const state: PromiseState<any> = this.state[idx]
 		if (state != null && (state.status === "pending" || state.status === "resolved")) {
-			return this.promises[idx]
+			return this.promises[idx].then(() => {})
 		} else {
 			this.state[idx] = { status: "pending" }
 			const promise = this.stages[idx].run(input)
@@ -70,17 +66,23 @@ export class Execution<In, Id, Rs extends Arr> extends CallableInstance<[], Last
 					this.state[idx] = { status: "rejected", error: err }
 					return Promise.reject(err)
 				})
-			return promise
+			return promise.then(() => {})
 		}
 	}
 
-	get result(): Promise<LastItemType<Rs>> {
-		return this.run(this.stages.length - 1) as Promise<LastItemType<Rs>>
+	get result(): Promise<T> {
+		return this.runAll()
 	}
 }
 
-export class Action<In, Id, Rs extends Arr>
-	extends CallableInstance<[In], Promise<LastItemType<Rs>>> {
+type F<In, T> = (arg: In) => T
+
+interface IAction<In, Id, T> extends F<In, Promise<T>> {
+	build(arg: In): Execution<In, Id, T>
+}
+
+export class Action<In, Id, T>
+	extends CallableInstance<[In], Promise<T>> implements IAction<In, Id, T> {
 
 	private constructor(private readonly stages: Stage<unknown, unknown, unknown>[]) {
 		super("instanceMethod")
@@ -90,27 +92,27 @@ export class Action<In, Id, Rs extends Arr>
 		return this.build(input).runAll()
 	}
 
-	thenStage<NewId, T>(stage: Stage<NewId, LastItemType<Rs>, T>) {
-		return new Action<In, Id | NewId, [...Rs, T]>([
+	thenStage<NewId, NewT>(stage: Stage<NewId, T, NewT>) {
+		return new Action<In, Id | NewId, NewT>([
 			...this.stages,
-			stage as Stage<NewId, unknown, T>,
+			stage as Stage<NewId, unknown, NewT>,
 		])
 	}
 
-	thenAction<NewId, NewRs extends Arr>(
-		action: Action<LastItemType<Rs>, NewId, NewRs>
+	thenAction<NewId, NewT>(
+		action: Action<T, NewId, NewT>
 	) {
-		return new Action<In, Id | NewId, [...Rs, ...NewRs]>([
+		return new Action<In, Id | NewId, NewT>([
 			...this.stages,
-			...action.stages as Stage<unknown, unknown, NewRs>[],
+			...action.stages as Stage<unknown, unknown, NewT>[],
 		])
 	}
 
-	build(input: In): Execution<In, Id, Rs> {
+	build(input: In): Execution<In, Id, T> {
 		return new Execution(input, this.stages)
 	}
 
-	static create<Id, R, In = void>(stage: Stage<Id, In, R>): Action<In, Id, [R]> {
-		return new Action([stage as Stage<Id, unknown, R>])
+	static create<Id, T, In = void>(stage: Stage<Id, In, T>): Action<In, Id, T> {
+		return new Action([stage as Stage<Id, unknown, T>])
 	}
 }

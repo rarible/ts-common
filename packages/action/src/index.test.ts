@@ -26,7 +26,7 @@ describe("Action", () => {
 
 		const ab = simple.thenAction(append)
 		const action = ab.build("10")
-		expect(await action()).toBe(16)
+		expect(await action.result).toBe(16)
 		expect(await ab("100")).toBe(196)
 	})
 
@@ -66,12 +66,11 @@ describe("Action", () => {
 		const s1 = action.run(0)
 		expect(() => action.run(1)).toThrowError(new Error("Stage 0 status is: pending"))
 		promise1.resolve(10)
-		expect(await s1).toBe(10)
+		await s1
 
 		const s2 = action.run(1)
-		expect(await s2).toBe("str-10")
+		await s2
 		expect(await action.result).toBe("str-10")
-		expect(s2).toBe(action.result)
 
 		expect(action.ids).toStrictEqual(["s1", "s2"])
 	})
