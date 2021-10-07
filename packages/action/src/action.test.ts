@@ -30,6 +30,28 @@ describe("Action", () => {
 		expect(await ab("100")).toBe(196)
 	})
 
+	test("before works", async () => {
+		const action = Action.create({
+			id: "test" as const,
+			run: (value: number) => Promise.resolve(value * 2),
+		})
+		const result = action.before((value: number) => value + 10)
+		const exec = result.start(5)
+		expect(exec.ids).toStrictEqual(["test"])
+		expect(await exec.result).toBe(30)
+	})
+
+	test("after works", async () => {
+		const action = Action.create({
+			id: "test" as const,
+			run: (value: number) => Promise.resolve(value * 2),
+		})
+		const result = action.after((value: number) => value + 10)
+		const exec = result.start(10)
+		expect(exec.ids).toStrictEqual(["test"])
+		expect(await exec.result).toBe(30)
+	})
+
 	test("action doesn't save promise for stage if rejected", async () => {
 		const simple = generateSimpleAction<number>()
 		const exec = simple.action.start()
