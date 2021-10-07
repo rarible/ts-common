@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.3.0...@rarible/action@0.3.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* ActionBuilder.create ([1a3a5c8](https://github.com/rariblecom/ts-common/commit/1a3a5c8d51f628d933fee54a09766310be4aeb04))
+
+
+
+
+
 # [0.3.0](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.2.12...@rarible/action@0.3.0) (2021-10-07)
 
 
