@@ -61,7 +61,7 @@ export class Action<Id, In, Out>
 		return new Execution(input, this.steps)
 	}
 
-	static create<Id, T, In = void>(stage: Step<Id, In, T>): Action<Id, In, T> {
-		return new Action([stage as Step<Id, unknown, T>])
+	static create<Id, T, In = void>(step: Step<Id, In, T>): Action<Id, In, T> {
+		return new Action([step as Step<Id, unknown, T>])
 	}
 }

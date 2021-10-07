@@ -1,8 +1,24 @@
+import CallableInstance from "callable-instance"
 import { Action } from "./action"
+import { Execution } from "./execution"
 
 type AB<Ctx, Id, In, Out> = ActionBuilder<Ctx, Id, In, Out>
 
-export abstract class ActionBuilder<Ctx, Id, In, Out> {
+export abstract class ActionBuilder<Ctx, Id, In, Out>
+	extends CallableInstance<[Ctx, In], Promise<Out>> {
+
+	protected constructor() {
+		super("instanceMethod")
+	}
+
+	instanceMethod(ctx: Ctx, input: In): Promise<Out> {
+		return this.start(ctx, input).result
+	}
+
+	start(ctx: Ctx, input: In): Execution<Id, Out> {
+		return this.build(ctx).start(input)
+	}
+
 	abstract build(ctx: Ctx): Action<Id, In, Out>
 
 	before<NewIn>(map: (input: NewIn) => In | Promise<In>): AB<Ctx, Id, NewIn, Out> {
