@@ -16,6 +16,10 @@ export abstract class ActionBuilder<Ctx, Id, In, Out> {
 	thenActionBuilder<NewId, NewOut>(ab: AB<Ctx, NewId, Out, NewOut>): AB<Ctx, NewId | Id, In, NewOut> {
 		return new ThenActionBuilder(this, ab)
 	}
+
+	public static create<Ctx, Id, In, Out>(build: (ctx: Ctx) => Action<Id, In, Out>) {
+		return new SimpleActionBuilder(build)
+	}
 }
 
 class BeforeActionBuilder<Ctx, Id, In, Out, NewIn> extends ActionBuilder<Ctx, Id, NewIn, Out> {
@@ -58,5 +62,15 @@ class ThenActionBuilder<Ctx, Id, In, Out, NewId, NewOut> extends ActionBuilder<C
 		const a1 = this.ab1.build(ctx)
 		const a2 = this.ab2.build(ctx)
 		return a1.thenAction(a2)
+	}
+}
+
+class SimpleActionBuilder<Ctx, Id, In, Out> extends ActionBuilder<Ctx, Id, In, Out> {
+	constructor(private readonly f: (ctx: Ctx) => Action<Id, In, Out>) {
+		super()
+	}
+
+	build(ctx: Ctx): Action<Id, In, Out> {
+		return this.f(ctx)
 	}
 }
