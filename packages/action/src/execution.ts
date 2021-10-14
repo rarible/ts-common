@@ -20,7 +20,7 @@ export class Execution<Id, T> {
 
 	async runAll(): Promise<T> {
 		for (let i = 0; i < this.ids.length; i++) {
-		    await this.run(i)
+			await this.run(i)
 		}
 		const last = this.state[this.ids.length - 1]
 		if (last.status === "resolved") {
