@@ -96,6 +96,46 @@ describe("Action", () => {
 
 		expect(exec.ids).toStrictEqual(["s1", "s2"])
 	})
+
+	test("after and before work together with two stages", async () => {
+		const action = Action.create(
+			{
+				id: "test_1" as const,
+				run: async (value: number) => value * 2,
+			})
+			.thenStep({
+				id: "test_2" as const,
+				run: async (value: number) => value * 4,
+			})
+			.after(async result => result + 2)
+			.before(async input => parseInt(input as string) * 10)
+
+		const exec = action.start(10)
+		expect(exec.ids).toStrictEqual(["test_1", "test_2"])
+		expect(await exec.runAll()).toBe(802)
+	})
+
+	test("two stages brokes after Error in last step", async () => {
+		const action = Action.create(
+			{
+				id: "test_1" as const,
+				run: async (value: number) => value * 2,
+			})
+			.thenStep({
+				id: "test_2" as const,
+				run: async () => {
+				    throw new Error("Oops")
+				},
+			})
+			.before(async input => parseInt(input as string) * 10)
+			.after(async result => result + 2)
+
+		const exec = await action.start(10)
+		expect(exec.ids).toStrictEqual(["test_1", "test_2"])
+		await expect(async () => await exec.runAll()).rejects.toThrow(new Error("Oops"))
+
+	})
+
 })
 
 function generateSimpleAction<T>() {
