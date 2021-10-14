@@ -43,7 +43,7 @@ export class Action<Id, In, Out>
 	}
 
 	after<NewOut>(map: (input: Out) => NewOut | Promise<NewOut>): Action<Id, In, NewOut> {
-		const start = this.steps.slice(0, this.steps.length - 2)
+		const start = this.steps.slice(0, -1)
 		const last = this.steps[this.steps.length - 1]
 		return new Action([
 			...start,

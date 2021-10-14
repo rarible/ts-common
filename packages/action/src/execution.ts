@@ -20,7 +20,7 @@ export class Execution<Id, T> {
 
 	async runAll(): Promise<T> {
 		for (let i = 0; i < this.ids.length; i++) {
-			await this.run(i)
+		    await this.run(i)
 		}
 		const last = this.state[this.ids.length - 1]
 		if (last.status === "resolved") {
@@ -55,7 +55,6 @@ export class Execution<Id, T> {
 			this.state[idx] = { status: "pending" }
 			const promise = this.steps[idx].run(input)
 			this.promises[idx] = promise
-			promise
 				.then(r => {
 					this.state[idx] = { status: "resolved", value: r }
 					return r
@@ -64,7 +63,7 @@ export class Execution<Id, T> {
 					this.state[idx] = { status: "rejected", error: err }
 					return Promise.reject(err)
 				})
-			return promise as Promise<void>
+			return this.promises[idx] as Promise<void>
 		}
 	}
 
