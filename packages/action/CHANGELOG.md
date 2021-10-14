@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.3](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.3.2...@rarible/action@0.3.3) (2021-10-14)
+
+
+### Bug Fixes
+
+* action steps; pass exceptions; after/before ([6049f1f](https://github.com/rariblecom/ts-common/commit/6049f1fef76246f30ae37ac53890aaaccaef6432))
+
+
+
+
+
 ## [0.3.2](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.3.1...@rarible/action@0.3.2) (2021-10-07)
 
 
