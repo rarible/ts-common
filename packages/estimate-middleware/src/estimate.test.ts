@@ -4,9 +4,9 @@ import Web3 from "web3"
 import { randomAddress, randomWord } from "@rarible/types"
 import { JsonRpcEngine } from "json-rpc-engine"
 import { providerAsMiddleware } from "eth-json-rpc-middleware"
-import { autoEstimate } from "./auto-estimate"
+import { estimate } from "./estimate"
 
-test("autoEstimate estimates tx before send", async () => {
+test("estimate middleware estimates tx before send", async () => {
 	const pk = [randomWord()]
 	const wallets: Wallet[] = pk.map(single => new Wallet(Buffer.from(single.substring(2), "hex")))
 	const accounts = wallets.map(wallet => ({
@@ -17,7 +17,7 @@ test("autoEstimate estimates tx before send", async () => {
 	const provider = Ganache.provider({ accounts })
 	const estimateEngine = new JsonRpcEngine()
 	estimateEngine.push(providerAsMiddleware(provider as any))
-	const web3 = new Web3(autoEstimate(provider as any, estimateEngine) as any)
+	const web3 = new Web3(estimate(provider as any, estimateEngine) as any)
 
 	const to = randomAddress()
 	const receipt = await web3.eth.sendTransaction({ from: wallets[0].getAddressString(), to, value: 10000 })

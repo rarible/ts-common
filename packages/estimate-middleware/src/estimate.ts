@@ -3,7 +3,7 @@ import { JsonRpcEngine } from "json-rpc-engine"
 import { SafeEventEmitterProvider } from "eth-json-rpc-middleware/dist/utils/cache"
 import { estimateGasMiddliware } from "./middleware"
 
-export function autoEstimate(provider: any, estimate: JsonRpcEngine | string): SafeEventEmitterProvider {
+export function estimate(provider: any, estimate: JsonRpcEngine | string): SafeEventEmitterProvider {
 	const engine = new JsonRpcEngine()
 	engine.push(estimateGasMiddliware(getEstimateEngine(estimate)))
 	engine.push(providerAsMiddleware(provider))
