@@ -1,0 +1,36 @@
+{
+  "name": "@rarible/estimate-middleware",
+  "version": "0.0.1",
+  "keywords": [
+    "rarible",
+    "common",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rariblecom/ts-common.git"
+  },
+  "license": "MIT",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "/build"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig-build.json",
+    "clean": "rimraf ./build",
+    "test": "jest --passWithNoTests",
+    "verify": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "eth-json-rpc-middleware": "7.0.1",
+    "ganache-core": "2.13.2",
+    "web3": "1.2.11"
+  },
+  "peerDependencies": {
+    "eth-json-rpc-middleware": "^7.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
