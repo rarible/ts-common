@@ -6,18 +6,52 @@ import { Block } from "eth-json-rpc-middleware/dist/utils/cache"
  * @param engine JsonRpcEngine to use for gas estimation
  */
 export function estimateGasMiddliware(engine: JsonRpcEngine): JsonRpcMiddleware<string[], Block> {
-	return createAsyncMiddleware(async (req, res, next) => {
+	return createAsyncMiddleware(async (req, _, next) => {
 		if (req.method === "eth_sendTransaction") {
-			const tx = (req.params as any)[0]
-			if (!("gas" in tx) || true) {
-				const response = await engine.handle({...req, method: "eth_estimateGas" })
-				if ("result" in response) {
-					tx["gas"] = response.result
-				} else {
-					throw new Error(`Error calling eth_estimateGas: ${JSON.stringify(response)}`)
+			if (req.params) {
+				const [tx] = req.params as unknown[]
+				if (isTransactionParams(tx)) {
+					if (typeof tx.gas === "undefined") {
+						// eslint-disable-next-line @typescript-eslint/no-unused-vars
+						const { gasPrice, ...estimateParams } = tx
+						const response = await engine.handle({
+							...req,
+							params: [estimateParams],
+							method: "eth_estimateGas",
+						})
+						if (isJSONRpcResponse(response)) {
+							if (response.error) {
+								throw response.error
+							}
+							if (response.result) {
+								tx["gas"] = response.result
+							}
+						}
+					}
 				}
 			}
 		}
 		await next()
 	})
+}
+
+type JSONRpcResponse = {
+	jsonrpc: string;
+	id: number;
+	result?: any;
+	error?: string;
+}
+
+function isJSONRpcResponse(x: unknown): x is JSONRpcResponse {
+	return typeof x === "object" && x !== null && "jsonrpc" in x && "id" in x
+}
+
+type TransactionParams = {
+	from: string
+	gasPrice?: string | number
+	gas?: string | number
+}
+
+function isTransactionParams(x: unknown): x is TransactionParams {
+	return typeof x === "object" && x !== null && "from" in x
 }
