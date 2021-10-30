@@ -41,6 +41,39 @@ describe("Action", () => {
 		expect(await exec.result).toBe(30)
 	})
 
+	test("around works for 1 step Action", async () => {
+		const action = Action.create({
+			id: "test" as const,
+			run: (value: number) => Promise.resolve(value * 2),
+		})
+		const result = action.around(
+			(initial: string) => parseInt(initial),
+			(result: number, initial: string) => ({ result, initial })
+		)
+		const exec = result.start("5")
+		expect(exec.ids).toStrictEqual(["test"])
+		const response = await exec.result
+		expect(response.initial).toBe("5")
+		expect(response.result).toBe(10)
+	})
+
+	test("around works for 3 step Action", async () => {
+		const action = Action
+			.create({ id: "test1" as const, run: (value: number) => Promise.resolve(value * 2) })
+			.thenStep({ id: "test2" as const, run: value => Promise.resolve(value + 2) })
+			.thenStep({ id: "test3" as const, run: value => Promise.resolve(value * 10) })
+
+		const result = action.around(
+			(initial: string) => parseInt(initial),
+			(result: number, initial: string) => ({ result, initial })
+		)
+		const exec = result.start("7")
+		expect(exec.ids).toStrictEqual(["test1", "test2", "test3"])
+		const response = await exec.result
+		expect(response.initial).toBe("7")
+		expect(response.result).toBe(160)
+	})
+
 	test("after works", async () => {
 		const action = Action.create({
 			id: "test" as const,

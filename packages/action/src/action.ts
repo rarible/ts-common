@@ -28,6 +28,48 @@ export class Action<Id, In, Out>
 		])
 	}
 
+	around<NewIn, NewOut>(
+		mapIn: (input: NewIn) => In | Promise<In>,
+		mapOut: (input: Out, initialIn: NewIn) => NewOut | Promise<NewOut>
+	): Action<Id, NewIn, NewOut> {
+		const steps = this.steps.length
+		return new Action(this.steps.map((step, idx) => {
+			if (idx === 0 && steps === 1) {
+				return {
+					id: step.id,
+					run: async (input: NewIn) => {
+						const value = await step.run(await mapIn(input))
+						return mapOut(value as any, input)
+					},
+				} as any
+			} else if (idx === 0) {
+				return {
+					id: step.id,
+					run: async (input: NewIn) => {
+						const value = await step.run(await mapIn(input))
+						return { initial: input, value }
+					},
+				} as any
+			} else if (idx === steps - 1) {
+				return {
+					id: step.id,
+					run: async (prevValue: any) => {
+						const value = await step.run(prevValue.value)
+						return mapOut(value as any, prevValue.initial)
+					},
+				} as any
+			} else {
+				return {
+					id: step.id,
+					run: async (prevValue: any) => {
+						const value = await step.run(prevValue.value)
+						return { initial: prevValue.initial, value }
+					},
+				} as any
+			}
+		}))
+	}
+
 	before<NewIn>(map: (input: NewIn) => In | Promise<In>): Action<Id, NewIn, Out> {
 		const [first, ...rest] = this.steps
 		return new Action([
