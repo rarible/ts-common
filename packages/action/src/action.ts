@@ -70,7 +70,7 @@ export class Action<Id, In, Out>
 		}))
 	}
 
-	before<NewIn>(map: (input: NewIn) => In | Promise<In>): Action<Id, NewIn, Out> {
+	before<NewIn>(map: (input: In) => NewIn | Promise<NewIn>): Action<Id, NewIn, Out> {
 		const [first, ...rest] = this.steps
 		return new Action([
 			{

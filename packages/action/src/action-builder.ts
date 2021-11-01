@@ -21,7 +21,7 @@ export abstract class ActionBuilder<Ctx, Id, In, Out>
 
 	abstract build(ctx: Ctx): Action<Id, In, Out>
 
-	before<NewIn>(map: (input: NewIn) => In | Promise<In>): AB<Ctx, Id, NewIn, Out> {
+	before<NewIn>(map: (input: In) => NewIn | Promise<NewIn>): AB<Ctx, Id, NewIn, Out> {
 		return new BeforeActionBuilder(this, map)
 	}
 
@@ -41,7 +41,7 @@ export abstract class ActionBuilder<Ctx, Id, In, Out>
 class BeforeActionBuilder<Ctx, Id, In, Out, NewIn> extends ActionBuilder<Ctx, Id, NewIn, Out> {
 	constructor(
 		private readonly source: AB<Ctx, Id, In, Out>,
-		private readonly map: (input: NewIn) => In | Promise<In>,
+		private readonly map: (input: In) => NewIn | Promise<NewIn>,
 	) {
 		super()
 	}

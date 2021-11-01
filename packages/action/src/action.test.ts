@@ -141,7 +141,7 @@ describe("Action", () => {
 				run: async (value: number) => value * 4,
 			})
 			.after(async result => result + 2)
-			.before(async input => parseInt(input as string) * 10)
+			.before(async input => input * 10)
 
 		const exec = action.start(10)
 		expect(exec.ids).toStrictEqual(["test_1", "test_2"])
@@ -160,7 +160,7 @@ describe("Action", () => {
 				    throw new Error("Oops")
 				},
 			})
-			.before(async input => parseInt(input as string) * 10)
+			.before(async input => input * 10)
 			.after(async result => result + 2)
 
 		const exec = await action.start(10)
