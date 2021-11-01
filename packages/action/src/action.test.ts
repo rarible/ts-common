@@ -34,9 +34,8 @@ describe("Action", () => {
 		const action = Action.create({
 			id: "test" as const,
 			run: (value: number) => Promise.resolve(value * 2),
-		})
-		const result = action.before((value: number) => value + 10)
-		const exec = result.start(5)
+		}).before((value: number) => value + 10)
+		const exec = action.start(5)
 		expect(exec.ids).toStrictEqual(["test"])
 		expect(await exec.result).toBe(30)
 	})
@@ -141,9 +140,9 @@ describe("Action", () => {
 				run: async (value: number) => value * 4,
 			})
 			.after(async result => result + 2)
-			.before(async input => parseInt(input as string) * 10)
+			.before(async (input: string) => parseInt(input) * 10)
 
-		const exec = action.start(10)
+		const exec = action.start("10")
 		expect(exec.ids).toStrictEqual(["test_1", "test_2"])
 		expect(await exec.runAll()).toBe(802)
 	})
@@ -160,10 +159,10 @@ describe("Action", () => {
 				    throw new Error("Oops")
 				},
 			})
-			.before(async input => parseInt(input as string) * 10)
+			.before(async (input: string) => parseInt(input) * 10)
 			.after(async result => result + 2)
 
-		const exec = await action.start(10)
+		const exec = await action.start("10")
 		expect(exec.ids).toStrictEqual(["test_1", "test_2"])
 		await expect(async () => await exec.runAll()).rejects.toThrow(new Error("Oops"))
 
