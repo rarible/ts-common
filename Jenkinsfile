@@ -26,10 +26,6 @@ pipeline {
       }
       steps {
         withCredentials([string(credentialsId: 'npm-token', variable: 'NPM_TOKEN')]) {
-					sh 'yarn'
-					sh 'yarn bootstrap'
-					sh 'yarn clean'
-					sh 'yarn build-all'
 					sh 'yarn publish-all'
         }
       }
