@@ -22,7 +22,7 @@ pipeline {
     stage('build and deploy') {
       agent any
       when {
-        branch "master"
+        tag "v*"
       }
       steps {
         withCredentials([string(credentialsId: 'npm-token', variable: 'NPM_TOKEN')]) {
