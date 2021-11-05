@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.3.5...@rarible/action@0.4.0) (2021-11-05)
+
+
+### Features
+
+* add new linting rules ([edaf3a2](https://github.com/rariblecom/ts-common/commit/edaf3a2a01dc93289d3b423f933d326e86205763))
+* update eslint dependencies, update typescript ([fe4a657](https://github.com/rariblecom/ts-common/commit/fe4a657a876d72d209ad4dc59c0a59b53f23212a))
+
+
+
+
+
 ## [0.3.5](https://github.com/rariblecom/ts-common/compare/@rarible/action@0.3.4...@rarible/action@0.3.5) (2021-10-30)
 
 

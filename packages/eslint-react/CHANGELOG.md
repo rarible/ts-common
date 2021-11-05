@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/rariblecom/ts-common/compare/@rarible/eslint-config-react@0.0.4...@rarible/eslint-config-react@0.1.0) (2021-11-05)
+
+
+### Features
+
+* update eslint dependencies, update typescript ([fe4a657](https://github.com/rariblecom/ts-common/commit/fe4a657a876d72d209ad4dc59c0a59b53f23212a))
+
+
+
+
+
 ## [0.0.4](https://github.com/rariblecom/ts-common/compare/@rarible/eslint-config-react@0.0.3...@rarible/eslint-config-react@0.0.4) (2021-09-10)
 
 **Note:** Version bump only for package @rarible/eslint-config-react

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/rariblecom/ts-common/compare/@rarible/estimate-middleware@0.1.1...@rarible/estimate-middleware@0.2.0) (2021-11-05)
+
+
+### Features
+
+* add new linting rules ([edaf3a2](https://github.com/rariblecom/ts-common/commit/edaf3a2a01dc93289d3b423f933d326e86205763))
+
+
+
+
+
 ## [0.1.1](https://github.com/rariblecom/ts-common/compare/@rarible/estimate-middleware@0.1.0...@rarible/estimate-middleware@0.1.1) (2021-10-25)
 
 **Note:** Version bump only for package @rarible/estimate-middleware

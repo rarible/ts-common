@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/rariblecom/ts-common/compare/@rarible/test-provider@0.1.23...@rarible/test-provider@0.2.0) (2021-11-05)
+
+
+### Features
+
+* update eslint dependencies, update typescript ([fe4a657](https://github.com/rariblecom/ts-common/commit/fe4a657a876d72d209ad4dc59c0a59b53f23212a))
+
+
+
+
+
 ## [0.1.23](https://github.com/rariblecom/ts-common/compare/@rarible/test-provider@0.1.22...@rarible/test-provider@0.1.23) (2021-10-29)
 
 **Note:** Version bump only for package @rarible/test-provider
