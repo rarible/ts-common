@@ -34,12 +34,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
-    "@ethereumjs/common": "^2.4.0",
-    "@ethereumjs/tx": "^3.3.0",
     "eslint": "^7.32.0",
-    "eth-sig-util": "^3.0.1",
-    "ethereumjs-util": "^7.1.0",
-    "ethereumjs-wallet": "^1.0.1",
     "husky": "^4.3.0",
     "lerna": "^4.0.0",
     "lint-staged": "^10.4.0",
