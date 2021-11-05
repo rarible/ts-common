@@ -1,5 +1,6 @@
 import CallableInstance from "callable-instance"
-import { Execution, Step } from "./execution"
+import type { Step } from "./execution"
+import { Execution } from "./execution"
 
 export class Action<Id, In, Out>
 	extends CallableInstance<[In], Promise<Out>> {

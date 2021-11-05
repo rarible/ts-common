@@ -1,6 +1,6 @@
 import CallableInstance from "callable-instance"
-import { Action } from "./action"
-import { Execution } from "./execution"
+import type { Action } from "./action"
+import type { Execution } from "./execution"
 
 type AB<Ctx, Id, In, Out> = ActionBuilder<Ctx, Id, In, Out>
 

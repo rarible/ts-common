@@ -1,6 +1,6 @@
 import { createFetchMiddleware, providerAsMiddleware, providerFromEngine } from "eth-json-rpc-middleware"
 import { JsonRpcEngine } from "json-rpc-engine"
-import { SafeEventEmitterProvider } from "eth-json-rpc-middleware/dist/utils/cache"
+import type { SafeEventEmitterProvider } from "eth-json-rpc-middleware/dist/utils/cache"
 import { estimateGasMiddliware } from "./middleware"
 
 export function estimate(provider: any, estimate: JsonRpcEngine | string): SafeEventEmitterProvider {
