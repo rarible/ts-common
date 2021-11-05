@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.5.0 (2021-11-05)
+
+
+### Bug Fixes
+
+* bump ([c535644](https://github.com/rariblecom/ts-common/commit/c535644844e6b83a95e81011abad06744cd72dbf))
+* bump ([092a249](https://github.com/rariblecom/ts-common/commit/092a249b1c01b6565db792058285a73993c1f659))
+* fix toBN ([e0ec2fa](https://github.com/rariblecom/ts-common/commit/e0ec2fa8db08d657b3a49ae5e022032e8fe91fc3))
+* license changed to MIT ([17d44a1](https://github.com/rariblecom/ts-common/commit/17d44a1225c507c6a4c8b1f4bcf8878c43c211b2))
+* support ethers.js ([9df16cb](https://github.com/rariblecom/ts-common/commit/9df16cbc208ae5305cfba43408add99dd03d8231))
+
+
+### Features
+
+* update eslint dependencies, update typescript ([fe4a657](https://github.com/rariblecom/ts-common/commit/fe4a657a876d72d209ad4dc59c0a59b53f23212a))
+
+
+
+
+
 # [0.1.0](https://github.com/rariblecom/ts-common/compare/@rarible/utils@0.0.7...@rarible/utils@0.1.0) (2021-11-05)
 
 
