@@ -22,6 +22,13 @@
     "test": "jest --passWithNoTests",
     "verify": "tsc --noEmit"
   },
+  "dependencies": {
+    "@ethereumjs/common": "^2.4.0",
+    "@ethereumjs/tx": "^3.3.0",
+    "eth-sig-util": "^3.0.1",
+    "ethereumjs-util": "^7.1.0",
+    "ethereumjs-wallet": "^1.0.1"
+  },
   "devDependencies": {
     "@rarible/types": "^0.1.10",
     "@types/jest": "27.0.2",
@@ -35,11 +42,6 @@
     "web3-provider-engine": "16.0.3"
   },
   "peerDependencies": {
-    "@ethereumjs/common": "^2.4.0",
-    "@ethereumjs/tx": "^3.3.0",
-    "eth-sig-util": "^3.0.1",
-    "ethereumjs-util": "^7.1.0",
-    "ethereumjs-wallet": "^1.0.1",
     "tslib": "^2.3.1"
   },
   "publishConfig": {
