@@ -21,7 +21,9 @@ pipeline {
     }
     stage('build and deploy') {
       agent any
-      when { changelog "/chore: bump versions after release/" }
+      when {
+        changelog "/chore: bump versions after release/"
+      }
       steps {
         withCredentials([string(credentialsId: 'npm-token', variable: 'NPM_TOKEN')]) {
 					sh 'yarn'
