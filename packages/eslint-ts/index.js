@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-keyword-prefix */
 var restrictedGlobals = require("confusing-browser-globals")
 
 module.exports = {
@@ -259,6 +260,13 @@ module.exports = {
 				after: true,
 			},
 		],
+		"@typescript-eslint/consistent-type-imports": [
+			"error",
+			{
+				prefer: "type-imports",
+				disallowTypeAnnotations: false,
+			},
+		],
 
 		/* Import options */
 		"import/no-default-export": "error",
@@ -280,5 +288,12 @@ module.exports = {
 				case: "kebabCase",
 			},
 		],
+		"unicorn/error-message": "error",
+		"unicorn/custom-error-definition": "error",
+		"unicorn/new-for-builtins": "error",
+		"unicorn/no-abusive-eslint-disable": "error",
+		"unicorn/no-empty-file": "error",
+		"unicorn/no-instanceof-array": "error",
+		"unicorn/no-keyword-prefix": "error",
 	},
 }

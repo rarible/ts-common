@@ -1,5 +1,6 @@
-import { createAsyncMiddleware, JsonRpcEngine, JsonRpcMiddleware } from "json-rpc-engine"
-import { Block } from "eth-json-rpc-middleware/dist/utils/cache"
+import type { JsonRpcEngine, JsonRpcMiddleware } from "json-rpc-engine"
+import { createAsyncMiddleware } from "json-rpc-engine"
+import type { Block } from "eth-json-rpc-middleware/dist/utils/cache"
 
 /**
  * Estimates gas for transaction if gas not defined
