@@ -27,8 +27,8 @@
     "json-rpc-engine": "^6.1.0"
   },
   "devDependencies": {
-    "ganache-core": "2.13.2",
-    "web3": "1.2.11"
+    "ganache-core": "^2.13.2",
+    "web3": "~1.2.11"
   },
   "publishConfig": {
     "access": "public"
