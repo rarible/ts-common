@@ -4,6 +4,7 @@ test-reports/
 cypress/screenshots/
 source/locales/_build/
 storybook-static
+yarn-error.log
 
 # Development stuff
 tsconfig.tsbuildinfo
