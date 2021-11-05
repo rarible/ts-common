@@ -21,7 +21,7 @@ pipeline {
     }
     stage('build and deploy') {
       agent any
-      when { tag "v*" }
+      when { tag "@rarible/*@*" }
       steps {
         withCredentials([string(credentialsId: 'npm-token', variable: 'NPM_TOKEN')]) {
 					sh 'yarn'
