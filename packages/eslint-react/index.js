@@ -3,8 +3,14 @@ module.exports = {
 	parser: "@typescript-eslint/parser",
 	plugins: [
 		"jsx-a11y",
+		"react",
 		"react-hooks",
 	],
+	settings: {
+		react: {
+			version: "detect",
+		},
+	},
 	overrides: [
 		{
 			files: ["**/*.ts?(x)"],
