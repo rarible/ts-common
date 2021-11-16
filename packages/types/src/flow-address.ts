@@ -19,7 +19,7 @@ export function toFlowAddress(value: string): FlowAddress {
 	}
 }
 
-export const ZERO_ADDRESS: FlowAddress = "0x0000000000000000" as FlowAddress
+export const FLOW_ZERO_ADDRESS = toFlowAddress("0x0000000000000000")
 
 export function randomFlowAddress() {
 	return toFlowAddress(randomBinary(8))
