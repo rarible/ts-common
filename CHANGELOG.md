@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/rarible/ts-common/compare/v0.5.0...v0.5.1) (2021-11-16)
+
+
+### Bug Fixes
+
+* add react plugin ([13ff0f1](https://github.com/rarible/ts-common/commit/13ff0f1f4ad211219a1f491ccfa5725a34156c9b))
+* import from index types ([a5edd13](https://github.com/rarible/ts-common/commit/a5edd1347cc01005a70bdf441c1996b43a7f2f6a))
+
+
+### Features
+
+* add flow address ([aa76c0e](https://github.com/rarible/ts-common/commit/aa76c0ecbe2d37bf33aeeee3fed6fdb92db1553a))
+
+
+
+
+
 # 0.5.0 (2021-11-05)
 
 

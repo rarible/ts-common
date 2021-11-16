@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/rariblecom/ts-common/compare/v0.5.0...v0.5.1) (2021-11-16)
+
+
+### Bug Fixes
+
+* add react plugin ([13ff0f1](https://github.com/rariblecom/ts-common/commit/13ff0f1f4ad211219a1f491ccfa5725a34156c9b))
+
+
+
+
+
 # 0.5.0 (2021-11-05)
 
 
