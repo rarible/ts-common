@@ -3,9 +3,9 @@ import { JsonRpcEngine } from "json-rpc-engine"
 import type { SafeEventEmitterProvider } from "eth-json-rpc-middleware/dist/utils/cache"
 import { estimateGasMiddliware } from "./middleware"
 
-export function estimate(provider: any, estimate?: JsonRpcEngine | string): SafeEventEmitterProvider {
+export function estimate(provider: any, estimate?: JsonRpcEngine | string, force?: boolean): SafeEventEmitterProvider {
 	const engine = new JsonRpcEngine()
-	engine.push(estimateGasMiddliware(getEstimateEngine(provider, estimate)))
+	engine.push(estimateGasMiddliware(getEstimateEngine(provider, estimate), force))
 	engine.push(providerAsMiddleware(provider))
 	return providerFromEngine(engine)
 }

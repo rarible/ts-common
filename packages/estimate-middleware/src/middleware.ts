@@ -5,14 +5,17 @@ import type { Block } from "eth-json-rpc-middleware/dist/utils/cache"
 /**
  * Estimates gas for transaction if gas not defined
  * @param engine JsonRpcEngine to use for gas estimation
+ * @param force set true if estimate tx even if gas is provided
  */
-export function estimateGasMiddliware(engine: JsonRpcEngine): JsonRpcMiddleware<string[], Block> {
+export function estimateGasMiddliware(
+	engine: JsonRpcEngine, force: boolean = false,
+): JsonRpcMiddleware<string[], Block> {
 	return createAsyncMiddleware(async (req, _, next) => {
 		if (req.method === "eth_sendTransaction") {
 			if (req.params) {
 				const [tx] = req.params as unknown[]
 				if (isTransactionParams(tx)) {
-					if (typeof tx.gas === "undefined") {
+					if (force || typeof tx.gas === "undefined") {
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						const { gasPrice, ...estimateParams } = tx
 						const response = await engine.handle({
