@@ -168,6 +168,27 @@ describe("Action", () => {
 
 	})
 
+	test("actions with filter callback", async () => {
+		const action = Action.create({
+			id: "filtered" as const,
+			remove: (inputValue) => inputValue === 1,
+			run: async (value: number) => value + 2,
+		})
+			.thenStep({
+				id: "first" as const,
+				run: async (inputValue: number) => inputValue + 1,
+			})
+			.thenStep({
+				id: "second" as const,
+				remove: (inputValue) => inputValue === 1000,
+				run: async (value) => value + 3,
+			})
+
+		const execution = action.start(1)
+		expect(execution.ids).toEqual(["first", "second"])
+		const result = await execution.runAll()
+		expect(result).toBe(5)
+	})
 })
 
 function generateSimpleAction<T>() {

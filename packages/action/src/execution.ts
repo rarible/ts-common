@@ -1,17 +1,25 @@
 export type Step<Id, T, R> = {
 	id: Id
 	run: (value: T) => Promise<R>
+	remove?: (input: any) => boolean
 }
 
 type PromiseState<T> = { status: "pending" } | { status: "rejected"; error: any } | { status: "resolved"; value: T }
 
 export class Execution<Id, T> {
+	private readonly steps: Step<unknown, unknown, unknown>[]
 	private readonly state: PromiseState<unknown>[]
 	private readonly promises: Promise<unknown>[]
 
-	constructor(private readonly input: any, private readonly steps: Step<unknown, unknown, unknown>[]) {
-		this.state = new Array(steps.length)
-		this.promises = new Array(steps.length)
+	constructor(private readonly input: any, steps: Step<unknown, unknown, unknown>[]) {
+		const filteredSteps = steps
+			.filter(step =>
+				"remove" in step && typeof step.remove === "function" ? !step.remove(input) : true
+			)
+
+		this.steps = filteredSteps
+		this.state = new Array(filteredSteps.length)
+		this.promises = new Array(filteredSteps.length)
 	}
 
 	get ids(): Id[] {
