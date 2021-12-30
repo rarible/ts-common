@@ -1,6 +1,6 @@
 {
   "name": "@rarible/test-provider",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "keywords": [
     "rarible",
     "common",
@@ -30,7 +30,7 @@
     "ethereumjs-wallet": "^1.0.1"
   },
   "devDependencies": {
-    "@rarible/types": "^0.6.0",
+    "@rarible/types": "^0.6.1",
     "@types/jest": "^27.0.2",
     "@types/web3-provider-engine": "^14.0.1",
     "jest": "^27.3.1",
