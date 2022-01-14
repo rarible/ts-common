@@ -1,18 +1,20 @@
 export class Batcher<T> {
+	private timeout?: ReturnType<typeof setTimeout>
 	private queue: T[] = []
 
-	constructor(interval: number, private readonly handler: (queue: T[]) => void) {
-		setInterval(() => this.dropIfNeeded(), interval)
+	constructor(private readonly interval: number, private readonly handler: (queue: T[]) => void) {
 	}
 
 	add(item: T) {
 		this.queue.push(item)
+		if (!this.timeout) {
+			this.timeout = setTimeout(() => this.drop(), this.interval)
+		}
 	}
 
-	dropIfNeeded() {
-		if (this.queue.length > 0) {
-			this.handler(this.queue)
-			this.queue = []
-		}
+	drop() {
+		this.handler(this.queue)
+		this.queue = []
+		this.timeout = undefined
 	}
 }
