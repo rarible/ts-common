@@ -55,7 +55,7 @@ describe("ElkLogger", () => {
 		const [calls, result] = await new Promise((resolve) => {
 			setTimeout(() => {
 				resolve([handler.mock.calls.length, handler.mock.calls[0][0]])
-			}, 200)
+			}, 300)
 		})
 
 		expect(calls).toEqual(1)
