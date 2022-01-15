@@ -13,14 +13,12 @@ export function estimateGasMiddliware(
 	return createAsyncMiddleware(async (req, _, next) => {
 		if (req.method === "eth_sendTransaction") {
 			if (req.params) {
-				const [tx] = req.params as unknown[]
+				const [tx] = req.params
 				if (isTransactionParams(tx)) {
 					if (force || typeof tx.gas === "undefined") {
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						const { gasPrice, ...estimateParams } = tx
 						const response = await engine.handle({
 							...req,
-							params: [estimateParams],
+							params: [getEstimateParams(tx)],
 							method: "eth_estimateGas",
 						})
 						if (isJSONRpcResponse(response)) {
@@ -54,8 +52,16 @@ type TransactionParams = {
 	from: string
 	gasPrice?: string | number
 	gas?: string | number
+	maxPriorityFeePerGas?: string | number
+	maxFeePerGas?: string | number
 }
 
 function isTransactionParams(x: unknown): x is TransactionParams {
 	return typeof x === "object" && x !== null && "from" in x
+}
+
+function getEstimateParams(x: TransactionParams): Omit<TransactionParams, "gasPrice" | "maxPriorityFeePerGas" | "maxFeePerGas"> {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const { gasPrice, maxPriorityFeePerGas, maxFeePerGas, ...rest } = x
+	return rest
 }
