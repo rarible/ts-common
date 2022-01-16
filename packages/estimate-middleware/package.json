@@ -23,7 +23,7 @@
     "verify": "tsc --noEmit"
   },
   "dependencies": {
-    "eth-json-rpc-middleware": "^7.0.1",
+    "eth-json-rpc-middleware": "^8.0.1",
     "json-rpc-engine": "^6.1.0"
   },
   "devDependencies": {
