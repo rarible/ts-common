@@ -7,7 +7,7 @@ import type { Block } from "eth-json-rpc-middleware/dist/utils/cache"
  * @param engine JsonRpcEngine to use for gas estimation
  * @param force set true if estimate tx even if gas is provided
  */
-export function estimateGasMiddliware(
+export function estimateGasMiddleware(
 	engine: JsonRpcEngine, force: boolean = false,
 ): JsonRpcMiddleware<string[], Block> {
 	return createAsyncMiddleware(async (req, _, next) => {
