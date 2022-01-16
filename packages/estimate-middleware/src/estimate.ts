@@ -13,7 +13,7 @@ export function estimate(provider: any, estimate?: JsonRpcEngine | string, force
 function getEstimateEngine(provider: any, estimate: JsonRpcEngine | string | undefined): JsonRpcEngine {
 	if (estimate === undefined) {
 		const estimateEngine = new JsonRpcEngine()
-		estimateEngine.push(providerAsMiddleware(provider as any))
+		estimateEngine.push(providerAsMiddleware(provider))
 		return estimateEngine
 	} else if (typeof estimate === "string") {
 		const engine = new JsonRpcEngine()
