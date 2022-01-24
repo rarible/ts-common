@@ -4,11 +4,7 @@ import { TransactionFactory } from "@ethereumjs/tx"
 import Common from "@ethereumjs/common"
 import type Wallet from "ethereumjs-wallet"
 import * as sigUtil from "eth-sig-util"
-
-export type TestProviderChain = {
-	networkId: number
-	chainId: number
-}
+import type { TestProviderChain } from "./domain"
 
 // noinspection JSUnusedGlobalSymbols
 export class TestSubprovider extends HookedWalletSubprovider {
