@@ -2,12 +2,16 @@ import { createFetchMiddleware, providerAsMiddleware, providerFromEngine } from 
 import { JsonRpcEngine } from "json-rpc-engine"
 import type { SafeEventEmitterProvider } from "eth-json-rpc-middleware/dist/utils/cache"
 import { createEstimateGasMiddleware } from "./middleware"
+import { isSafeEventEmitterProvider } from "./utils"
 
 export function estimate(provider: any, estimate?: JsonRpcEngine | string, force?: boolean): SafeEventEmitterProvider {
-	const engine = new JsonRpcEngine()
-	engine.push(createEstimateGasMiddleware(getEstimateEngine(provider, estimate), force))
-	engine.push(providerAsMiddleware(provider))
-	return providerFromEngine(engine)
+	if (isSafeEventEmitterProvider(provider)) {
+		const engine = new JsonRpcEngine()
+		engine.push(createEstimateGasMiddleware(getEstimateEngine(provider, estimate), force))
+		engine.push(providerAsMiddleware(provider))
+		return providerFromEngine(engine)
+	}
+	return provider
 }
 
 function getEstimateEngine(provider: any, estimate: JsonRpcEngine | string | undefined): JsonRpcEngine {
