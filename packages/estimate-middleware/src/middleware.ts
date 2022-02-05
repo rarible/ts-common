@@ -9,7 +9,12 @@ import type { Block } from "eth-json-rpc-middleware/dist/utils/cache"
  */
 
 export function createEstimateGasMiddleware(engine: JsonRpcEngine, force = false): JsonRpcMiddleware<string[], Block> {
-	return createAsyncMiddleware(async (req, _, next) => {
+	return createAsyncMiddleware(async (req, resp, next) => {
+		if (req.method === "eth_subscribe") {
+			resp.id = req.id
+			resp.error = {"code": -32000, "message": "notifications not supported"}
+			return
+		}
 		if (req.method === "eth_sendTransaction") {
 			try {
 				const params = getTransactionParams(req)
@@ -23,7 +28,7 @@ export function createEstimateGasMiddleware(engine: JsonRpcEngine, force = false
 				}
 			} catch (error) {}
 		}
-		next()
+		await next()
 	})
 }
 
