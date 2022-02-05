@@ -1,5 +1,5 @@
 import { createTestProvider } from "@rarible/test-provider/build/utils/create-test-provider"
-import Ganache from "ganache-core"
+import ganache from "ganache"
 import Wallet from "ethereumjs-wallet"
 import { useTestProvider } from "@rarible/test-provider/build/utils/use-test-provider"
 import Web3 from "web3"
@@ -28,9 +28,9 @@ describe("estimate middleware", () => {
 	test("estimates tx before send", async () => {
 		const wallet = new Wallet(Buffer.from(randomWord().substring(2), "hex"))
 
-		const provider = Ganache.provider({
+		const provider = ganache.provider({
 			accounts: [{
-				secretKey: wallet.getPrivateKey(),
+				secretKey: wallet.getPrivateKeyString(),
 				balance: "0x1000000000000000000000000000",
 			}],
 		})

@@ -28,8 +28,8 @@
   },
   "devDependencies": {
     "@rarible/test-provider": "^0.7.0",
-    "ganache-core": "^2.13.2",
-    "web3": "~1.2.11"
+    "ganache": "^7.0.2",
+    "web3": "^1.7.0"
   },
   "publishConfig": {
     "access": "public",
