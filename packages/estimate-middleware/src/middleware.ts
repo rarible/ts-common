@@ -1,6 +1,8 @@
 import type { JsonRpcEngine, JsonRpcMiddleware, JsonRpcRequest } from "json-rpc-engine"
 import { createAsyncMiddleware } from "json-rpc-engine"
 import type { Block } from "eth-json-rpc-middleware/dist/utils/cache"
+import { toBn } from "@rarible/utils/build/bn"
+import { createNotSupportedError } from "./utils"
 
 /**
  * Creates async middleware for gas estimation if gas not defined
@@ -8,11 +10,15 @@ import type { Block } from "eth-json-rpc-middleware/dist/utils/cache"
  * @param force set true if estimate tx even if gas is provided
  */
 
-export function createEstimateGasMiddleware(engine: JsonRpcEngine, force = false): JsonRpcMiddleware<string[], Block> {
-	return createAsyncMiddleware(async (req, resp, next) => {
+export function createEstimateGasMiddleware(
+	engine: JsonRpcEngine,
+	force = false,
+	threshold = 1.03
+): JsonRpcMiddleware<string[], Block> {
+	return createAsyncMiddleware(async (req, res, next) => {
 		if (req.method === "eth_subscribe") {
-			resp.id = req.id
-			resp.error = {"code": -32000, "message": "notifications not supported"}
+			res.id = req.id
+			res.error = createNotSupportedError()
 			return
 		}
 		if (req.method === "eth_sendTransaction") {
@@ -24,7 +30,12 @@ export function createEstimateGasMiddleware(engine: JsonRpcEngine, force = false
 						params: [getEstimateParams(params)],
 						method: "eth_estimateGas",
 					})
-					params["gas"] = handleResult(response)
+					const gasRaw = handleResult(response)
+					if (gasRaw)  {
+						const gasHex = extractHex(gasRaw)
+						const multiplied = toBn(gasHex, 16).multipliedBy(threshold).toString(16)
+						params["gas"] = `0x${multiplied}`
+					}
 				}
 			} catch (error) {}
 		}
@@ -32,12 +43,16 @@ export function createEstimateGasMiddleware(engine: JsonRpcEngine, force = false
 	})
 }
 
-function handleResult(response: unknown): string | number {
+function extractHex(value: string) {
+	return value.startsWith("0x") ? value.substring(2) : value
+}
+
+function handleResult(response: unknown): string {
 	if (isJSONRpcResponse(response)) {
 		if (response.error) {
 			throw response.error
 		}
-		if (typeof response.result === "string" || typeof response.result === "number") {
+		if (typeof response.result === "string") {
 			return response.result
 		}
 	}

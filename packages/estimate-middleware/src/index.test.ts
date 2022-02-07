@@ -1,30 +1,11 @@
-import { createTestProvider } from "@rarible/test-provider/build/utils/create-test-provider"
 import ganache from "ganache"
 import Wallet from "ethereumjs-wallet"
-import { useTestProvider } from "@rarible/test-provider/build/utils/use-test-provider"
 import Web3 from "web3"
 import { randomAddress, randomWord } from "@rarible/types"
+import { createNotSupportedError } from "./utils"
 import { estimate } from "."
 
 describe("estimate middleware", () => {
-	const { provider, wallet } = createTestProvider(undefined)
-	const web3 = new Web3(provider)
-
-	useTestProvider(provider)
-
-	test("should throw error when no funds", async () => {
-		expect.assertions(1)
-
-		const promise = web3.eth.sendTransaction({
-			from: wallet.getAddressString(),
-			to: randomAddress(),
-			value: 1,
-		}).catch(error => error.message.indexOf("Insufficient funds"))
-
-		await expect(promise).resolves.toBe(0)
-	})
-
-
 	test("estimates tx before send", async () => {
 		const wallet = new Wallet(Buffer.from(randomWord().substring(2), "hex"))
 
@@ -34,7 +15,12 @@ describe("estimate middleware", () => {
 				balance: "0x1000000000000000000000000000",
 			}],
 		})
-		const web3 = new Web3(estimate(provider) as any)
+
+		const threshold = 1.05
+		const web3 = new Web3(estimate(provider, {
+			threshold,
+			force: true,
+		}) as any)
 
 		const receipt = await web3.eth.sendTransaction({
 			from: wallet.getAddressString(),
@@ -42,7 +28,7 @@ describe("estimate middleware", () => {
 			value: 10000,
 		})
 		const tx = await web3.eth.getTransaction(receipt.transactionHash)
-		expect(tx.gas).toBe(21000)
+		expect(tx.gas).toBe(21000 * threshold)
 
 		const web3Error = new Web3(provider as any)
 		const receiptError = await web3Error.eth.sendTransaction({
@@ -51,6 +37,25 @@ describe("estimate middleware", () => {
 			value: 10000,
 		})
 		const txError = await web3.eth.getTransaction(receiptError.transactionHash)
-		expect(txError.gas).not.toBe(21000)
+		expect(txError.gas).not.toBe(21000 * threshold)
+	})
+
+	test("subscribe should throw error", async () => {
+		const wallet = new Wallet(Buffer.from(randomWord().substring(2), "hex"))
+
+		const provider = ganache.provider({
+			accounts: [{
+				secretKey: wallet.getPrivateKeyString(),
+				balance: "0x1000000000000000000000000000",
+			}],
+		})
+
+		const web3 = new Web3(estimate(provider) as any)
+
+		const error = new Promise((_, reject) => web3.eth.subscribe("logs", {
+			address: randomAddress(),
+		}, e => reject(e)))
+
+		await expect(error).rejects.toEqual(createNotSupportedError())
 	})
 })
