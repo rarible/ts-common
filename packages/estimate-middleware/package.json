@@ -1,6 +1,6 @@
 {
   "name": "@rarible/estimate-middleware",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "keywords": [
     "rarible",
     "common",
@@ -27,7 +27,7 @@
     "json-rpc-engine": "^6.1.0"
   },
   "devDependencies": {
-    "@rarible/test-provider": "^0.7.0",
+    "@rarible/test-provider": "^0.8.0",
     "ganache": "^7.0.2",
     "web3": "^1.7.0"
   },
