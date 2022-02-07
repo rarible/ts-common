@@ -33,14 +33,18 @@ export function createEstimateGasMiddleware(
 					const gasRaw = handleResult(response)
 					if (gasRaw)  {
 						const gasHex = extractHex(gasRaw)
-						const multiplied = toBn(gasHex, 16).multipliedBy(threshold).toString(16)
-						params["gas"] = `0x${multiplied}`
+						const multiplied = toBn(gasHex, 16).multipliedBy(threshold).toFixed(0)
+						params["gas"] = withPrefix(toBn(multiplied).toString(16))
 					}
 				}
 			} catch (error) {}
 		}
 		await next()
 	})
+}
+
+function withPrefix(value: string) {
+	return `0x${value}`
 }
 
 function extractHex(value: string) {

@@ -2,6 +2,7 @@ import ganache from "ganache"
 import Wallet from "ethereumjs-wallet"
 import Web3 from "web3"
 import { randomAddress, randomWord } from "@rarible/types"
+import { toBn } from "@rarible/utils/build/bn"
 import { createNotSupportedError } from "./utils"
 import { estimate } from "."
 
@@ -16,7 +17,7 @@ describe("estimate middleware", () => {
 			}],
 		})
 
-		const threshold = 1.05
+		const threshold = 1.100005
 		const web3 = new Web3(estimate(provider, {
 			threshold,
 			force: true,
@@ -28,7 +29,7 @@ describe("estimate middleware", () => {
 			value: 10000,
 		})
 		const tx = await web3.eth.getTransaction(receipt.transactionHash)
-		expect(tx.gas).toBe(21000 * threshold)
+		expect(tx.gas).toBe(toBn(21000).multipliedBy(1.1).toNumber())
 
 		const web3Error = new Web3(provider as any)
 		const receiptError = await web3Error.eth.sendTransaction({
@@ -37,7 +38,7 @@ describe("estimate middleware", () => {
 			value: 10000,
 		})
 		const txError = await web3.eth.getTransaction(receiptError.transactionHash)
-		expect(txError.gas).not.toBe(21000 * threshold)
+		expect(txError.gas).not.toBe(toBn(21000).multipliedBy(1.1).toNumber())
 	})
 
 	test("subscribe should throw error", async () => {

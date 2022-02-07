@@ -23,6 +23,7 @@
     "verify": "tsc --noEmit"
   },
   "dependencies": {
+    "@rarible/utils": "^0.8.0",
     "eth-json-rpc-middleware": "^8.0.1",
     "json-rpc-engine": "^6.1.0"
   },
