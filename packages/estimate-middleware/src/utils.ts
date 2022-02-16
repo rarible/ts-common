@@ -6,9 +6,38 @@ export function isSafeEventEmitterProvider(x: unknown): x is SafeEventEmitterPro
 }
 
 
-export function createNotSupportedError(): JsonRpcError {
-	return {
-		code: -32000,
-		message: "Notifications not supported",
+export class RpcError extends Error implements JsonRpcError {
+	readonly code: number
+	constructor(message: string, code: number) {
+		super(message)
+		this.code = code
+		// eslint-disable-next-line unicorn/custom-error-definition
+		this.name = "JsonRpcError"
 	}
+}
+
+export function extractError(error: unknown): Error {
+	if (isObject(error)) {
+		if ("data" in error) {
+			const { data } = error as JsonRpcError
+			if (isObject(data) && isJsonRpcError(data)) {
+				return new RpcError(data.message, data.code)
+			}
+		}
+		if (isJsonRpcError(error)) {
+			return new RpcError(error.message, error.code)
+		}
+	}
+	if (error instanceof Error) {
+		return error
+	}
+	return new Error("Unknown error")
+}
+
+function isJsonRpcError(x: object): x is JsonRpcError {
+	return "code" in x && "message" in x
+}
+
+function isObject(x: unknown): x is object {
+	return typeof x === "object" && x !== null
 }

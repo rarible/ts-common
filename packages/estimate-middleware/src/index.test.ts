@@ -3,7 +3,7 @@ import Wallet from "ethereumjs-wallet"
 import Web3 from "web3"
 import { randomAddress, randomWord } from "@rarible/types"
 import { toBn } from "@rarible/utils/build/bn"
-import { createNotSupportedError } from "./utils"
+import { RpcError } from "./utils"
 import { estimate } from "."
 
 describe("estimate middleware", () => {
@@ -57,6 +57,6 @@ describe("estimate middleware", () => {
 			address: randomAddress(),
 		}, e => reject(e)))
 
-		await expect(error).rejects.toEqual(createNotSupportedError())
+		await expect(error).rejects.toEqual(new RpcError("Notifications not supported", -32000))
 	})
 })

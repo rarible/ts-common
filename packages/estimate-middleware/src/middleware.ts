@@ -1,8 +1,8 @@
 import type { JsonRpcEngine, JsonRpcMiddleware, JsonRpcRequest } from "json-rpc-engine"
-import { createAsyncMiddleware } from "json-rpc-engine"
+import { createAsyncMiddleware, getUniqueId } from "json-rpc-engine"
 import type { Block } from "eth-json-rpc-middleware/dist/utils/cache"
 import { toBn } from "@rarible/utils/build/bn"
-import { createNotSupportedError } from "./utils"
+import { extractError, RpcError } from "./utils"
 
 /**
  * Creates async middleware for gas estimation if gas not defined
@@ -17,16 +17,16 @@ export function createEstimateGasMiddleware(
 ): JsonRpcMiddleware<string[], Block> {
 	return createAsyncMiddleware(async (req, res, next) => {
 		if (req.method === "eth_subscribe") {
-			res.id = req.id
-			res.error = createNotSupportedError()
-			return
+			res.error = new RpcError("Notifications not supported", -32000)
+			return next()
 		}
 		if (req.method === "eth_sendTransaction") {
 			try {
 				const params = getTransactionParams(req)
 				if (force || !params.gas) {
 					const response = await engine.handle({
-						...req,
+						jsonrpc: "2.0",
+						id: getUniqueId(),
 						params: [getEstimateParams(params)],
 						method: "eth_estimateGas",
 					})
@@ -37,9 +37,11 @@ export function createEstimateGasMiddleware(
 						params["gas"] = withPrefix(toBn(multiplied).toString(16))
 					}
 				}
-			} catch (error) {}
+			} catch (error) {
+				res.error = extractError(error)
+			}
 		}
-		await next()
+		return next()
 	})
 }
 
@@ -60,7 +62,7 @@ function handleResult(response: unknown): string {
 			return response.result
 		}
 	}
-	throw new Error("Can't handle JSON rpc response")
+	throw new RpcError("Can't handle JSON rpc response", -32700)
 }
 
 function getTransactionParams(request: JsonRpcRequest<unknown[]>): SendParams {
@@ -70,7 +72,7 @@ function getTransactionParams(request: JsonRpcRequest<unknown[]>): SendParams {
 			return tx
 		}
 	}
-	throw new Error("Can't parse eth_sendTransaction params")
+	throw new RpcError("Can't parse eth_sendTransaction params", -32600)
 }
 
 type JSONRpcResponse = {
