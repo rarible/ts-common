@@ -2,6 +2,7 @@ const blockchains = [
 	"ETHEREUM",
 	"FLOW",
 	"TEZOS",
+	"SOLANA",
 ]
 
 const realBlockchains = [
@@ -9,6 +10,7 @@ const realBlockchains = [
 	"FLOW",
 	"TEZOS",
 	"POLYGON",
+	"SOLANA",
 ]
 
 export function isBlockchainSpecified(value: string) {
