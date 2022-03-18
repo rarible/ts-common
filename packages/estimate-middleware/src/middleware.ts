@@ -24,18 +24,40 @@ export function createEstimateGasMiddleware(
 			try {
 				const params = getTransactionParams(req)
 				if (force || !params.gas) {
-					const response = await engine.handle({
+					const gasLimitResponse = await engine.handle({
 						jsonrpc: "2.0",
 						id: getUniqueId(),
 						params: [getEstimateParams(params)],
 						method: "eth_estimateGas",
 					})
-					const gasRaw = handleResult(response)
-					if (gasRaw)  {
-						const gasHex = extractHex(gasRaw)
-						const multiplied = toBn(gasHex, 16).multipliedBy(threshold).toFixed(0)
+					const limitRaw = handleHexResponse(gasLimitResponse)
+					if (limitRaw) {
+						const limitHex = extractHex(limitRaw)
+						const multiplied = toBn(limitHex, 16).multipliedBy(threshold).toFixed(0)
 						params["gas"] = withPrefix(toBn(multiplied).toString(16))
 					}
+					const maxPriorityFeePerGasResponse = await engine.handle({
+						jsonrpc: "2.0",
+						id: getUniqueId(),
+						params: [],
+						method: "eth_maxPriorityFeePerGas",
+					})
+					const maxPriorityFeePerGasResponseRaw = handleHexResponse(maxPriorityFeePerGasResponse)
+					if (maxPriorityFeePerGasResponseRaw) {
+						params["maxPriorityFeePerGas"] = maxPriorityFeePerGasResponseRaw
+					}
+
+					const blockResponse = await engine.handle({
+						jsonrpc: "2.0",
+						id: getUniqueId(),
+						params: ["pending", false],
+						method: "eth_getBlockByNumber",
+					})
+					const baseFeeRaw = extractbaseFeePerGas(blockResponse)
+					const baseFee = toBn(extractHex(baseFeeRaw), 16).toFixed(0)
+					const maxPriorityFeePerGas = extractHex(maxPriorityFeePerGasResponseRaw)
+					const maxFeePerGasHex = toBn(maxPriorityFeePerGas, 16).plus(baseFee).minus(1).toString(16)
+					params["maxFeePerGas"] = withPrefix(maxFeePerGasHex)
 				}
 			} catch (error) {
 				res.error = extractError(error)
@@ -53,13 +75,25 @@ function extractHex(value: string) {
 	return value.startsWith("0x") ? value.substring(2) : value
 }
 
-function handleResult(response: unknown): string {
+function handleHexResponse(response: unknown): string {
 	if (isJSONRpcResponse(response)) {
 		if (response.error) {
 			throw response.error
 		}
 		if (typeof response.result === "string") {
 			return response.result
+		}
+	}
+	throw new RpcError("Can't handle JSON rpc response", -32700)
+}
+
+function extractbaseFeePerGas(response: unknown): string {
+	if (isJSONRpcResponse(response)) {
+		if (response.error) {
+			throw response.error
+		}
+		if (typeof response.result === "object") {
+			return (response.result as any).baseFeePerGas
 		}
 	}
 	throw new RpcError("Can't handle JSON rpc response", -32700)
@@ -93,6 +127,8 @@ type SendParams = {
 	gas?: number | string
 	gasPrice?: number | string
 	data?: string
+	maxPriorityFeePerGas?: number | string
+	maxFeePerGas?: number | string
 }
 
 function isSendParams(x: unknown): x is SendParams {
