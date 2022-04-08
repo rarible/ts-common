@@ -43,9 +43,6 @@ export function createEstimateGasMiddleware(
 						method: "eth_maxPriorityFeePerGas",
 					})
 					const maxPriorityFeePerGasResponseRaw = handleHexResponse(maxPriorityFeePerGasResponse)
-					if (maxPriorityFeePerGasResponseRaw) {
-						params["maxPriorityFeePerGas"] = maxPriorityFeePerGasResponseRaw
-					}
 
 					const blockResponse = await engine.handle({
 						jsonrpc: "2.0",
@@ -54,10 +51,14 @@ export function createEstimateGasMiddleware(
 						method: "eth_getBlockByNumber",
 					})
 					const baseFeeRaw = extractbaseFeePerGas(blockResponse)
-					const baseFee = toBn(extractHex(baseFeeRaw), 16).toFixed(0)
-					const maxPriorityFeePerGas = extractHex(maxPriorityFeePerGasResponseRaw)
-					const maxFeePerGasHex = toBn(maxPriorityFeePerGas, 16).plus(baseFee).minus(1).toString(16)
-					params["maxFeePerGas"] = withPrefix(maxFeePerGasHex)
+
+					if (maxPriorityFeePerGasResponseRaw && baseFeeRaw) {
+						const baseFee = toBn(extractHex(baseFeeRaw), 16).toFixed(0)
+						const maxPriorityFeePerGas = extractHex(maxPriorityFeePerGasResponseRaw)
+						const maxFeePerGasHex = toBn(maxPriorityFeePerGas, 16).plus(baseFee).minus(1).toString(16)
+						params["maxPriorityFeePerGas"] = maxPriorityFeePerGasResponseRaw
+						params["maxFeePerGas"] = withPrefix(maxFeePerGasHex)
+					}
 				}
 			} catch (error) {
 				res.error = extractError(error)
