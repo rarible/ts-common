@@ -1,6 +1,7 @@
 export type LoggableValue = null | undefined | boolean | number | string | object
 
 export type AbstractLogger = {
+	raw(data: Record<string, LoggableValue>): void
 	trace(...params: LoggableValue[]): void
 	debug(...params: LoggableValue[]): void
 	info(...params: LoggableValue[]): void
