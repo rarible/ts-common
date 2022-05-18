@@ -1,7 +1,8 @@
-import type { AbstractLogger, LoggableValue } from "./domain"
+import type {AbstractLogger, LoggableValue} from "./domain"
 
 export class UnionLogger implements AbstractLogger {
-	constructor(private readonly loggers: AbstractLogger[]) {}
+	constructor(private readonly loggers: AbstractLogger[]) {
+	}
 
 	debug(...args: LoggableValue[]): void {
 		this.loggers.forEach(l => l.debug.apply(l, args))
@@ -21,5 +22,9 @@ export class UnionLogger implements AbstractLogger {
 
 	warn(...args: LoggableValue[]): void {
 		this.loggers.forEach(l => l.warn.apply(l, args))
+	}
+
+	raw(data: Record<string, LoggableValue>): void {
+		this.loggers.forEach(l => l.raw(data))
 	}
 }

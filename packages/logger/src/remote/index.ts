@@ -15,6 +15,7 @@ export type RemoteLoggerConfig = {
 export class RemoteLogger implements AbstractLogger {
 	private readonly config: RemoteLoggerConfig
 	private readonly batchManager: Batcher<Record<string, string>>
+
 	constructor(handler: (values: Record<string, string>[]) => Promise<void>, config: Partial<RemoteLoggerConfig>) {
 		this.config = {
 			...defaultConfig,
@@ -43,13 +44,21 @@ export class RemoteLogger implements AbstractLogger {
 		this.log.apply(this, [LogLevel.WARN, ...params]).then()
 	}
 
+	raw(data: Record<string, LoggableValue>): void {
+		this.rawAsync(data).then()
+	}
+
 	private async log(level: LogLevel, ...params: LoggableValue[]) {
+		await this.rawAsync({
+			level,
+			message: this.getMessage(params),
+		})
+	}
+
+	private async rawAsync(data: Record<string, LoggableValue>) {
 		try {
-			const data = await this.withContext({
-				level,
-				message: this.getMessage(params),
-			})
-			this.batchManager.add(data)
+			const finalData = await this.withContext(data)
+			this.batchManager.add(finalData)
 		} catch (e) {
 			console.error("Cannot connect to ELK", e)
 		}

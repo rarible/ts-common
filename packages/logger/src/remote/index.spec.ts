@@ -33,6 +33,30 @@ describe("ElkLogger", () => {
 		}])
 	})
 
+	it("should correctly log raw data", async () => {
+		const handler = jest.fn()
+		const logger = new RemoteLogger(handler, {
+			dropBatchInterval: 100,
+		})
+
+		logger.raw({
+			level: "INFO",
+			message: "test raw",
+		})
+
+		const [calls, result] = await new Promise((resolve) => {
+			setTimeout(() => {
+				resolve([handler.mock.calls.length, handler.mock.calls[0][0]])
+			}, 200)
+		})
+
+		expect(calls).toEqual(1)
+		expect(result).toStrictEqual([{
+			level: "INFO",
+			message: "test raw",
+		}])
+	})
+
 	it("should correctly resolve contexts", async () => {
 		const handler = jest.fn()
 		const logger = new RemoteLogger(handler, {
