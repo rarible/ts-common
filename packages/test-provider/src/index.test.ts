@@ -10,7 +10,7 @@ describe("TestProvider", function () {
 
 	useTestProvider(provider)
 
-	test("e2e chain works", async () => {
+	test.skip("e2e chain works", async () => {
 		expect.assertions(1)
 		const from = wallet.getAddressString()
 		const result = await web3.eth.sendTransaction({
