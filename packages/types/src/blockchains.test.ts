@@ -6,4 +6,5 @@ test("isBlockchainSpecified works", () => {
 	expect(isBlockchainSpecified("FLOW:awd")).toBeTruthy()
 	expect(isBlockchainSpecified("TEZOS:awd")).toBeTruthy()
 	expect(isBlockchainSpecified("SOLANA:awd")).toBeTruthy()
+	expect(isBlockchainSpecified("IMMUTABLEX:awd")).toBeTruthy()
 })
