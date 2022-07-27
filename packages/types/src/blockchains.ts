@@ -3,7 +3,6 @@ const blockchains = [
 	"FLOW",
 	"TEZOS",
 	"SOLANA",
-	"IMMUTABLEX",
 ]
 
 const realBlockchains = [
