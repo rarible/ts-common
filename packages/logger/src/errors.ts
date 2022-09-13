@@ -1,6 +1,6 @@
 // eslint-disable-next-line unicorn/custom-error-definition
 export class Warning extends Error {
-	constructor(message?: string) {
+	constructor(message: string) {
 		super(message)
 		this.name = "Warning"
 	}
