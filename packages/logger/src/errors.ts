@@ -2,6 +2,7 @@
 export class Warning extends Error {
 	constructor(message: string) {
 		super(message)
+		Object.setPrototypeOf(this, Warning.prototype)
 		this.name = "Warning"
 	}
 }
@@ -19,6 +20,7 @@ export class NetworkError extends Error {
 		code?: string
 	}) {
 		super(JSON.stringify(options, null, " "))
+		Object.setPrototypeOf(this, NetworkError.prototype)
 		this.name = "NetworkError"
 		this.code = options.code || "NETWORK_ERR"
 		this.status = options.status
