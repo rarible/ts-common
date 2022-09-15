@@ -1,4 +1,5 @@
-import type { RequestInit } from "node-fetch"
+import type { RequestInit, Response } from "node-fetch"
+import type { AxiosError } from "axios"
 
 // eslint-disable-next-line unicorn/custom-error-definition
 export class Warning extends Error {
@@ -41,7 +42,7 @@ export async function handleFetchErrorResponse(fetchResponse: any, options?: {
 	code?: string,
 	requestInit?: RequestInit
 }) {
-	if (fetchResponse && !fetchResponse.ok) {
+	if (isFetchResponse(fetchResponse) && !fetchResponse.ok) {
 		let responseData
 		try {
 			responseData = await fetchResponse.clone().json()
@@ -59,15 +60,23 @@ export async function handleFetchErrorResponse(fetchResponse: any, options?: {
 	}
 }
 
+function isFetchResponse(response: any): response is Response {
+	return response && "ok" in response
+}
+
 export function handleAxiosErrorResponse(axiosError: any, options?: { code: string }) {
-	if (axiosError?.isAxiosError === true && axiosError.response) {
+	if (isAxiosError(axiosError) && axiosError.response) {
 		throw new NetworkError({
 			status: axiosError?.response?.status,
-			url: axiosError?.config?.url,
+			url: axiosError?.config?.url || "",
 			data: axiosError?.response?.data,
 			formData: axiosError?.config?.data,
 			method: axiosError?.config?.method,
 			code: options?.code,
 		})
 	}
+}
+
+function isAxiosError(e: any): e is AxiosError {
+	return e?.isAxiosError === true
 }
