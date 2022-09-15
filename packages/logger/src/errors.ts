@@ -1,4 +1,4 @@
-import type {RequestInit} from "node-fetch"
+import type { RequestInit } from "node-fetch"
 
 // eslint-disable-next-line unicorn/custom-error-definition
 export class Warning extends Error {
