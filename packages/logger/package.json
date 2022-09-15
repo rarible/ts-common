@@ -25,6 +25,8 @@
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/json-stringify-safe": "5.0.0",
+    "@types/node-fetch": "^2.6.1",
+    "axios": "^0.26.1",
     "jest": "^27.3.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.7",
