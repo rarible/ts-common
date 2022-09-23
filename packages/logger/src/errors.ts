@@ -51,7 +51,7 @@ export async function handleFetchErrorResponse(fetchResponse: any, options?: {
 		}
 		throw new NetworkError({
 			status: fetchResponse.status,
-			url: fetchResponse.url,
+			url: decodeURIComponent(fetchResponse.url),
 			data: responseData,
 			formData: options?.requestInit?.body?.toString(),
 			method: options?.requestInit?.method,
@@ -66,9 +66,10 @@ function isFetchResponse(response: any): response is Response {
 
 export function handleAxiosErrorResponse(axiosError: any, options?: { code: string }) {
 	if (isAxiosError(axiosError) && axiosError.response) {
+		const url = axiosError?.config?.url || ""
 		throw new NetworkError({
 			status: axiosError?.response?.status,
-			url: axiosError?.config?.url || "",
+			url: url && decodeURIComponent(url),
 			data: axiosError?.response?.data,
 			formData: axiosError?.config?.data,
 			method: axiosError?.config?.method,
