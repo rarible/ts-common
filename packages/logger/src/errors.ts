@@ -65,7 +65,7 @@ function isFetchResponse(response: any): response is Response {
 }
 
 export function handleAxiosErrorResponse(axiosError: any, options?: { code: string }) {
-	if (isAxiosError(axiosError) && axiosError.response) {
+	if (isAxiosError(axiosError)) {
 		const url = axiosError?.config?.url || ""
 		throw new NetworkError({
 			status: axiosError?.response?.status,
