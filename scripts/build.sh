@@ -1,4 +1,6 @@
 set -e
+yarn bootstrap
+yarn clean
 yarn run build-types
 yarn run build-utils
 yarn run build-test-provider

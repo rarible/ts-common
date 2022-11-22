@@ -7,7 +7,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap && lerna link",
     "clean": "lerna run clean --parallel",
-    "build-all": "sh ./scripts/build.sh",
+    "build": "sh ./scripts/build.sh",
     "build-logger": "yarn workspace @rarible/logger run build",
     "build-types": "yarn workspace @rarible/types run build",
     "build-action": "yarn workspace @rarible/action run build",
