@@ -36,29 +36,6 @@ export function createEstimateGasMiddleware(
 						const multiplied = toBn(limitHex, 16).multipliedBy(threshold).toFixed(0)
 						params["gas"] = withPrefix(toBn(multiplied).toString(16))
 					}
-					const maxPriorityFeePerGasResponse = await engine.handle({
-						jsonrpc: "2.0",
-						id: getUniqueId(),
-						params: [],
-						method: "eth_maxPriorityFeePerGas",
-					})
-					const maxPriorityFeePerGasResponseRaw = handleHexResponse(maxPriorityFeePerGasResponse)
-
-					const blockResponse = await engine.handle({
-						jsonrpc: "2.0",
-						id: getUniqueId(),
-						params: ["pending", false],
-						method: "eth_getBlockByNumber",
-					})
-					const baseFeeRaw = extractbaseFeePerGas(blockResponse)
-
-					if (maxPriorityFeePerGasResponseRaw && baseFeeRaw) {
-						const baseFee = toBn(extractHex(baseFeeRaw), 16).toFixed(0)
-						const maxPriorityFeePerGas = extractHex(maxPriorityFeePerGasResponseRaw)
-						const maxFeePerGasHex = toBn(maxPriorityFeePerGas, 16).plus(baseFee).minus(1).toString(16)
-						params["maxPriorityFeePerGas"] = maxPriorityFeePerGasResponseRaw
-						params["maxFeePerGas"] = withPrefix(maxFeePerGasHex)
-					}
 				}
 			} catch (error) {
 				res.error = extractError(error)
