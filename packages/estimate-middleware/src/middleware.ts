@@ -65,18 +65,6 @@ function handleHexResponse(response: unknown): string {
 	throw new RpcError("Can't handle JSON rpc response", -32700)
 }
 
-function extractbaseFeePerGas(response: unknown): string {
-	if (isJSONRpcResponse(response)) {
-		if (response.error) {
-			throw response.error
-		}
-		if (typeof response.result === "object") {
-			return (response.result as any).baseFeePerGas
-		}
-	}
-	throw new RpcError("Can't handle JSON rpc response", -32700)
-}
-
 function getTransactionParams(request: JsonRpcRequest<unknown[]>): SendParams {
 	if (request.params) {
 		const [tx] = request.params
