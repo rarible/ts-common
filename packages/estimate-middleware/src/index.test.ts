@@ -27,6 +27,7 @@ describe("estimate middleware", () => {
 			from: wallet.getAddressString(),
 			to: randomAddress(),
 			value: 10000,
+			gasPrice: 10,
 		})
 		const tx = await web3.eth.getTransaction(receipt.transactionHash)
 		expect(tx.gas).toBe(toBn(21000).multipliedBy(1.1).toNumber())

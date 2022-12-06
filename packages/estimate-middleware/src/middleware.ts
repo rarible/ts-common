@@ -13,7 +13,8 @@ import { extractError, RpcError } from "./utils"
 export function createEstimateGasMiddleware(
 	engine: JsonRpcEngine,
 	force = false,
-	threshold = 1.03
+	threshold = 1.03,
+	multiplier = 2,
 ): JsonRpcMiddleware<string[], Block> {
 	return createAsyncMiddleware(async (req, res, next) => {
 		if (req.method === "eth_subscribe") {
@@ -35,6 +36,32 @@ export function createEstimateGasMiddleware(
 						const limitHex = extractHex(limitRaw)
 						const multiplied = toBn(limitHex, 16).multipliedBy(threshold).toFixed(0)
 						params["gas"] = withPrefix(toBn(multiplied).toString(16))
+					}
+					const maxPriorityFeePerGasResponse = await engine.handle({
+						jsonrpc: "2.0",
+						id: getUniqueId(),
+						params: [],
+						method: "eth_maxPriorityFeePerGas",
+					})
+					const maxPriorityFeePerGasResponseRaw = handleHexResponse(maxPriorityFeePerGasResponse)
+
+					const blockResponse = await engine.handle({
+						jsonrpc: "2.0",
+						id: getUniqueId(),
+						params: ["pending", false],
+						method: "eth_getBlockByNumber",
+					})
+					const baseFeeRaw = extractBaseFeePerGas(blockResponse)
+
+					if (maxPriorityFeePerGasResponseRaw && baseFeeRaw) {
+						if (params.gasPrice !== undefined) {
+							delete params.gasPrice
+						}
+						const baseFee = toBn(extractHex(baseFeeRaw), 16).multipliedBy(multiplier).toFixed(0)
+						const maxPriorityFeePerGas = extractHex(maxPriorityFeePerGasResponseRaw)
+						const maxFeePerGasHex = toBn(maxPriorityFeePerGas, 16).plus(baseFee).toString(16)
+						params["maxPriorityFeePerGas"] = maxPriorityFeePerGasResponseRaw
+						params["maxFeePerGas"] = withPrefix(maxFeePerGasHex)
 					}
 				}
 			} catch (error) {
@@ -60,6 +87,18 @@ function handleHexResponse(response: unknown): string {
 		}
 		if (typeof response.result === "string") {
 			return response.result
+		}
+	}
+	throw new RpcError("Can't handle JSON rpc response", -32700)
+}
+
+function extractBaseFeePerGas(response: unknown): string {
+	if (isJSONRpcResponse(response)) {
+		if (response.error) {
+			throw response.error
+		}
+		if (typeof response.result === "object") {
+			return (response.result as any).baseFeePerGas
 		}
 	}
 	throw new RpcError("Can't handle JSON rpc response", -32700)
