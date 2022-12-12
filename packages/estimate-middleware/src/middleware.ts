@@ -13,7 +13,8 @@ import { extractError, RpcError } from "./utils"
 export function createEstimateGasMiddleware(
 	engine: JsonRpcEngine,
 	force = false,
-	threshold = 1.03
+	threshold = 1.03,
+	multiplier = 2,
 ): JsonRpcMiddleware<string[], Block> {
 	return createAsyncMiddleware(async (req, res, next) => {
 		if (req.method === "eth_subscribe") {
@@ -50,12 +51,15 @@ export function createEstimateGasMiddleware(
 						params: ["pending", false],
 						method: "eth_getBlockByNumber",
 					})
-					const baseFeeRaw = extractbaseFeePerGas(blockResponse)
+					const baseFeeRaw = extractBaseFeePerGas(blockResponse)
 
 					if (maxPriorityFeePerGasResponseRaw && baseFeeRaw) {
-						const baseFee = toBn(extractHex(baseFeeRaw), 16).toFixed(0)
+						if (params.gasPrice !== undefined) {
+							delete params.gasPrice
+						}
+						const baseFee = toBn(extractHex(baseFeeRaw), 16).multipliedBy(multiplier).toFixed(0)
 						const maxPriorityFeePerGas = extractHex(maxPriorityFeePerGasResponseRaw)
-						const maxFeePerGasHex = toBn(maxPriorityFeePerGas, 16).plus(baseFee).minus(1).toString(16)
+						const maxFeePerGasHex = toBn(maxPriorityFeePerGas, 16).plus(baseFee).toString(16)
 						params["maxPriorityFeePerGas"] = maxPriorityFeePerGasResponseRaw
 						params["maxFeePerGas"] = withPrefix(maxFeePerGasHex)
 					}
@@ -88,7 +92,7 @@ function handleHexResponse(response: unknown): string {
 	throw new RpcError("Can't handle JSON rpc response", -32700)
 }
 
-function extractbaseFeePerGas(response: unknown): string {
+function extractBaseFeePerGas(response: unknown): string {
 	if (isJSONRpcResponse(response)) {
 		if (response.error) {
 			throw response.error
