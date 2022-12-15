@@ -1,9 +1,7 @@
-import stringify from "json-stringify-safe"
-import { isError } from "../utils/is-error"
 import { Batcher } from "../utils/batcher"
-import { fixWithLimit } from "../utils/size-of"
 import type { AbstractLogger, LoggableValue } from "../domain"
 import { LogLevel } from "../domain"
+import { getLoggableMessage } from "../utils/get-loggable-message"
 
 export type RemoteLoggerConfig = {
 	initialContext: Promise<Record<string, string>>
@@ -51,7 +49,7 @@ export class RemoteLogger implements AbstractLogger {
 	private async log(level: LogLevel, ...params: LoggableValue[]) {
 		await this.rawAsync({
 			level,
-			message: this.getMessage(params),
+			message: getLoggableMessage(this.config.maxByteSize, ...params),
 		})
 	}
 
@@ -71,12 +69,6 @@ export class RemoteLogger implements AbstractLogger {
 			...this.config.context,
 			...values,
 		}
-	}
-
-	private getMessage(values: LoggableValue[]) {
-		const fixed = fixWithLimit(values, this.config.maxByteSize)
-		const optional = fixed.map(p => isError(p) ? `${p}` : stringify(p))
-		return optional.length > 0 ? ` ${optional.join(", ")}` : ""
 	}
 }
 
