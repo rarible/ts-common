@@ -49,7 +49,7 @@ export class RemoteLogger implements AbstractLogger {
 	private async log(level: LogLevel, ...params: LoggableValue[]) {
 		await this.rawAsync({
 			level,
-			message: getLoggableMessage(this.config.maxByteSize, params),
+			message: getLoggableMessage(this.config.maxByteSize, ...params),
 		})
 	}
 
