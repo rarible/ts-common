@@ -1,6 +1,6 @@
 import { RemoteLogger } from "."
 
-describe("ElkLogger", () => {
+describe("RemoteLogger", () => {
 	it("should correctly log data", async () => {
 		const handler = jest.fn()
 		const logger = new RemoteLogger(handler, {
@@ -17,7 +17,7 @@ describe("ElkLogger", () => {
 			isCreator: true,
 		})
 
-		const [calls, result] = await new Promise((resolve) => {
+		const [calls, result] = await new Promise<[number, number]>((resolve) => {
 			setTimeout(() => {
 				resolve([handler.mock.calls.length, handler.mock.calls[0][0]])
 			}, 200)
@@ -44,7 +44,7 @@ describe("ElkLogger", () => {
 			message: "test raw",
 		})
 
-		const [calls, result] = await new Promise((resolve) => {
+		const [calls, result] = await new Promise<[number, number]>((resolve) => {
 			setTimeout(() => {
 				resolve([handler.mock.calls.length, handler.mock.calls[0][0]])
 			}, 200)
@@ -76,7 +76,7 @@ describe("ElkLogger", () => {
 			isCreator: true,
 		})
 
-		const [calls, result] = await new Promise((resolve) => {
+		const [calls, result] = await new Promise<[number, number]>((resolve) => {
 			setTimeout(() => {
 				resolve([handler.mock.calls.length, handler.mock.calls[0][0]])
 			}, 300)

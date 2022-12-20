@@ -38,21 +38,21 @@ export class NetworkError extends Error {
 	}
 }
 
-export async function handleFetchErrorResponse(fetchResponse: any, options?: {
+export async function handleFetchErrorResponse(response: unknown, options?: {
 	code?: string,
 	requestInit?: RequestInit
 }) {
-	if (isFetchResponse(fetchResponse) && !fetchResponse.ok) {
-		let responseData
-		try {
-			responseData = await fetchResponse.clone().json()
-		} catch (e) {
-			responseData = await fetchResponse.clone().text()
-		}
+	if (isFetchResponse(response) && !response.ok) {
+		const data = await response
+			.clone()
+			.json()
+			.catch(() => response.clone().text())
+			.catch(() => "unknown error")
+
 		throw new NetworkError({
-			status: fetchResponse.status,
-			url: decodeURIComponent(fetchResponse.url),
-			data: responseData,
+			status: response.status,
+			url: decodeURIComponent(response.url),
+			data,
 			formData: options?.requestInit?.body?.toString(),
 			method: options?.requestInit?.method,
 			code: options?.code,
@@ -60,24 +60,51 @@ export async function handleFetchErrorResponse(fetchResponse: any, options?: {
 	}
 }
 
-function isFetchResponse(response: any): response is Response {
-	return response && "ok" in response
+function isFetchResponse(response: unknown): response is Response {
+	return typeof response === "object" && response !== null && "ok" in response
 }
 
-export function handleAxiosErrorResponse(axiosError: any, options?: { code: string }) {
-	if (isAxiosError(axiosError)) {
-		const url = axiosError?.config?.url || ""
-		throw new NetworkError({
-			status: axiosError?.response?.status,
-			url: url && decodeURIComponent(url),
-			data: axiosError?.response?.data,
-			formData: axiosError?.config?.data,
-			method: axiosError?.config?.method,
-			code: options?.code,
-		})
+export function handleAxiosErrorResponse(error: unknown, options?: { code: string }) {
+	if (isAxiosError(error)) {
+		throw createAxiosNetworkError(error, options?.code)
 	}
 }
 
-function isAxiosError(e: any): e is AxiosError {
-	return e?.isAxiosError === true
+function decodeUri(url: string | undefined): string {
+	return url ? decodeURIComponent(url) : "unknown-url"
+}
+
+function isAxiosError(e: unknown): e is AxiosError {
+	return typeof e === "object" && e !== null && "isAxiosError" in e
+}
+
+function createAxiosNetworkError(error: AxiosError<any, any>, code?: string): NetworkError {
+	if (error.response) {
+		return new NetworkError({
+			status: error.response.status,
+			url: decodeUri(error.config.url),
+			data: error.response.data,
+			formData: error.config.data,
+			method: error.config.method,
+			code,
+		})
+	}
+	if (error.request) {
+		return new NetworkError({
+			status: error.request?.status,
+			url: decodeUri(error.config.url),
+			data: error.request?.readyState,
+			formData: error.config.data,
+			method: error.config.method,
+			code,
+		})
+	}
+	return new NetworkError({
+		status: -1,
+		url: "unknown",
+		data: "none",
+		formData: undefined,
+		method: "unknown",
+		code,
+	})
 }

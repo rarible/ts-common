@@ -1,5 +1,5 @@
 import { Batcher } from "../utils/batcher"
-import type { AbstractLogger, LoggableValue } from "../domain"
+import type { AbstractLogger } from "../domain"
 import { LogLevel } from "../domain"
 import { getLoggableMessage } from "../utils/get-loggable-message"
 
@@ -22,38 +22,38 @@ export class RemoteLogger implements AbstractLogger {
 		this.batchManager = new Batcher<Record<string, string>>(this.config.dropBatchInterval, handler)
 	}
 
-	debug(...params: LoggableValue[]) {
+	debug(...params: any[]) {
 		this.log.apply(this, [LogLevel.DEBUG, ...params]).then()
 	}
 
-	error(...params: LoggableValue[]) {
+	error(...params: any[]) {
 		this.log.apply(this, [LogLevel.ERROR, ...params]).then()
 	}
 
-	info(...params: LoggableValue[]) {
+	info(...params: any[]) {
 		this.log.apply(this, [LogLevel.INFO, ...params]).then()
 	}
 
-	trace(...params: LoggableValue[]) {
+	trace(...params: any[]) {
 		this.log.apply(this, [LogLevel.TRACE, ...params]).then()
 	}
 
-	warn(...params: LoggableValue[]) {
+	warn(...params: any[]) {
 		this.log.apply(this, [LogLevel.WARN, ...params]).then()
 	}
 
-	raw(data: Record<string, LoggableValue>): void {
+	raw(data: Record<string, any>): void {
 		this.rawAsync(data).then()
 	}
 
-	private async log(level: LogLevel, ...params: LoggableValue[]) {
+	private async log(level: LogLevel, ...params: any[]) {
 		await this.rawAsync({
 			level,
 			message: getLoggableMessage(this.config.maxByteSize, ...params),
 		})
 	}
 
-	private async rawAsync(data: Record<string, LoggableValue>) {
+	private async rawAsync(data: Record<string, any>) {
 		try {
 			const finalData = await this.withContext(data)
 			this.batchManager.add(finalData)

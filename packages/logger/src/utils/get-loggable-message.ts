@@ -1,10 +1,8 @@
-import stringify from "json-stringify-safe"
-import type { LoggableValue } from "../domain"
 import { fixWithLimit } from "./size-of"
-import { isError } from "./is-error"
+import { toLoggableValue } from "./to-loggable-value"
 
-export function getLoggableMessage(maxByteSize: number, ...values: LoggableValue[]) {
+export function getLoggableMessage(maxByteSize: number, ...values: any[]) {
 	const fixed = fixWithLimit(values, maxByteSize)
-	const optional = fixed.map(p => isError(p) ? `${p}` : stringify(p))
+	const optional = fixed.map(p => toLoggableValue(p))
 	return optional.length > 0 ? ` ${optional.join(", ")}` : ""
 }

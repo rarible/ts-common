@@ -6,7 +6,7 @@ describe("utils/batcher", () => {
 		const batcher = new Batcher<number>(100, myHandler)
 		batcher.add(2)
 		batcher.add(1)
-		const [amount, result] = await new Promise((resolve) => {
+		const [amount, result] = await new Promise<[number, number]>((resolve) => {
 			setTimeout(() => {
 				resolve([myHandler.mock.calls.length, myHandler.mock.calls[0][0]])
 			}, 200)
