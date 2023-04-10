@@ -4,9 +4,9 @@ import { createTestProvider } from "./utils/create-test-provider"
 import { signTypedData } from "./utils/sign-typed-data"
 import { useTestProvider } from "./utils/use-test-provider"
 
-describe("TestProvider", function () {
+describe("TestProvider", () => {
 	const { provider, wallet } = createTestProvider(undefined)
-	const web3 = new Web3(provider)
+	const web3 = new Web3(provider as any)
 
 	useTestProvider(provider)
 

@@ -3,32 +3,34 @@ import type { AxiosError } from "axios"
 
 // eslint-disable-next-line unicorn/custom-error-definition
 export class Warning extends Error {
+	readonly name = "Warning"
 	constructor(message: string) {
 		super(message)
 		Object.setPrototypeOf(this, Warning.prototype)
-		this.name = "Warning"
 	}
 }
 
-export class NetworkError extends Error {
-	status?: number
-	url: string
-	data?: any
-	code?: string
-	formData?: any
-	method?: string
+export type NetworkErrorConfig = {
+	status: number | undefined
+	url: string,
+	data: unknown | undefined
+	code: string | undefined
+	formData: unknown | undefined
+	method: string | undefined
+}
 
-	constructor(options: {
-		status?: number,
-		url: string,
-		data?: any,
-		code?: string,
-		formData?: any,
-		method?: string
-	}) {
+export class NetworkError extends Error {
+	readonly name = "NetworkError"
+	readonly status: number | undefined
+	readonly url: string
+	readonly data?: any
+	readonly code: string
+	readonly formData?: any
+	readonly method: string | undefined
+
+	constructor(options: NetworkErrorConfig) {
 		super(JSON.stringify(options, null, " "))
 		Object.setPrototypeOf(this, NetworkError.prototype)
-		this.name = "NetworkError"
 		this.code = options.code || "NETWORK_ERR"
 		this.status = options.status
 		this.url = options.url
