@@ -1,10 +1,4 @@
-import {
-  blockchains,
-  blockchainsLayer1,
-  toLayerOneBlockchain,
-  withBlockchain,
-  withLayer1Blockchain,
-} from "../../blockchains"
+import { blockchains, blockchainsLayer1, toLayerOneBlockchain, withBlockchain, withLayer1Blockchain } from "../enum"
 import { InvalidUnionAddressError, toUnionAddress } from "."
 
 describe("toUnionAddress", () => {

@@ -1,7 +1,7 @@
-import { randomBinary } from "../../binary"
+import { randomBinary } from "../../../binary"
 
 export type EVMAddress = string & {
-  __IS_ADDRESS__: true
+  __IS_EVM_ADDRESS__: true
 }
 
 /**
