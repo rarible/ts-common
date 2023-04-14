@@ -1,6 +1,7 @@
-import { isRealBlockchainSpecified } from "./blockchains"
+import type { WithBlockchain } from "../blockchains"
+import { isRealBlockchainSpecified } from "../blockchains"
 
-export type OwnershipId = string & {
+export type OwnershipId = WithBlockchain & {
   __IS_OWNERSHIP_ID__: true
 }
 

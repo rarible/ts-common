@@ -1,6 +1,7 @@
+import type { WithBlockchain } from "./blockchains"
 import { isRealBlockchainSpecified } from "./blockchains"
 
-export type ContractAddress = string & {
+export type ContractAddress = WithBlockchain & {
   __IS_CONTRACT_ADDRESS__: true
 }
 

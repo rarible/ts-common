@@ -1,21 +1,25 @@
-import { randomBinary } from "./binary"
+import { randomBinary } from "../../binary"
+
+// example: 0x01658d9b94068f3c
+const regexp = new RegExp(/^0*x*[0-9a-f]{16}$/)
 
 export type FlowAddress = string & {
   __IS_FLOW_ADDRESS__: true
 }
 
 export function toFlowAddress(value: string): FlowAddress {
-  let hex: string
-  if (value.startsWith("0x")) {
-    hex = value.substring(2).toLowerCase()
-  } else {
-    hex = value.toLowerCase()
-  }
-  const re = /[0-9a-f]{16}/g
-  if (re.test(hex)) {
-    return `0x${hex}` as FlowAddress
+  if (regexp.test(value)) {
+    return value as FlowAddress
   } else {
     throw new Error(`not an flow address: ${value}`)
+  }
+}
+
+export function toFlowAddressSafe(raw: string): FlowAddress | undefined {
+  try {
+    return toFlowAddress(raw)
+  } catch (err) {
+    return undefined
   }
 }
 
