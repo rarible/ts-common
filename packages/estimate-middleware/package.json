@@ -28,7 +28,7 @@
     "json-rpc-engine": "^6.1.0"
   },
   "devDependencies": {
-    "@rarible/test-provider": "^0.10.0-alpha.0",
+    "ethereumjs-wallet": "^1.0.2",
     "ganache": "^7.7.7",
     "web3": "^1.8.2"
   },

@@ -1,0 +1,30 @@
+{
+  "name": "@rarible/prettier",
+  "version": "0.10.0-alpha.0",
+  "private": false,
+  "description": "Prettier config",
+  "keywords": [
+    "prettier",
+    "config"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rariblecom/ts-common.git"
+  },
+  "license": "MIT",
+  "main": "./index.js",
+  "files": [
+    "/index.js"
+  ],
+  "scripts": {
+    "test": "jest --passWithNoTests",
+    "verify": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "prettier": ">=2.0.0 <3.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}

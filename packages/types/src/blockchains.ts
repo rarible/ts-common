@@ -1,33 +1,21 @@
-const blockchains = [
-	"ETHEREUM",
-	"FLOW",
-	"TEZOS",
-	"SOLANA",
-]
+const blockchains = ["ETHEREUM", "FLOW", "TEZOS", "SOLANA"]
 
-const realBlockchains = [
-	"ETHEREUM",
-	"FLOW",
-	"TEZOS",
-	"POLYGON",
-	"SOLANA",
-	"IMMUTABLEX",
-]
+const realBlockchains = ["ETHEREUM", "FLOW", "TEZOS", "POLYGON", "SOLANA", "IMMUTABLEX"]
 
 export function isBlockchainSpecified(value: string) {
-	for (const blockchain of blockchains) {
-		if (value.startsWith(`${blockchain}:`)) {
-			return true
-		}
-	}
-	return false
+  for (const blockchain of blockchains) {
+    if (value.startsWith(`${blockchain}:`)) {
+      return true
+    }
+  }
+  return false
 }
 
 export function isRealBlockchainSpecified(value: string) {
-	for (const blockchain of realBlockchains) {
-		if (value.startsWith(`${blockchain}:`)) {
-			return true
-		}
-	}
-	return false
+  for (const blockchain of realBlockchains) {
+    if (value.startsWith(`${blockchain}:`)) {
+      return true
+    }
+  }
+  return false
 }

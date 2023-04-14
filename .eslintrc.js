@@ -1,1 +1,7 @@
-module.exports = require("./packages/eslint-ts/index.js")
+module.exports = {
+  extends: ["./packages/eslint-ts", "prettier"],
+  plugins: ["prettier"],
+  rules: {
+    "prettier/prettier": ["error"],
+  },
+}
