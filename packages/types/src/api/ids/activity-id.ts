@@ -1,5 +1,5 @@
-import type { WithBlockchain } from "../blockchains"
-import { isRealBlockchainSpecified } from "../blockchains"
+import type { WithBlockchain } from "../../blockchains"
+import { isRealBlockchainSpecified } from "../../blockchains"
 
 export type ActivityId = WithBlockchain & {
   __IS_ACTIVITY_ID__: true

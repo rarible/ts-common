@@ -1,9 +1,11 @@
 import type { EVMTransactionHash } from "../evm"
-import type { BlockchainLayer1Enum } from "../union"
+import type { BlockchainEnum } from "../union"
 
-export interface HashByBlockchain extends Record<BlockchainLayer1Enum, string> {
-  [BlockchainLayer1Enum.ETHEREUM]: EVMTransactionHash
-  [BlockchainLayer1Enum.FLOW]: string
-  [BlockchainLayer1Enum.TEZOS]: string
-  [BlockchainLayer1Enum.SOLANA]: string
+export interface HashByBlockchain extends Record<BlockchainEnum, string> {
+  [BlockchainEnum.ETHEREUM]: EVMTransactionHash
+  [BlockchainEnum.POLYGON]: EVMTransactionHash
+  [BlockchainEnum.IMMUTABLEX]: EVMTransactionHash
+  [BlockchainEnum.FLOW]: string
+  [BlockchainEnum.TEZOS]: string
+  [BlockchainEnum.SOLANA]: string
 }

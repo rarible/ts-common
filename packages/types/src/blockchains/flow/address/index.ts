@@ -1,4 +1,4 @@
-import { randomBinary } from "../../../binary"
+import { randomBinary } from "../../../common/binary"
 
 // example: 0x01658d9b94068f3c
 const regexp = new RegExp(/^0*x*[0-9a-f]{16}$/)

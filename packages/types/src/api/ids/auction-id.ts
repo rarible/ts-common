@@ -1,5 +1,5 @@
-import type { WithBlockchain } from "../blockchains"
-import { isRealBlockchainSpecified } from "../blockchains"
+import type { WithBlockchain } from "../../blockchains"
+import { isRealBlockchainSpecified } from "../../blockchains"
 
 export type AuctionId = WithBlockchain & {
   __IS_AUCTION_ID__: true

@@ -1,4 +1,4 @@
-import { randomBinary } from "../../../binary"
+import { randomBinary } from "../../../common/binary"
 
 export type EVMAddress = string & {
   __IS_EVM_ADDRESS__: true
