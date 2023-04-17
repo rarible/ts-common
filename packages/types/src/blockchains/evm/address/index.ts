@@ -32,8 +32,8 @@ export function toEVMAddressSafe(raw: string): EVMAddress | undefined {
   }
 }
 
-export const ZERO_ADDRESS = toEVMAddress("0x0000000000000000000000000000000000000000")
+export const EVM_ZERO_ADDRESS = toEVMAddress("0x0000000000000000000000000000000000000000")
 
-export function randomAddress() {
+export function randomEVMAddress(): EVMAddress {
   return toEVMAddress(randomBinary(20))
 }

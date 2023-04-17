@@ -1,4 +1,4 @@
-import { ZERO_ADDRESS, randomAddress, toEVMAddress, toEVMAddressSafe } from "./index"
+import { EVM_ZERO_ADDRESS, randomEVMAddress, toEVMAddress, toEVMAddressSafe } from "./index"
 
 describe("toEVMAddress", () => {
   it("should throw if not address", () => {
@@ -6,7 +6,7 @@ describe("toEVMAddress", () => {
   })
 
   it("should return if the address is valid", () => {
-    toEVMAddress(randomAddress())
+    toEVMAddress(randomEVMAddress())
   })
 })
 
@@ -16,6 +16,6 @@ describe("toEVMAddressSafe", () => {
   })
 
   it("should convert to address", () => {
-    expect(toEVMAddressSafe(ZERO_ADDRESS)).toEqual(ZERO_ADDRESS)
+    expect(toEVMAddressSafe(EVM_ZERO_ADDRESS)).toEqual(EVM_ZERO_ADDRESS)
   })
 })

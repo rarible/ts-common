@@ -15,4 +15,4 @@ export interface ContractAddressByBlockchain extends Record<BlockchainEnum, stri
  * Vanilla blockchain address format
  */
 
-export type ContractAddress = ContractAddressByBlockchain[BlockchainEnum]
+export type BlockchainContractAddress = ContractAddressByBlockchain[BlockchainEnum]

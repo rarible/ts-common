@@ -15,4 +15,4 @@ export interface AddressByBlockchain extends Record<BlockchainEnum, string> {
  * Vanilla blockchain address format
  */
 
-export type Address = AddressByBlockchain[BlockchainEnum]
+export type BlockchainAddress = AddressByBlockchain[BlockchainEnum]

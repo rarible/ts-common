@@ -15,4 +15,4 @@ export interface HashByBlockchain extends Record<BlockchainEnum, string> {
  * Vanilla blockchain hash format
  */
 
-export type Hash = HashByBlockchain[BlockchainEnum]
+export type BlockchainTransactionHash = HashByBlockchain[BlockchainEnum]
