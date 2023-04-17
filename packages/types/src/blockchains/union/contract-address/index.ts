@@ -10,13 +10,13 @@ import { isRealBlockchainSpecified } from "../enum"
  * FLOW:A.0x01658d9b94068f3c.CommonNFT
  */
 
-export type ContractAddress = WithBlockchain & {
+export type UnionContractAddress = WithBlockchain & {
   __IS_CONTRACT_ADDRESS__: true
 }
 
-export function toContractAddress(value: string): ContractAddress {
+export function toUnionContractAddress(value: string): UnionContractAddress {
   if (!isRealBlockchainSpecified(value)) {
     throw new Error(`Not a ContractAddress: ${value}`)
   }
-  return value as ContractAddress
+  return value as UnionContractAddress
 }

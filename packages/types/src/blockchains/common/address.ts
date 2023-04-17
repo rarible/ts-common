@@ -10,3 +10,9 @@ export interface AddressByBlockchain extends Record<BlockchainEnum, string> {
   [BlockchainEnum.SOLANA]: string
   [BlockchainEnum.TEZOS]: string
 }
+
+/**
+ * Vanilla blockchain address format
+ */
+
+export type Address = AddressByBlockchain[BlockchainEnum]

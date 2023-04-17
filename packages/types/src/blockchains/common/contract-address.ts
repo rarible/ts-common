@@ -10,3 +10,9 @@ export interface ContractAddressByBlockchain extends Record<BlockchainEnum, stri
   [BlockchainEnum.SOLANA]: string
   [BlockchainEnum.TEZOS]: string
 }
+
+/**
+ * Vanilla blockchain address format
+ */
+
+export type ContractAddress = ContractAddressByBlockchain[BlockchainEnum]
