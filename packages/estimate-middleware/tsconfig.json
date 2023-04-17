@@ -1,7 +1,10 @@
 {
   "extends": "../../tsconfig.json",
-  "include": [
-    "src/**/*",
-    "./typings.d.ts"
-  ]
+  "include": ["src/**/*", "./typings.d.ts"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@rarible/types": ["../types/src"]
+    }
+  }
 }

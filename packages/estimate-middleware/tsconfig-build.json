@@ -1,11 +1,12 @@
 {
   "extends": "./tsconfig.json",
+  "include": ["src/**/*", "./typings.d.ts"],
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "build",
+    "paths": {
+      "@rarible/types": ["../types/src"]
+    }
   },
-  "include": [
-    "src/**/*",
-    "./typings.d.ts"
-  ],
   "exclude": ["src/**/*.test.ts"]
 }

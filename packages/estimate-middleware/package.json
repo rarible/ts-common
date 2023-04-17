@@ -19,7 +19,7 @@
   "scripts": {
     "build": "tsc --project tsconfig-build.json",
     "clean": "rimraf ./build",
-    "test": "jest --passWithNoTests",
+    "test": "jest --silent --passWithNoTests",
     "verify": "tsc --noEmit"
   },
   "dependencies": {

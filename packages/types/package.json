@@ -23,7 +23,7 @@
     "verify": "tsc --noEmit"
   },
   "peerDependencies": {
-    "tslib": "^2.3.1"
+    "tslib": ">=2.0.0 <3.0.0"
   },
   "publishConfig": {
     "access": "public",
