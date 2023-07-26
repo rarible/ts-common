@@ -1,3 +1,6 @@
 export function isError(value: unknown): value is Error {
-  return Boolean(value && typeof value === "object" && "stack" in value)
+  if (typeof value === "object" && value !== null && "stack" in value && "name" in value && "message" in value) {
+    return true
+  }
+  return false
 }

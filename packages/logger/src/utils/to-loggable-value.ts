@@ -3,6 +3,6 @@ import type { LoggableValue } from "../domain"
 import { isError } from "./is-error"
 
 export function toLoggableValue(x: unknown): LoggableValue {
-  if (isError(x)) return `${x}`
+  if (isError(x)) return `${x.name}: ${x.message}`
   return stringify(x)
 }
