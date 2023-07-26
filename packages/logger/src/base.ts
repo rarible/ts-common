@@ -1,111 +1,85 @@
 import { LogLevel } from "./domain"
-import type { AbstractLogger, LoggableShape } from "./domain"
-import { getLoggableMessage } from "./utils/get-loggable-message"
+import type { AbstractLogger, LoggerData, LoggerRawData, LoggerRequiredRawData, LoggerContextData } from "./domain"
+import { stringifyObject } from "./utils/stringify"
 
 export abstract class LoggerTransport {
-  abstract handle: (entry: LoggableShape) => Promise<void>
+  abstract handle: (entry: LoggerData) => Promise<void>
+  abstract reset: () => void
 }
 
-export class Logger<C extends LoggableShape> implements AbstractLogger<C> {
+export class Logger<C extends LoggerContextData = {}> implements AbstractLogger<C> {
   private contextOverrides: Partial<C> = {}
 
   constructor(
     private readonly transports: LoggerTransport[],
-    public readonly getContext: () => Promise<C>,
-    private readonly maxByteSize: number = 10240,
+    private readonly _getContext: () => Promise<C>,
+    private readonly maxByteSize: number = 1024 * 10,
   ) {}
 
-  /**
-   * Allows to send messages to all binded transports
-   * please don't use it if you don't know how to use it
-   * mostly for internal usage
-   */
-  write = (entry: LoggableShape) =>
-    Promise.all(
-      this.transports.map(transport =>
-        this.getContext()
-          .then(contextValue =>
-            transport.handle({
-              ...entry,
-              ...contextValue,
-              ...this.contextOverrides,
-            }),
-          )
-          .catch(error => console.error("Can't handle log", entry, error)),
-      ),
-    )
-
-  /**
-   * Allows to send any data with level
-   */
-  writeData = (level: LogLevel, data: LoggableShape) => this.write({ level, ...data })
-
-  /**
-   * Sends raw data. For internal usage only
-   * @deprecated use `write` method instead
-   */
-  raw = (entry: LoggableShape) => {
-    this.write(entry)
+  getContext = async () => {
+    return {
+      ...(await this._getContext()),
+      ...this.contextOverrides,
+    }
   }
 
-  /**
-   * Transforms your params into single string
-   * and sends it as message with `level` and `message` fields
-   */
-  writeMessage = (level: LogLevel, ...params: any[]) =>
-    this.writeData(level, {
-      message: getLoggableMessage(this.maxByteSize, ...params),
+  raw = async (data: LoggerRequiredRawData) => {
+    try {
+      await Promise.all(
+        this.transports.map(async transport =>
+          transport.handle(
+            stringifyObject(this.maxByteSize, {
+              ...data,
+              ...(await this.getContext()),
+            }),
+          ),
+        ),
+      )
+    } catch (error) {
+      console.error("Logger error", data, error)
+    }
+  }
+
+  data = (level: LogLevel, data: LoggerRawData, args: any[] = []) =>
+    this.raw({
+      level,
+      message: args,
+      ...data,
     })
 
-  /**
-   * Shortcut for `writeMessage(LogLevel.TRACE)`
-   */
+  message = (level: LogLevel, ...params: any[]) =>
+    this.raw({
+      level,
+      message: params,
+    })
+
   trace = (...params: any[]) => {
-    this.writeMessage(LogLevel.TRACE, ...params)
+    this.message(LogLevel.TRACE, ...params)
   }
 
-  /**
-   * Shortcut for `writeMessage(LogLevel.WARN)`
-   */
   warn = (...params: any[]) => {
-    this.writeMessage(LogLevel.WARN, ...params)
+    this.message(LogLevel.WARN, ...params)
   }
 
-  /**
-   * Shortcut for `writeMessage(LogLevel.ERROR)`
-   */
   error = (...params: any[]) => {
-    this.writeMessage(LogLevel.ERROR, ...params)
+    this.message(LogLevel.ERROR, ...params)
   }
 
-  /**
-   * Shortcut for `writeMessage(LogLevel.INFO)`
-   */
   info = (...params: any[]) => {
-    this.writeMessage(LogLevel.INFO, ...params)
+    this.message(LogLevel.INFO, ...params)
   }
 
-  /**
-   * Shortcut for `writeMessage(LogLevel.DEBUG)`
-   */
   debug = (...params: any[]) => {
-    this.writeMessage(LogLevel.DEBUG, ...params)
+    this.message(LogLevel.DEBUG, ...params)
   }
 
-  /**
-   * Will create new binded instance of logger with extended context
-   * useful for cases when you need to `bind` some properties for several logs
-   */
-  extend = <NewC extends LoggableShape>(nextContext: NewC): Logger<NewC & C> =>
+  extend = <NewC extends LoggerContextData>(nextContext: NewC): Logger<NewC & C> =>
     new Logger(
       this.transports,
-      async () => {
-        const currentContextValue = await this.getContext()
-        return {
-          ...currentContextValue,
-          ...nextContext,
-        }
-      },
+      async () => ({
+        ...(await this.getContext()),
+        ...nextContext,
+      }),
       this.maxByteSize,
     )
 
@@ -114,5 +88,8 @@ export class Logger<C extends LoggableShape> implements AbstractLogger<C> {
       ...this.contextOverrides,
       ...nextContext,
     }
+    this.transports.forEach(x => {
+      x.reset()
+    })
   }
 }

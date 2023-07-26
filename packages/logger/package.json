@@ -20,7 +20,8 @@
     "verify": "tsc --noEmit"
   },
   "dependencies": {
-    "json-stringify-safe": "^5.0.1"
+    "json-stringify-safe": "^5.0.1",
+    "object-sizeof": "^2.6.3"
   },
   "devDependencies": {
     "@types/json-stringify-safe": "5.0.0",

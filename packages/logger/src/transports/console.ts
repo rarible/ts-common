@@ -1,9 +1,8 @@
 import { LoggerTransport } from "../base"
-import type { LoggableShape } from "../domain"
+import type { LoggerData } from "../domain"
 
 export class ConsoleTransport extends LoggerTransport {
-  handle = async (data: LoggableShape) => {
-    const { level, ...restData } = data
-    return console.log(level, restData)
-  }
+  handle = async (data: LoggerData) => console.log(data)
+
+  reset = () => {}
 }

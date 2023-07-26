@@ -14,28 +14,28 @@ function createSimpleLogger() {
 }
 
 describe("BaseLogger", () => {
-  it("should correctly log data", async () => {
+  it("should correctly log message", async () => {
     const [logger, handler] = createSimpleLogger()
 
-    await logger.writeMessage(LogLevel.INFO, "test", {
+    await logger.message(LogLevel.INFO, "test", {
       name: "Ivan",
       isCreator: true,
     })
 
-    await logger.writeMessage(LogLevel.ERROR, new Error("My new error"), {
+    await logger.message(LogLevel.ERROR, new Error("My new error"), {
       name: "Ivan",
       isCreator: true,
     })
 
     expect(handler.mock.calls.length).toEqual(2)
     expect(handler.mock.calls[0][0]).toStrictEqual({
-      level: "INFO",
-      message: ' "test", {"name":"Ivan","isCreator":true}',
+      level: LogLevel.INFO,
+      message: 'test, {"name":"Ivan","isCreator":true}',
       name: "John Doe",
     })
     expect(handler.mock.calls[1][0]).toStrictEqual({
-      level: "ERROR",
-      message: ' Error: My new error, {"name":"Ivan","isCreator":true}',
+      level: LogLevel.ERROR,
+      message: '[Error: My new error], {"name":"Ivan","isCreator":true}',
       name: "John Doe",
     })
   })
@@ -43,14 +43,14 @@ describe("BaseLogger", () => {
   it("should correctly log raw data", async () => {
     const [logger, handler] = createSimpleLogger()
 
-    await logger.write({
-      level: "INFO",
-      message: "test raw",
+    await logger.raw({
+      level: LogLevel.INFO,
+      message: ["test raw"],
     })
 
     expect(handler.mock.calls.length).toEqual(1)
     expect(handler.mock.calls[0][0]).toStrictEqual({
-      level: "INFO",
+      level: LogLevel.INFO,
       message: "test raw",
       name: "John Doe",
     })
@@ -62,34 +62,59 @@ describe("BaseLogger", () => {
       favoriteNumber: "42",
     })
 
-    await extended.write({
-      level: "INFO",
-      message: "test raw",
+    await extended.raw({
+      level: LogLevel.INFO,
+      message: ["test raw"],
+      car: undefined,
     })
 
     expect(handler.mock.calls.length).toEqual(1)
     expect(handler.mock.calls[0][0]).toStrictEqual({
-      level: "INFO",
+      level: LogLevel.INFO,
       message: "test raw",
       name: "John Doe",
       favoriteNumber: "42",
+      car: "[null]",
     })
 
     extended.updateContext({
       favoriteNumber: "1337",
     })
 
-    await extended.write({
-      level: "INFO",
-      message: "test raw",
+    await extended.raw({
+      level: LogLevel.INFO,
+      message: ["test raw"],
     })
 
     expect(handler.mock.calls.length).toEqual(2)
     expect(handler.mock.calls[1][0]).toStrictEqual({
-      level: "INFO",
+      level: LogLevel.INFO,
       message: "test raw",
       name: "John Doe",
       favoriteNumber: "1337",
+    })
+  })
+
+  it("should update context and then extend", async () => {
+    const [logger, handler] = createSimpleLogger()
+    logger.updateContext({
+      name: "Jane Air",
+    })
+
+    const extended = logger.extend({
+      favoriteNumber: "42",
+    })
+    await extended.raw({
+      level: LogLevel.INFO,
+      message: ["test raw"],
+    })
+
+    expect(handler.mock.calls.length).toEqual(1)
+    expect(handler.mock.calls[0][0]).toStrictEqual({
+      level: LogLevel.INFO,
+      message: "test raw",
+      name: "Jane Air",
+      favoriteNumber: "42",
     })
   })
 })

@@ -1,9 +1,12 @@
 import { LoggerTransport } from "../base"
-import type { LoggableShape } from "../domain"
+import type { LoggerData } from "../domain"
 
 export class CustomTransport extends LoggerTransport {
-  constructor(private readonly handler: (value: LoggableShape) => Promise<void>) {
+  constructor(private readonly handler: (value: LoggerData) => Promise<void>) {
     super()
   }
-  handle = (data: LoggableShape) => this.handler(data)
+
+  handle = (data: LoggerData) => this.handler(data)
+
+  reset = () => {}
 }
