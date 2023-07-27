@@ -1,5 +1,7 @@
 import { LogLevel } from "./domain"
 import type { AbstractLogger, LoggerData, LoggerRawData, LoggerRequiredRawData, LoggerContextData } from "./domain"
+import { combineMiddlewares } from "./middlewares/combine"
+import type { LoggerMiddleware } from "./middlewares/domain"
 import { stringifyObject } from "./utils/stringify"
 
 export abstract class LoggerTransport {
@@ -7,34 +9,44 @@ export abstract class LoggerTransport {
   abstract reset: () => void
 }
 
+export type LoggerConfig<C extends LoggerContextData> = {
+  /**
+   * Provide transports that will be used as sources
+   * See default transports in `@rarible/logger/build/transports`
+   */
+  transports: LoggerTransport[]
+  middlewares?: LoggerMiddleware[]
+  getContext: () => Promise<C>
+  /**
+   * Allows provide custom byte size limit for messages
+   */
+  maxByteSize?: number
+}
+
 export class Logger<C extends LoggerContextData = {}> implements AbstractLogger<C> {
   private contextOverrides: Partial<C> = {}
+  private readonly maxByteSize = this.config.maxByteSize || 1024 * 10
+  private readonly middlewares = this.config.middlewares || []
+  private readonly reducedMiddleware = combineMiddlewares(...this.middlewares)
 
-  constructor(
-    private readonly transports: LoggerTransport[],
-    private readonly _getContext: () => Promise<C>,
-    private readonly maxByteSize: number = 1024 * 10,
-  ) {}
+  constructor(private readonly config: LoggerConfig<C>) {}
 
   getContext = async () => {
     return {
-      ...(await this._getContext()),
+      ...(await this.config.getContext()),
       ...this.contextOverrides,
     }
   }
 
   raw = async (data: LoggerRequiredRawData) => {
     try {
-      await Promise.all(
-        this.transports.map(async transport =>
-          transport.handle(
-            stringifyObject(this.maxByteSize, {
-              ...data,
-              ...(await this.getContext()),
-            }),
-          ),
-        ),
+      const finalData = await this.reducedMiddleware(
+        stringifyObject(this.maxByteSize, {
+          ...data,
+          ...(await this.getContext()),
+        }),
       )
+      await Promise.all(this.config.transports.map(x => x.handle(finalData)))
     } catch (error) {
       console.error("Logger error", data, error)
     }
@@ -74,21 +86,20 @@ export class Logger<C extends LoggerContextData = {}> implements AbstractLogger<
   }
 
   extend = <NewC extends LoggerContextData>(nextContext: NewC): Logger<NewC & C> =>
-    new Logger(
-      this.transports,
-      async () => ({
+    new Logger({
+      ...this.config,
+      getContext: async () => ({
         ...(await this.getContext()),
         ...nextContext,
       }),
-      this.maxByteSize,
-    )
+    })
 
   updateContext = (nextContext: Partial<C>) => {
     this.contextOverrides = {
       ...this.contextOverrides,
       ...nextContext,
     }
-    this.transports.forEach(x => {
+    this.config.transports.forEach(x => {
       x.reset()
     })
   }

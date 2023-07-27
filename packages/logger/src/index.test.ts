@@ -1,15 +1,21 @@
 import { Logger } from "./base"
+import type { LoggerConfig } from "./base"
 import { LogLevel } from "./domain"
+import type { LoggerMiddleware } from "./middlewares"
 import { CustomTransport } from "./transports/custom"
 
 type SimpleContext = {
   name: string
 }
 
-function createSimpleLogger() {
+function createSimpleLogger(extendedConfig: Partial<LoggerConfig<SimpleContext>> = {}) {
   const handler = jest.fn()
   const customTransport = new CustomTransport(handler)
-  const logger = new Logger([customTransport], () => Promise.resolve<SimpleContext>({ name: "John Doe" }))
+  const logger = new Logger({
+    transports: [customTransport],
+    getContext: () => Promise.resolve<SimpleContext>({ name: "John Doe" }),
+    ...extendedConfig,
+  })
   return [logger, handler] as const
 }
 
@@ -115,6 +121,28 @@ describe("BaseLogger", () => {
       message: "test raw",
       name: "Jane Air",
       favoriteNumber: "42",
+    })
+  })
+
+  it("should apply middleware", async () => {
+    const middleware: LoggerMiddleware = async input => ({
+      ...input,
+      customMessage: "hello",
+    })
+    const [logger, handler] = createSimpleLogger({
+      middlewares: [middleware],
+    })
+    await logger.raw({
+      level: LogLevel.INFO,
+      message: ["test raw"],
+    })
+
+    expect(handler.mock.calls.length).toEqual(1)
+    expect(handler.mock.calls[0][0]).toStrictEqual({
+      level: LogLevel.INFO,
+      message: "test raw",
+      name: "John Doe",
+      customMessage: "hello",
     })
   })
 })
