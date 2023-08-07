@@ -7,7 +7,7 @@
   "version": "0.9.15",
   "command": {
     "publish": {
-      "allowBranch": "master",
+      "allowBranch": "feat/add-mantle-chain",
       "registry": "https://registry.npmjs.org/",
       "message": "chore: bump versions after release",
       "yes": true
