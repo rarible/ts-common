@@ -10,7 +10,6 @@ export class RpcError extends Error implements JsonRpcError {
   constructor(message: string, code: number) {
     super(message)
     this.code = code
-    // eslint-disable-next-line unicorn/custom-error-definition
     this.name = "JsonRpcError"
   }
 }

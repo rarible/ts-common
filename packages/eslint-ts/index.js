@@ -30,7 +30,7 @@ module.exports = {
     "no-control-regex": "warn",
     "no-delete-var": "warn",
     "no-dupe-args": "warn",
-    "no-dupe-class-members": "warn",
+    "no-dupe-class-members": "off",
     "no-dupe-keys": "warn",
     "no-duplicate-case": "warn",
     "no-empty-character-class": "warn",
@@ -232,6 +232,7 @@ module.exports = {
     /** Typescript extension */
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-dupe-class-members": "warn",
     "@typescript-eslint/quotes": [
       "error",
       "double",
@@ -283,7 +284,6 @@ module.exports = {
       },
     ],
     "unicorn/error-message": "error",
-    "unicorn/custom-error-definition": "error",
     "unicorn/new-for-builtins": "error",
     "unicorn/no-abusive-eslint-disable": "error",
     "unicorn/no-empty-file": "error",

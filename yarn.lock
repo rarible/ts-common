@@ -5389,6 +5389,11 @@ gauge@^5.0.0:
     strip-ansi "^6.0.1"
     wide-align "^1.1.5"
 
+generic-type-guard@^3.7.2:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/generic-type-guard/-/generic-type-guard-3.7.2.tgz#bc132ec3e717ccbe85f1b9e18fb54b89efd7174a"
+  integrity sha512-RNlGtQI/TTU+maM5aClPKAabzTRVQX10P27clabAnYiNk1M5bPIrhxNt5wJ7bTukSe/+1c/jrRZeGpm89y4i/A==
+
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
@@ -10566,6 +10571,11 @@ trim-off-newlines@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-off-newlines/-/trim-off-newlines-1.0.1.tgz#9f9ba9d9efa8764c387698bcbfeb2c848f11adb3"
   integrity sha1-n5up2e+odkw4dpi8v+sshI8RrbM=
+
+ts-custom-error@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/ts-custom-error/-/ts-custom-error-3.3.1.tgz#8bd3c8fc6b8dc8e1cb329267c45200f1e17a65d1"
+  integrity sha512-5OX1tzOjxWEgsr/YEUWSuPrQ00deKLh6D7OTWcvNHm12/7QPyRh8SYpyWvA4IZv8H/+GQWQEh/kwo95Q9OVW1A==
 
 ts-jest@^29.1.0:
   version "29.1.0"

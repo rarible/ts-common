@@ -20,6 +20,7 @@
     "verify": "tsc --noEmit"
   },
   "dependencies": {
+    "generic-type-guard": "^3.7.2",
     "json-stringify-safe": "^5.0.1",
     "object-sizeof": "^2.6.3"
   },

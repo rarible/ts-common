@@ -1,40 +1,35 @@
 import type { RequestInit, Response } from "node-fetch"
+import * as tg from "generic-type-guard"
+import type { ErrorOptions } from "@rarible/utils/build"
+import { CustomError } from "@rarible/utils/build"
 import type { AxiosError } from "axios"
 
-// eslint-disable-next-line unicorn/custom-error-definition
-export class Warning extends Error {
-  readonly name = "Warning"
-  constructor(message: string) {
-    super(message)
-    Object.setPrototypeOf(this, Warning.prototype)
-  }
-}
+export class Warning<T = void> extends CustomError<T> {}
 
-export type NetworkErrorConfig = {
+export interface NetworkErrorConfig extends ErrorOptions<unknown> {
   status: number | undefined
   url: string
-  data: unknown | undefined
   code: string | undefined
   formData: unknown | undefined
   method: string | undefined
 }
 
-export class NetworkError extends Error {
-  readonly name = "NetworkError"
+export class NetworkError extends CustomError<unknown> {
   readonly status: number | undefined
   readonly url: string
-  readonly data?: any
   readonly code: string
-  readonly formData?: any
+  readonly formData: unknown | undefined
   readonly method: string | undefined
 
   constructor(options: NetworkErrorConfig) {
-    super(JSON.stringify(options, null, " "))
-    Object.setPrototypeOf(this, NetworkError.prototype)
+    super(JSON.stringify(options, null, " "), {
+      data: options.data,
+      cause: options.cause,
+      name: options.name,
+    })
     this.code = options.code || "NETWORK_ERR"
     this.status = options.status
     this.url = options.url
-    this.data = options.data
     this.formData = options.formData
     this.method = options.method
   }
@@ -61,13 +56,15 @@ export async function handleFetchErrorResponse(
       formData: options?.requestInit?.body?.toString(),
       method: options?.requestInit?.method,
       code: options?.code,
+      cause: undefined,
     })
   }
 }
 
-function isFetchResponse(response: unknown): response is Response {
-  return typeof response === "object" && response !== null && "ok" in response
-}
+const isFetchResponse = tg.isLikeObject({
+  ok: tg.isBoolean,
+  clone: tg.isSet,
+}) as tg.TypeGuard<Response>
 
 export function handleAxiosErrorResponse(error: unknown, options?: { code: string }) {
   if (isAxiosError(error)) {
@@ -78,12 +75,11 @@ export function handleAxiosErrorResponse(error: unknown, options?: { code: strin
 function decodeUri(url: string | undefined): string {
   return url ? decodeURIComponent(url) : "unknown-url"
 }
+const isAxiosError = tg.isLikeObject({
+  isAxiosError: tg.isBoolean,
+}) as tg.TypeGuard<AxiosError>
 
-function isAxiosError(e: unknown): e is AxiosError {
-  return typeof e === "object" && e !== null && "isAxiosError" in e
-}
-
-function createAxiosNetworkError(error: AxiosError<any, any>, code?: string): NetworkError {
+function createAxiosNetworkError(error: AxiosError, code: string | undefined): NetworkError {
   if (error.response) {
     return new NetworkError({
       status: error.response.status,
@@ -92,6 +88,7 @@ function createAxiosNetworkError(error: AxiosError<any, any>, code?: string): Ne
       formData: error.config.data,
       method: error.config.method,
       code,
+      cause: error,
     })
   }
   if (error.request) {
@@ -102,14 +99,16 @@ function createAxiosNetworkError(error: AxiosError<any, any>, code?: string): Ne
       formData: error.config.data,
       method: error.config.method,
       code,
+      cause: error,
     })
   }
   return new NetworkError({
     status: -1,
     url: "unknown",
     data: "none",
-    formData: undefined,
+    formData: "none",
     method: "unknown",
-    code,
+    code: "1337",
+    cause: error,
   })
 }
