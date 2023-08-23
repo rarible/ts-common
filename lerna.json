@@ -2,10 +2,10 @@
   "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "0.10.0-alpha.10",
+  "version": "0.10.0-alpha-mantle.10",
   "command": {
     "publish": {
-      "allowBranch": "master",
+      "allowBranch": "feat/add-mantle",
       "registry": "https://registry.npmjs.org/",
       "message": "chore: bump versions after release",
       "yes": true
