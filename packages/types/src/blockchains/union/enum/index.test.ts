@@ -20,7 +20,7 @@ describe("isBlockchainSpecified", () => {
       expect(isBlockchainSpecified(withLayer1Blockchain(x, "test"))).toBeTruthy()
     })
     // Not layer1 blockchains should be excluded also
-    ;["ETH", BlockchainEnum.POLYGON, BlockchainEnum.IMMUTABLEX].forEach(x => {
+    ;["ETH", BlockchainEnum.POLYGON, BlockchainEnum.IMMUTABLEX, BlockchainEnum.MANTLE].forEach(x => {
       expect(isBlockchainSpecified(`${x}:awd`)).toBeFalsy()
     })
   })

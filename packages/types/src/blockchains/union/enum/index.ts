@@ -14,9 +14,15 @@ export enum BlockchainEnum {
   POLYGON = "POLYGON",
   IMMUTABLEX = "IMMUTABLEX",
   SOLANA = "SOLANA",
+  MANTLE = "MANTLE",
 }
 
-export const evmBlockchains = [BlockchainEnum.POLYGON, BlockchainEnum.IMMUTABLEX, BlockchainEnum.POLYGON]
+export const evmBlockchains = [
+  BlockchainEnum.POLYGON,
+  BlockchainEnum.IMMUTABLEX,
+  BlockchainEnum.POLYGON,
+  BlockchainEnum.MANTLE,
+]
 export type EVMBlockchain = (typeof evmBlockchains)[number]
 
 export function isEVMBlockchain(blockchain: BlockchainEnum): blockchain is EVMBlockchain {
