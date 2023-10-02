@@ -13,6 +13,7 @@ function createSimpleLogger(extendedConfig: Partial<LoggerConfig<SimpleContext>>
   const customTransport = new CustomTransport(handler)
   const logger = new Logger({
     transports: [customTransport],
+    indent: 0,
     getContext: () => Promise.resolve<SimpleContext>({ name: "John Doe" }),
     ...extendedConfig,
   })
@@ -36,12 +37,12 @@ describe("BaseLogger", () => {
     expect(handler.mock.calls.length).toEqual(2)
     expect(handler.mock.calls[0][0]).toStrictEqual({
       level: LogLevel.INFO,
-      message: 'test, {"name":"Ivan","isCreator":true}',
+      message: '["test",{"name":"Ivan","isCreator":"true"}]',
       name: "John Doe",
     })
     expect(handler.mock.calls[1][0]).toStrictEqual({
       level: LogLevel.ERROR,
-      message: '[Error: My new error], {"name":"Ivan","isCreator":true}',
+      message: '["[Error: My new error]",{"name":"Ivan","isCreator":"true"}]',
       name: "John Doe",
     })
   })
@@ -57,7 +58,7 @@ describe("BaseLogger", () => {
     expect(handler.mock.calls.length).toEqual(1)
     expect(handler.mock.calls[0][0]).toStrictEqual({
       level: LogLevel.INFO,
-      message: "test raw",
+      message: '["test raw"]',
       name: "John Doe",
     })
   })
@@ -77,10 +78,10 @@ describe("BaseLogger", () => {
     expect(handler.mock.calls.length).toEqual(1)
     expect(handler.mock.calls[0][0]).toStrictEqual({
       level: LogLevel.INFO,
-      message: "test raw",
+      message: '["test raw"]',
       name: "John Doe",
       favoriteNumber: "42",
-      car: "[null]",
+      car: "[undefined]",
     })
 
     extended.updateContext({
@@ -95,7 +96,7 @@ describe("BaseLogger", () => {
     expect(handler.mock.calls.length).toEqual(2)
     expect(handler.mock.calls[1][0]).toStrictEqual({
       level: LogLevel.INFO,
-      message: "test raw",
+      message: '["test raw"]',
       name: "John Doe",
       favoriteNumber: "1337",
     })
@@ -132,21 +133,21 @@ describe("BaseLogger", () => {
     expect(handler.mock.calls.length).toEqual(3)
     expect(handler.mock.calls[0][0]).toStrictEqual({
       level: LogLevel.INFO,
-      message: "test raw",
+      message: '["test raw"]',
       name: "Jane Air",
       favoriteNumber: "42",
       anotherValue: "42",
     })
     expect(handler.mock.calls[1][0]).toStrictEqual({
       level: LogLevel.INFO,
-      message: "test raw1",
+      message: '["test raw1"]',
       name: "Jane Air",
       favoriteNumber: "42",
       anotherValue: "42",
     })
     expect(handler.mock.calls[2][0]).toStrictEqual({
       level: LogLevel.INFO,
-      message: "test raw",
+      message: '["test raw"]',
       name: "Jane Air",
       age: "42",
     })
@@ -168,7 +169,7 @@ describe("BaseLogger", () => {
     expect(handler.mock.calls.length).toEqual(1)
     expect(handler.mock.calls[0][0]).toStrictEqual({
       level: LogLevel.INFO,
-      message: "test raw",
+      message: '["test raw"]',
       name: "John Doe",
       customMessage: "hello",
     })
