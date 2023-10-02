@@ -32,3 +32,13 @@ export function extractErrorStack(error: unknown) {
   if (hasStack(error)) return error.stack
   return undefined
 }
+
+export type ErrorLike = {
+  message: string
+  name: string
+  stack?: string
+}
+
+export function isErrorLike(obj: unknown): obj is ErrorLike {
+  return hasName(obj) && hasMessage(obj)
+}
