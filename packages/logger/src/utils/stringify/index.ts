@@ -1,5 +1,5 @@
 import sizeOf from "object-sizeof"
-import { isCircular } from "@rarible/utils/build/common/is-circular"
+import stringifyJson from "json-stringify-safe"
 import { isErrorLike } from "@rarible/utils/build/error/utils"
 import type { LoggerValue } from "../../domain"
 
@@ -10,11 +10,7 @@ export function stringifyObject<T extends Record<string, unknown>>(maxByteSize: 
     const key = curr as keyof T
     const value = object[key]
     const result = stringify(value, indent)
-    if (sizeOf(result) > maxByteSize) {
-      prev[key] = `[too-big-object]`
-    } else {
-      prev[key] = result
-    }
+    prev[key] = sizeOf(result) > maxByteSize ? `[too-big-object]` : result
     return prev
   }, {} as Record<keyof T, LoggerValue>)
 }
@@ -22,13 +18,7 @@ export function stringifyObject<T extends Record<string, unknown>>(maxByteSize: 
 export function stringify(value: unknown, indent: number): LoggerValue {
   const loggableValue = toLoggerValue(value)
   if (loggableValue !== UNKNOWN) return loggableValue
-
-  if (typeof value === "object") {
-    // Check for circular structures on this stage because all below might
-    // be a subject of circular structures
-    if (isCircular(value)) return `[circular-object]`
-    return JSON.stringify(value, serializer, indent)
-  }
+  if (typeof value === "object") return stringifyJson(value, serializer, indent)
   return UNKNOWN
 }
 
@@ -41,6 +31,7 @@ function toLoggerValue(value: unknown): LoggerValue | typeof UNKNOWN {
   if (typeof value === "object" && value === null) return `[null]`
   if (typeof value === "symbol") return `[symbol: ${value.toString() || "unnamed"}]`
   if (typeof value === "function") return `[function: ${value.name || "unnamed"}]`
+  if (value instanceof Date) return `[date: ${value.toISOString()}]`
   if (isErrorLike(value)) return `[${value.name}: ${value.message}]`
   return UNKNOWN
 }
