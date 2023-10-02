@@ -107,20 +107,48 @@ describe("BaseLogger", () => {
       name: "Jane Air",
     })
 
-    const extended = logger.extend({
-      favoriteNumber: "42",
+    const extended = logger
+      .extend({
+        favoriteNumber: "42",
+      })
+      .extend({
+        anotherValue: "42",
+      })
+
+    const anotherExtended = logger.extend({
+      age: "42",
     })
     await extended.raw({
       level: LogLevel.INFO,
       message: ["test raw"],
     })
+    await extended.data(LogLevel.INFO, {
+      message: ["test raw1"],
+    })
+    await anotherExtended.data(LogLevel.INFO, {
+      message: ["test raw"],
+    })
 
-    expect(handler.mock.calls.length).toEqual(1)
+    expect(handler.mock.calls.length).toEqual(3)
     expect(handler.mock.calls[0][0]).toStrictEqual({
       level: LogLevel.INFO,
       message: "test raw",
       name: "Jane Air",
       favoriteNumber: "42",
+      anotherValue: "42",
+    })
+    expect(handler.mock.calls[1][0]).toStrictEqual({
+      level: LogLevel.INFO,
+      message: "test raw1",
+      name: "Jane Air",
+      favoriteNumber: "42",
+      anotherValue: "42",
+    })
+    expect(handler.mock.calls[2][0]).toStrictEqual({
+      level: LogLevel.INFO,
+      message: "test raw",
+      name: "Jane Air",
+      age: "42",
     })
   })
 
