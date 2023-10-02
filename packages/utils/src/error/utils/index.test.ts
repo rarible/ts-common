@@ -1,24 +1,32 @@
 import { CustomError } from "../custom"
-import { extractErrorName } from "./index"
+import { extractErrorName, isErrorLike } from "./index"
 
 describe("extractErrorName", () => {
-  it("it should extract name from error-like object", () => {
+  it("should extract name from error-like object", () => {
     expect(extractErrorName({ name: "MyName" })).toEqual("MyName")
   })
 
-  it("it should extract name from SomeObject instance", () => {
+  it("should extract name from SomeObject instance", () => {
     const someObject = new SomeObject()
     expect(extractErrorName(someObject)).toEqual("SomeObject")
   })
 
-  it("it should extract code from SomeError instance", () => {
+  it("should extract code from SomeError instance", () => {
     const someError = new SomeError()
     expect(extractErrorName(someError)).toEqual("Error")
   })
 
-  it("it should extract code from SomeCustomError instance", () => {
+  it("should extract code from SomeCustomError instance", () => {
     const someCustomError = new SomeCustomError()
     expect(extractErrorName(someCustomError)).toEqual("SomeCustomError")
+  })
+
+  it("should return true in case of error like object", () => {
+    const error = {
+      message: "Hello world",
+      name: "MyError",
+    }
+    expect(isErrorLike(error)).toEqual(true)
   })
 })
 
