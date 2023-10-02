@@ -1,88 +1,47 @@
-import { stringify, stringifyObject } from "./index"
+import { stringifyObject } from "./index"
 
-type ObjectAssert<T> = {
-  value: T
-  assert: string | number
+const objectsMapping: Record<string, any> = {
+  undefined: undefined,
+  null: null,
+  unnamedFunction: function () {},
+  namedFunction: function myFunc() {},
+  object: { name: "John Doe" },
+  emptySymbol: Symbol(),
+  namedSymbol: Symbol("Test"),
+  error: new Error("Test"),
+  array: ["test", 23],
 }
-
-const unnamedFunction = function () {}
-const objectsMapping: Record<string, ObjectAssert<any>> = {
-  undefined: {
-    value: undefined,
-    assert: "[null]",
-  },
-  null: {
-    value: null,
-    assert: "[null]",
-  },
-  unnamedFunction: {
-    value: unnamedFunction,
-    assert: `[function: unnamedFunction]`,
-  },
-  namedFunction: {
-    value: function myFunc() {},
-    assert: `[function: myFunc]`,
-  },
-  emptyObject: {
-    value: {},
-    assert: `{}`,
-  },
-  userObject: {
-    value: { name: "John Doe" },
-    assert: `{"name":"John Doe"}`,
-  },
-  emptySymbol: {
-    value: Symbol(),
-    assert: `[symbol: Symbol()]`,
-  },
-  namedSymbol: {
-    value: Symbol("Test"),
-    assert: `[symbol: Symbol(Test)]`,
-  },
-  error: {
-    value: new Error("Test"),
-    assert: `[Error: Test]`,
-  },
-  emptyArray: {
-    value: [],
-    assert: "[empty]",
-  },
-  array: {
-    value: ["test", 23],
-    assert: "test, 23",
-  },
-}
-
-describe("stringify", () => {
-  const defaultByteSize = 1024
-
-  it("should stringify single values", () => {
-    const keys = Object.keys(objectsMapping)
-    keys.forEach(x => {
-      const val = objectsMapping[x]
-      expect(stringify(defaultByteSize, val.value)).toEqual(val.assert)
-    })
-  })
-
-  it("should stringify array", () => {
-    const keys = Object.keys(objectsMapping)
-    const values = keys.map(x => objectsMapping[x].value)
-    const stringified = keys.map(x => objectsMapping[x].assert).join(", ")
-    expect(stringify(defaultByteSize, values)).toEqual(stringified)
-  })
-})
 
 describe("stringifyObject", () => {
   const defaultByteSize = 1024
 
-  it("should stringify object", () => {
+  it("should stringify complex object", () => {
     const value = {
-      name: "John Doe",
-      age: 42,
+      ...objectsMapping,
+      nested: {
+        undefined: objectsMapping.undefined,
+        error: objectsMapping.error,
+      },
+      array: [objectsMapping.undefined, objectsMapping.error],
     }
-    expect(stringifyObject(defaultByteSize, value)).toEqual({
-      name: "John Doe",
-      age: 42,
+
+    expect(stringifyObject(defaultByteSize, value, 0)).toEqual({
+      emptySymbol: "[symbol: Symbol()]",
+      error: "[Error: Test]",
+      namedFunction: "[function: myFunc]",
+      namedSymbol: "[symbol: Symbol(Test)]",
+      null: "[null]",
+      undefined: "[undefined]",
+      object: `{"name":"John Doe"}`,
+      unnamedFunction: "[function: unnamedFunction]",
+      nested: `{"undefined":"[undefined]","error":"[Error: Test]"}`,
+      array: `["[undefined]","[Error: Test]"]`,
+    })
+  })
+
+  it("should not serialize object due to bytesize limit", () => {
+    expect(stringifyObject(0, { name: "John Doe" })).toEqual({
+      name: "[too-big-object]",
     })
   })
 })

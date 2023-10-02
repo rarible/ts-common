@@ -21,12 +21,19 @@ export type LoggerConfig<C extends LoggerContextData> = {
    * Allows provide custom byte size limit for messages
    */
   maxByteSize?: number
+  /**
+   * Put custom indent for JSON stringify function
+   * If you don't want to see structured and pretty values then use 0
+   * @default 2
+   */
+  indent?: number
 }
 
 export class Logger<C extends LoggerContextData = {}> implements AbstractLogger<C> {
   private contextOverrides: Partial<C> = {}
-  private readonly maxByteSize = this.config.maxByteSize || 1024 * 10
-  private readonly middlewares = this.config.middlewares || []
+  private readonly maxByteSize = this.config.maxByteSize ?? 1024 * 10
+  private readonly middlewares = this.config.middlewares ?? []
+  private readonly indent = this.config.indent ?? 2
   private readonly reducedMiddleware = combineMiddlewares(...this.middlewares)
 
   constructor(private readonly config: LoggerConfig<C>) {}
@@ -40,13 +47,10 @@ export class Logger<C extends LoggerContextData = {}> implements AbstractLogger<
 
   raw = async (data: LoggerRequiredRawData) => {
     try {
-      const finalData = await this.reducedMiddleware(
-        stringifyObject(this.maxByteSize, {
-          ...data,
-          ...(await this.getContext()),
-        }),
-      )
-      await Promise.all(this.config.transports.map(x => x.handle(finalData)))
+      const context = await this.getContext()
+      const string = stringifyObject(this.maxByteSize, { ...data, ...context }, this.indent)
+      const result = await this.reducedMiddleware(string)
+      await Promise.all(this.config.transports.map(x => x.handle(result)))
     } catch (error) {
       console.error("Logger error", data, error)
     }
