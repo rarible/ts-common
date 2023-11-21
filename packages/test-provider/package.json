@@ -1,6 +1,6 @@
 {
   "name": "@rarible/test-provider",
-  "version": "0.9.16",
+  "version": "0.9.17",
   "keywords": [
     "rarible",
     "common",
@@ -31,7 +31,7 @@
     "web3-provider-engine": "^16.0.3"
   },
   "devDependencies": {
-    "@rarible/types": "^0.9.16",
+    "@rarible/types": "^0.9.17",
     "@types/jest": "^27.0.2",
     "@types/web3-provider-engine": "^14.0.1",
     "jest": "^27.3.1",
