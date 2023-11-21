@@ -13,6 +13,7 @@ const realBlockchains = [
 	"SOLANA",
 	"IMMUTABLEX",
 	"MANTLE",
+	"ARBITRUM",
 ]
 
 export function isBlockchainSpecified(value: string) {
