@@ -17,8 +17,7 @@
     "/index.js"
   ],
   "scripts": {
-    "test": "jest --passWithNoTests",
-    "verify": "echo OK"
+    "test": "jest --passWithNoTests"
   },
   "peerDependencies": {
     "prettier": ">=2.0.0 <3.0.0"
