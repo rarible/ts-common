@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@rarible/types": ["./packages/types/src"],
+      "@rarible/action": ["./packages/action/src"],
+      "@rarible/estimate-middleware": ["./packages/estimate-middleware/src"],
+      "@rarible/eslint-ts": ["./packages/eslint-ts/src"],
+      "@rarible/eslint-react": ["./packages/eslint-react/src"],
+      "@rarible/logger": ["./packages/logger/src"],
+      "@rarible/utils": ["./packages/utils/src"],
+      "@rarible/prettier": ["./packages/prettier/src"]
+    }
+  }
+}
