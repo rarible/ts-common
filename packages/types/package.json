@@ -11,13 +11,16 @@
     "url": "https://github.com/rariblecom/ts-common.git"
   },
   "license": "MIT",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "types": "build/esm/index.d.ts",
   "files": [
     "/build"
   ],
   "scripts": {
-    "build": "tsc --project tsconfig-build.json",
+    "build": "yarn build-cjs && yarn build-esm",
+    "build-cjs": "tsc --project tsconfig-build-cjs.json",
+    "build-esm": "tsc --project tsconfig-build-esm.json",
     "clean": "rimraf ./build",
     "test": "jest --silent",
     "verify": "tsc --noEmit"
