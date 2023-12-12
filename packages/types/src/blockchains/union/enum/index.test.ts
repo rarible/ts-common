@@ -1,44 +1,42 @@
-import type { WithBlockchain } from "./index"
 import {
-  BlockchainEnum,
-  BlockchainLayer1Enum,
   BlockchainParseError,
   blockchains,
   blockchainsLayer1,
   evmBlockchains,
-  isBlockchainSpecified,
-  isRealBlockchainSpecified,
   parseBlockchain,
-  toLayerOneBlockchain,
   withBlockchain,
-  withLayer1Blockchain,
+  isWithL1Blockchain,
+  withL1Blockchain,
+  isWithBlockchain,
+  type WithBlockchain,
+  toL1Blockchain,
 } from "./index"
 
-describe("isBlockchainSpecified", () => {
+describe("isWithL1Blockchain", () => {
   it("should return true for all valid blockchains", () => {
     blockchainsLayer1.forEach(x => {
-      expect(isBlockchainSpecified(withLayer1Blockchain(x, "test"))).toBeTruthy()
+      expect(isWithL1Blockchain(withL1Blockchain(x, "test"))).toBeTruthy()
     })
     // Not layer1 blockchains should be excluded also
-    ;["ETH", BlockchainEnum.POLYGON, BlockchainEnum.IMMUTABLEX, BlockchainEnum.MANTLE].forEach(x => {
-      expect(isBlockchainSpecified(`${x}:awd`)).toBeFalsy()
+    ;["ETH", "POLYGON", "IMMUTABLEX", "MANTLE"].forEach(x => {
+      expect(isWithL1Blockchain(`${x}:awd`)).toBeFalsy()
     })
   })
 })
 
-describe("isRealBlockchainSpecified", () => {
+describe("isWithBlockchain", () => {
   it("should return true for all valid blockchains", () => {
     blockchains.forEach(x => {
-      expect(isRealBlockchainSpecified(withBlockchain(x, "test"))).toBeTruthy()
+      expect(isWithBlockchain(withBlockchain(x, "test"))).toBeTruthy()
     })
-    expect(isBlockchainSpecified("ETH:awd")).toBeFalsy()
+    expect(isWithBlockchain("ETH:awd")).toBeFalsy()
   })
 })
 
-describe("toLayerOneBlockchain", () => {
+describe("toL1Blockchain", () => {
   it("should convert to layer 1", () => {
     evmBlockchains.forEach(x => {
-      expect(toLayerOneBlockchain(x)).toEqual(BlockchainLayer1Enum.ETHEREUM)
+      expect(toL1Blockchain(x)).toEqual("ETHEREUM")
     })
   })
 })
