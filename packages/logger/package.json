@@ -1,6 +1,6 @@
 {
   "name": "@rarible/logger",
-  "version": "0.10.0-alpha.14",
+  "version": "0.11.0-alpha.0",
   "private": false,
   "description": "Logging utility for ts projects",
   "repository": {
