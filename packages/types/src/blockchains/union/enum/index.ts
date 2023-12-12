@@ -86,3 +86,5 @@ export class BlockchainParseError extends Error {
     super(`Can't parse blockchain from value ${value}`)
   }
 }
+
+export const Blockchain = BlockchainEnum
