@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "include": ["src/**/*", "./typings.d.ts"],
   "compilerOptions": {
+    "module": "CommonJS",
     "baseUrl": "./",
     "outDir": "build/cjs",
     "declaration": false,

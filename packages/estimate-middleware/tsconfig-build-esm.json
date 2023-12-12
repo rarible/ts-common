@@ -3,7 +3,6 @@
   "include": ["src/**/*", "./typings.d.ts"],
   "compilerOptions": {
     "baseUrl": "./",
-    "module": "ESNext",
     "outDir": "build/esm",
     "declaration": false,
     "paths": {
