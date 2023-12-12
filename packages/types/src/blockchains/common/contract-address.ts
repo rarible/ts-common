@@ -1,19 +1,19 @@
 import type { EVMAddress } from "../evm"
 import type { FlowAddress } from "../flow"
-import type { BlockchainEnum } from "../union"
+import type { Blockchain } from "../union"
 
-export interface ContractAddressByBlockchain extends Record<BlockchainEnum, string> {
-  [BlockchainEnum.ETHEREUM]: EVMAddress
-  [BlockchainEnum.POLYGON]: EVMAddress
-  [BlockchainEnum.MANTLE]: EVMAddress
-  [BlockchainEnum.IMMUTABLEX]: EVMAddress
-  [BlockchainEnum.FLOW]: FlowAddress
-  [BlockchainEnum.SOLANA]: string
-  [BlockchainEnum.TEZOS]: string
+export interface ContractAddressByBlockchain extends Record<Blockchain, string> {
+  ETHEREUM: EVMAddress
+  POLYGON: EVMAddress
+  MANTLE: EVMAddress
+  IMMUTABLEX: EVMAddress
+  FLOW: FlowAddress
+  SOLANA: string
+  TEZOS: string
 }
 
 /**
  * Vanilla blockchain address format
  */
 
-export type BlockchainContractAddress = ContractAddressByBlockchain[BlockchainEnum]
+export type BlockchainContractAddress = ContractAddressByBlockchain[Blockchain]
