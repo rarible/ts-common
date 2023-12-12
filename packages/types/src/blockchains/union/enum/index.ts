@@ -15,6 +15,7 @@ export enum BlockchainEnum {
   IMMUTABLEX = "IMMUTABLEX",
   SOLANA = "SOLANA",
   MANTLE = "MANTLE",
+  ARBITRUM = "ARBITRUM",
 }
 
 export const evmBlockchains = [
@@ -22,6 +23,7 @@ export const evmBlockchains = [
   BlockchainEnum.IMMUTABLEX,
   BlockchainEnum.POLYGON,
   BlockchainEnum.MANTLE,
+  BlockchainEnum.ARBITRUM,
 ]
 export type EVMBlockchain = (typeof evmBlockchains)[number]
 

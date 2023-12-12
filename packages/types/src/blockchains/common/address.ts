@@ -6,6 +6,7 @@ export interface AddressByBlockchain extends Record<BlockchainEnum, string> {
   [BlockchainEnum.ETHEREUM]: EVMAddress
   [BlockchainEnum.POLYGON]: EVMAddress
   [BlockchainEnum.MANTLE]: EVMAddress
+  [BlockchainEnum.ARBITRUM]: EVMAddress
   [BlockchainEnum.IMMUTABLEX]: EVMAddress
   [BlockchainEnum.FLOW]: FlowAddress
   [BlockchainEnum.SOLANA]: string

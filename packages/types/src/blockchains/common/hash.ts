@@ -6,6 +6,7 @@ export interface HashByBlockchain extends Record<BlockchainEnum, string> {
   [BlockchainEnum.ETHEREUM]: EVMTransactionHash
   [BlockchainEnum.POLYGON]: EVMTransactionHash
   [BlockchainEnum.MANTLE]: EVMTransactionHash
+  [BlockchainEnum.ARBITRUM]: EVMTransactionHash
   [BlockchainEnum.IMMUTABLEX]: EVMTransactionHash
   [BlockchainEnum.FLOW]: FlowTransactionHash
   [BlockchainEnum.TEZOS]: string
