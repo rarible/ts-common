@@ -1,7 +1,7 @@
 import type { RequestInit, Response } from "node-fetch"
 import * as tg from "generic-type-guard"
-import type { ErrorOptions } from "@rarible/utils/build"
-import { CustomError } from "@rarible/utils/build"
+import type { ErrorOptions } from "@rarible/utils"
+import { CustomError } from "@rarible/utils"
 import type { AxiosError } from "axios"
 
 export class Warning<T = void> extends CustomError<T> {}

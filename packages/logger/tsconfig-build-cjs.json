@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "build/cjs",
+    "declaration": false
+  },
+  "include": ["src/**/*", "./typings.d.ts"],
+  "exclude": ["src/**/*.test.ts"]
+}

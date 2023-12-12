@@ -2,8 +2,10 @@
   "extends": "./tsconfig.json",
   "include": ["src/**/*", "./typings.d.ts"],
   "compilerOptions": {
+    "module": "CommonJS",
     "baseUrl": "./",
-    "outDir": "build",
+    "outDir": "build/cjs",
+    "declaration": false,
     "paths": {
       "@rarible/types": ["../types/src"]
     }

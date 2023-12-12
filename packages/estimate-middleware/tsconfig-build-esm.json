@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*", "./typings.d.ts"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "build/esm",
+    "declaration": false,
+    "paths": {
+      "@rarible/types": ["../types/src"]
+    }
+  },
+  "exclude": ["src/**/*.test.ts"]
+}
