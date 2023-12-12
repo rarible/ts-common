@@ -18,14 +18,20 @@ export enum BlockchainEnum {
   ARBITRUM = "ARBITRUM",
 }
 
-export const evmBlockchains = [
+export type EVMBlockchain =
+  | BlockchainEnum.ETHEREUM
+  | BlockchainEnum.POLYGON
+  | BlockchainEnum.IMMUTABLEX
+  | BlockchainEnum.MANTLE
+  | BlockchainEnum.ARBITRUM
+
+export const evmBlockchains: BlockchainEnum[] = [
+  BlockchainEnum.ETHEREUM,
   BlockchainEnum.POLYGON,
   BlockchainEnum.IMMUTABLEX,
-  BlockchainEnum.POLYGON,
   BlockchainEnum.MANTLE,
   BlockchainEnum.ARBITRUM,
 ]
-export type EVMBlockchain = (typeof evmBlockchains)[number]
 
 export function isEVMBlockchain(blockchain: BlockchainEnum): blockchain is EVMBlockchain {
   return evmBlockchains.includes(blockchain)
@@ -69,7 +75,7 @@ export function withBlockchain(blockchain: BlockchainEnum, raw: string): WithBlo
 
 export function toLayerOneBlockchain(blockchain: BlockchainEnum): BlockchainLayer1Enum {
   if (isEVMBlockchain(blockchain)) return BlockchainLayer1Enum.ETHEREUM
-  return blockchain
+  return blockchain as any as BlockchainLayer1Enum
 }
 
 export function parseBlockchain(value: WithBlockchain): [BlockchainEnum, string] {
