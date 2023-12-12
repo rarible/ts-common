@@ -23,6 +23,9 @@
     "test": "jest --silent",
     "verify": "tsc --noEmit"
   },
+  "dependencies": {
+    "@rarible/utils": "^0.10.0-alpha.14"
+  },
   "peerDependencies": {
     "tslib": ">=2.0.0 <3.0.0"
   },
