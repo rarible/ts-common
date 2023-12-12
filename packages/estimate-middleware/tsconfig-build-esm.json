@@ -3,7 +3,9 @@
   "include": ["src/**/*", "./typings.d.ts"],
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "build",
+    "module": "ESNext",
+    "outDir": "build/esm",
+    "declaration": false,
     "paths": {
       "@rarible/types": ["../types/src"]
     }

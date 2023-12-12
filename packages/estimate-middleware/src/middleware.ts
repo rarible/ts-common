@@ -1,7 +1,7 @@
 import type { JsonRpcEngine, JsonRpcMiddleware, JsonRpcRequest } from "json-rpc-engine"
 import { createAsyncMiddleware, getUniqueId } from "json-rpc-engine"
 import type { Block } from "eth-json-rpc-middleware/dist/utils/cache"
-import { toBn } from "@rarible/utils/build/bn"
+import { toBn } from "@rarible/utils"
 import { extractError, RpcError } from "./utils"
 
 /**

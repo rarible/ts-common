@@ -1,7 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "build"
+    "module": "ESNext",
+    "outDir": "build/esm",
+    "declaration": false
   },
   "include": ["src/**/*", "./typings.d.ts"],
   "exclude": ["src/**/*.test.ts"]

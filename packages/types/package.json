@@ -18,9 +18,7 @@
     "/build"
   ],
   "scripts": {
-    "build": "yarn build-cjs && yarn build-esm",
-    "build-cjs": "tsc --project tsconfig-build-cjs.json",
-    "build-esm": "tsc --project tsconfig-build-esm.json",
+    "build": "tsc -b tsconfig-build-cjs.json tsconfig-build-esm.json",
     "clean": "rimraf ./build",
     "test": "jest --silent",
     "verify": "tsc --noEmit"

@@ -2,7 +2,7 @@ import ganache from "ganache"
 import Wallet from "ethereumjs-wallet"
 import Web3 from "web3"
 import { randomAddress, randomWord } from "@rarible/types"
-import { toBn } from "@rarible/utils/build/bn"
+import { toBn } from "@rarible/utils"
 import { RpcError } from "./utils"
 import { estimate } from "."
 
