@@ -1,19 +1,19 @@
 import type { EVMTransactionHash } from "../evm"
 import type { FlowTransactionHash } from "../flow"
-import type { BlockchainEnum } from "../union"
+import type { Blockchain } from "../union"
 
-export interface HashByBlockchain extends Record<BlockchainEnum, string> {
-  [BlockchainEnum.ETHEREUM]: EVMTransactionHash
-  [BlockchainEnum.POLYGON]: EVMTransactionHash
-  [BlockchainEnum.MANTLE]: EVMTransactionHash
-  [BlockchainEnum.IMMUTABLEX]: EVMTransactionHash
-  [BlockchainEnum.FLOW]: FlowTransactionHash
-  [BlockchainEnum.TEZOS]: string
-  [BlockchainEnum.SOLANA]: string
+export interface HashByBlockchain extends Record<Blockchain, string> {
+  ETHEREUM: EVMTransactionHash
+  POLYGON: EVMTransactionHash
+  MANTLE: EVMTransactionHash
+  IMMUTABLEX: EVMTransactionHash
+  FLOW: FlowTransactionHash
+  TEZOS: string
+  SOLANA: string
 }
 
 /**
  * Vanilla blockchain hash format
  */
 
-export type BlockchainTransactionHash = HashByBlockchain[BlockchainEnum]
+export type BlockchainTransactionHash = HashByBlockchain[Blockchain]

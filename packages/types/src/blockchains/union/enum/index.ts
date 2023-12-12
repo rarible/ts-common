@@ -1,4 +1,4 @@
-import { CustomError } from "@rarible/utils/build/error/custom"
+import { CustomError } from "@rarible/utils"
 
 export const L1Blockchains = ["ETHEREUM", "FLOW", "TEZOS", "SOLANA"] as const
 export type L1Blockchain = (typeof L1Blockchains)[number]
