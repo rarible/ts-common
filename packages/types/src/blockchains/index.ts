@@ -1,4 +1,6 @@
 export * from "./union"
 export * from "./evm"
 export * from "./flow"
+export * from "./solana"
+export * from "./tezos"
 export * from "./common"
