@@ -1,9 +1,13 @@
-import { isRealBlockchainSpecified, parseBlockchain, toLayerOneBlockchain, withLayer1Blockchain } from "../enum"
-import type { WithLayer1Blockchain } from "../enum"
+import { CustomError } from "@rarible/utils"
+import type { AbstractAddress } from "../../common"
+import { parseBlockchain, parseBlockchainSafe, toLayerOneBlockchain, withLayer1Blockchain } from "../enum"
+import type { BlockchainEnum, L1BlockchainByBlockchain, WithBlockchain } from "../enum"
+import { addressValidators } from "./validators"
 
-export type UnionAddress = WithLayer1Blockchain & {
-  __IS_UNION_ADDRESS__: true
-}
+export type UnionAddress<Index extends BlockchainEnum = BlockchainEnum> = WithBlockchain<
+  Index,
+  AbstractAddress<L1BlockchainByBlockchain[Index]>
+>
 
 /**
  * Address format of union service
@@ -17,20 +21,29 @@ export type UnionAddress = WithLayer1Blockchain & {
  */
 
 export function toUnionAddress(value: string): UnionAddress {
-  if (!isRealBlockchainSpecified(value)) {
-    throw new InvalidUnionAddressError(value)
-  }
-  try {
-    const [blockchain, rest] = parseBlockchain(value)
-    const layer1 = toLayerOneBlockchain(blockchain)
-    return withLayer1Blockchain(layer1, rest) as UnionAddress
-  } catch (error) {
-    throw new InvalidUnionAddressError(value)
-  }
+  const safe = toUnionAddressSafe(value)
+  if (!safe) throw new InvalidUnionAddressError(value)
+  return safe
 }
 
-export class InvalidUnionAddressError extends Error {
-  readonly name = "InvalidUnionAddressError"
+export function toUnionAddressSafe(value: string): UnionAddress | undefined {
+  if (isUnionAddress(value)) {
+    const [blockchain, address] = parseBlockchain(value)
+    return withLayer1Blockchain(toLayerOneBlockchain(blockchain), address)
+  }
+  return undefined
+}
+
+export function isUnionAddress(value: string): value is UnionAddress {
+  const parsed = parseBlockchainSafe(value as WithBlockchain)
+  if (!parsed) return false
+  const [blockchain, address] = parsed
+  const layer1 = toLayerOneBlockchain(blockchain)
+  const validator = addressValidators[layer1]
+  return validator.validate(address)
+}
+
+export class InvalidUnionAddressError extends CustomError {
   constructor(address: string) {
     super(`Not a UnionAddress: ${address}`)
   }

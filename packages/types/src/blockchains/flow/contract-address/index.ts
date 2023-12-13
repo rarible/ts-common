@@ -1,13 +1,22 @@
-export type FlowContractAddress = string & {
-  __IS_FLOW_CONTRACT_ADDRESS__: true
-}
+import type { AbstractContractAddress } from "../../common/contract-address"
+import { InvalidContractAddressError } from "../../common/contract-address"
+import { createLayer1fulValidator } from "../../common/common"
+import { BlockchainLayer1Enum } from "../../union/enum"
+
+export type FlowContractAddress = AbstractContractAddress<BlockchainLayer1Enum.FLOW>
 
 // example: A.0x01658d9b94068f3c.CommonNFT
 export const flowContractRegExp = new RegExp(/^A\.0*x*[0-9a-f]{16}\.[0-9A-Za-z_]{3,}/)
 
+export function isFlowContractAddress(raw: string): raw is FlowContractAddress {
+  return flowContractRegExp.test(raw)
+}
+
+export const flowContractAddressValidator = createLayer1fulValidator(BlockchainLayer1Enum.FLOW, isFlowContractAddress)
+
 export function toFlowContractAddress(value: string): FlowContractAddress {
   const safe = toFlowContractAddressSafe(value)
-  if (!safe) throw new Error(`not an flow contract address: ${value}`)
+  if (!safe) throw new InvalidContractAddressError(BlockchainLayer1Enum.FLOW, value)
   return safe
 }
 
@@ -16,11 +25,7 @@ export function toFlowContractAddressSafe(raw: string): FlowContractAddress | un
   return undefined
 }
 
-export function isFlowContractAddress(raw: string): raw is FlowContractAddress {
-  return flowContractRegExp.test(raw)
-}
-
-export function randomFlowContractAddress(contractName: string = generateRandomContractName()): string {
+export function randomFlowContractAddress(contractName: string = generateRandomContractName()): FlowContractAddress {
   // Function to generate a random hexadecimal character
   function getRandomHexChar(): string {
     const hexChars = "0123456789abcdef"

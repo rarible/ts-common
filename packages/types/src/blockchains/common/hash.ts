@@ -1,19 +1,19 @@
-import type { EVMTransactionHash } from "../evm"
-import type { FlowTransactionHash } from "../flow"
-import type { Blockchain } from "../union"
+import { CustomError } from "@rarible/utils"
+import type { BlockchainEnum, BlockchainLayer1Enum, L1BlockchainByBlockchain } from "../union/enum"
+import type { Layer1ful } from "./common"
 
-export interface HashByBlockchain extends Record<Blockchain, string> {
-  ETHEREUM: EVMTransactionHash
-  POLYGON: EVMTransactionHash
-  MANTLE: EVMTransactionHash
-  IMMUTABLEX: EVMTransactionHash
-  FLOW: FlowTransactionHash
-  TEZOS: string
-  SOLANA: string
+export type AbstractTransactionHash<T extends BlockchainLayer1Enum> = Layer1ful<T> & {
+  __IS_TRANSACTION_HASH__: true
 }
 
-/**
- * Vanilla blockchain hash format
- */
+export type HashByBlockchain = {
+  [K in BlockchainEnum]: AbstractTransactionHash<L1BlockchainByBlockchain[K]>
+}
 
-export type BlockchainTransactionHash = HashByBlockchain[Blockchain]
+export type TransactionHash = HashByBlockchain[BlockchainEnum]
+
+export class InvalidTransactionHashError<T extends BlockchainLayer1Enum> extends CustomError {
+  constructor(blockchain: T, value: string) {
+    super(`Not valid transaction hash ${value} for blockchain ${blockchain}`)
+  }
+}

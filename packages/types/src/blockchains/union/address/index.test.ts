@@ -1,20 +1,29 @@
-import { blockchains, blockchainsLayer1, toLayerOneBlockchain, withBlockchain, withLayer1Blockchain } from "../enum"
+import { BlockchainEnum, BlockchainLayer1Enum, blockchains, evmBlockchains, toLayerOneBlockchain } from "../enum"
+import { randomEVMAddress } from "../../evm"
+import { getRandomAddress } from "./random"
 import { InvalidUnionAddressError, toUnionAddress } from "."
 
 describe("toUnionAddress", () => {
-  it("should convert all valid layer1 blockchains", () => {
-    blockchainsLayer1.forEach(x => {
-      expect(toUnionAddress(withLayer1Blockchain(x, "[address]"))).toEqual(`${x}:[address]`)
-    })
+  it.each(evmBlockchains)("should convert %s blockchain values to ETHEREUM L1", value => {
+    const evmAddress = randomEVMAddress()
+    expect(toUnionAddress(`${value}:${evmAddress}`)).toEqual(`${BlockchainLayer1Enum.ETHEREUM}:${evmAddress}`)
   })
 
-  it("should convert all valid blockchains", () => {
-    blockchains.forEach(x => {
-      expect(toUnionAddress(withBlockchain(x, "[address]"))).toEqual(`${toLayerOneBlockchain(x)}:[address]`)
-    })
+  const invalidBlockchains = ["TEST", "ETHEREUMM"] as const
+  it.each(invalidBlockchains)("should throw error in case of invalid or unsupported blockchain - %s", value => {
+    const evmAddress = randomEVMAddress()
+    expect(() => toUnionAddress(`${value}:${evmAddress}`)).toThrowError(InvalidUnionAddressError)
   })
 
-  it("should throw error if invalid value passed", () => {
-    expect(() => toUnionAddress("some-value")).toThrow(InvalidUnionAddressError)
+  it.each(blockchains)("should convert %s blockchain address", blockchain => {
+    const layer1 = toLayerOneBlockchain(blockchain)
+    const addressRaw = getRandomAddress(layer1)
+    expect(toUnionAddress(`${blockchain}:${addressRaw}`)).toEqual(`${layer1}:${addressRaw}`)
+  })
+
+  it("should throw error in case when EVM address passed in FLOW union address", () => {
+    const addressRaw = randomEVMAddress()
+    const blockchain = BlockchainEnum.FLOW
+    expect(() => toUnionAddress(`${blockchain}:${addressRaw}`)).toThrowError(InvalidUnionAddressError)
   })
 })
