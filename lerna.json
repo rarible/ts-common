@@ -7,7 +7,7 @@
   "version": "0.9.18",
   "command": {
     "publish": {
-      "allowBranch": "feat/add-arbitrum-chain",
+      "allowBranch": "0.9",
       "registry": "https://registry.npmjs.org/",
       "message": "chore: bump versions after release",
       "yes": true
