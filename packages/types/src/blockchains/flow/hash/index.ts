@@ -1,19 +1,24 @@
-export type FlowTransactionHash = string & {
-  __IS_FLOW_TRANSACTION_HASH__: true
+import type { AbstractTransactionHash } from "../../common/hash"
+import { InvalidTransactionHashError } from "../../common/hash"
+import { BlockchainLayer1Enum } from "../../union/enum"
+import { createLayer1fulValidator } from "../../common/common"
+
+export type FlowTransactionHash = AbstractTransactionHash<BlockchainLayer1Enum.FLOW>
+
+export const flowTransactionHashRegExp = /^[a-f0-9]{64}$/
+
+export function isFlowTransactionHash(raw: string): raw is FlowTransactionHash {
+  return flowTransactionHashRegExp.test(raw)
 }
 
-const regexp = /^[a-f0-9]{64}$/
+export const flowTransactionHashValidator = createLayer1fulValidator(BlockchainLayer1Enum.FLOW, isFlowTransactionHash)
 
 export function toFlowTransactionHash(raw: string) {
-  if (regexp.test(raw)) {
-    return raw as FlowTransactionHash
-  }
-  throw new InvalidFlowTransactionHashError(raw)
+  const safe = toFlowTransactionHashSafe(raw)
+  if (!safe) throw new InvalidTransactionHashError(BlockchainLayer1Enum.FLOW, raw)
+  return safe
 }
-
-export class InvalidFlowTransactionHashError extends Error {
-  readonly name = "InvalidFlowTransactionHashError"
-  constructor(value: string) {
-    super(`Not valid flow transaction hash ${value}`)
-  }
+export function toFlowTransactionHashSafe(raw: string) {
+  if (isFlowTransactionHash(raw)) return raw
+  return undefined
 }

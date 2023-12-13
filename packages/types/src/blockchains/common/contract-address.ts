@@ -1,19 +1,19 @@
-import type { EVMAddress } from "../evm"
-import type { FlowAddress } from "../flow"
-import type { Blockchain } from "../union"
+import { CustomError } from "@rarible/utils"
+import type { BlockchainEnum, BlockchainLayer1Enum, L1BlockchainByBlockchain } from "../union/enum"
+import type { AbstractAddress } from "./address"
 
-export interface ContractAddressByBlockchain extends Record<Blockchain, string> {
-  ETHEREUM: EVMAddress
-  POLYGON: EVMAddress
-  MANTLE: EVMAddress
-  IMMUTABLEX: EVMAddress
-  FLOW: FlowAddress
-  SOLANA: string
-  TEZOS: string
+export type AbstractContractAddress<T extends BlockchainLayer1Enum> = AbstractAddress<T> & {
+  __IS_CONTRACT__: true
 }
 
-/**
- * Vanilla blockchain address format
- */
+export type ContractAddressByBlockchain = {
+  [K in BlockchainEnum]: AbstractContractAddress<L1BlockchainByBlockchain[K]>
+}
 
-export type BlockchainContractAddress = ContractAddressByBlockchain[Blockchain]
+export type BlockchainContractAddress = ContractAddressByBlockchain[BlockchainEnum]
+
+export class InvalidContractAddressError<T extends BlockchainLayer1Enum> extends CustomError {
+  constructor(blockchain: T, value: string) {
+    super(`Invalid contract address ${value} for blockchain ${blockchain}`)
+  }
+}
