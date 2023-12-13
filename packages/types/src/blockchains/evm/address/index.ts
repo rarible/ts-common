@@ -4,7 +4,9 @@ import { InvalidAddressError } from "../../common/address"
 import { createLayer1fulValidator } from "../../common/common"
 import { BlockchainLayer1Enum } from "../../union/enum"
 
-export type EVMAddress = AbstractAddress<BlockchainLayer1Enum.ETHEREUM>
+export type EVMAddress = AbstractAddress<BlockchainLayer1Enum.ETHEREUM> & {
+  __IS_EVM_ADDRESS__: true
+}
 
 export const evmAddressRegExp = new RegExp(/^0x[a-fA-F0-9]{40}$/)
 

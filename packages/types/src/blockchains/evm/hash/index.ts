@@ -3,7 +3,9 @@ import { InvalidTransactionHashError } from "../../common/hash"
 import { BlockchainLayer1Enum } from "../../union/enum"
 import { createLayer1fulValidator } from "../../common/common"
 
-export type EVMTransactionHash = AbstractTransactionHash<BlockchainLayer1Enum.ETHEREUM>
+export type EVMTransactionHash = AbstractTransactionHash<BlockchainLayer1Enum.ETHEREUM> & {
+  __IS_EVM_TRANSACTION_HASH__: true
+}
 
 export const evmTransactionHashRegexp = /^0x([A-Fa-f0-9]{64})$/
 

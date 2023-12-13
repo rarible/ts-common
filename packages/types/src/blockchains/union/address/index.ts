@@ -7,7 +7,9 @@ import { addressValidators } from "./validators"
 export type UnionAddress<Index extends BlockchainEnum = BlockchainEnum> = WithBlockchain<
   Index,
   AbstractAddress<L1BlockchainByBlockchain[Index]>
->
+> & {
+  __IS_UNION_ADDRESS__: true
+}
 
 /**
  * Address format of union service
@@ -29,7 +31,7 @@ export function toUnionAddress(value: string): UnionAddress {
 export function toUnionAddressSafe(value: string): UnionAddress | undefined {
   if (isUnionAddress(value)) {
     const [blockchain, address] = parseBlockchain(value)
-    return withLayer1Blockchain(toLayerOneBlockchain(blockchain), address)
+    return withLayer1Blockchain(toLayerOneBlockchain(blockchain), address) as UnionAddress
   }
   return undefined
 }
