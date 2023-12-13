@@ -33,7 +33,27 @@ export const evmBlockchains: BlockchainEnum[] = [
   BlockchainEnum.ARBITRUM,
 ]
 
-export function isEVMBlockchain(blockchain: BlockchainEnum): blockchain is EVMBlockchain {
+/**
+ * Checks if provided string is real blockchain from BlockchainEnum
+ * @param blockchain test string
+ */
+export function isBlockchain(blockchain: string): blockchain is BlockchainEnum {
+  for (const enumValue of blockchains) {
+    if (enumValue === blockchain) {
+      return true
+    }
+  }
+  return false
+}
+
+/**
+ * Checks if provided string is EVM blockchain
+ * @param blockchain test string
+ */
+export function isEVMBlockchain(blockchain: string): blockchain is EVMBlockchain {
+  if (!isBlockchain(blockchain)) {
+    return false
+  }
   return evmBlockchains.includes(blockchain)
 }
 

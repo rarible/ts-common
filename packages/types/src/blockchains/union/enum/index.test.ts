@@ -6,6 +6,7 @@ import {
   blockchains,
   blockchainsLayer1,
   evmBlockchains,
+  isBlockchain,
   isBlockchainSpecified,
   isRealBlockchainSpecified,
   parseBlockchain,
@@ -25,6 +26,16 @@ describe("isBlockchainSpecified", () => {
         expect(isBlockchainSpecified(`${x}:awd`)).toBeFalsy()
       },
     )
+  })
+})
+
+describe("isBlockchain", () => {
+  it("should return true for all valid blockchains", () => {
+    for (const enumValue of blockchains) {
+      expect(isBlockchain(`${enumValue}`)).toBeTruthy()
+    }
+    expect(isBlockchain("ETHEREUM")).toBeTruthy()
+    expect(isBlockchain("BLA")).toBeFalsy()
   })
 })
 
