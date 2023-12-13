@@ -17,9 +17,11 @@ import { contractAddressValidators } from "./validators"
 export type UnionContractAddress<Index extends BlockchainEnum = BlockchainEnum> = WithBlockchain<
   Index,
   AbstractContractAddress<L1BlockchainByBlockchain[Index]>
->
+> & {
+  __IS_CONTRACT_ADDRESS__: true
+}
 
-export function toUnionContractAddress(value: string): UnionContractAddress | undefined {
+export function toUnionContractAddress(value: string): UnionContractAddress {
   const safe = toUnionContractAddressSafe(value)
   if (!safe) throw new InvalidUnionContractAddressError(value)
   return safe

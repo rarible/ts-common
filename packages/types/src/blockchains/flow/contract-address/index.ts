@@ -3,7 +3,9 @@ import { InvalidContractAddressError } from "../../common/contract-address"
 import { createLayer1fulValidator } from "../../common/common"
 import { BlockchainLayer1Enum } from "../../union/enum"
 
-export type FlowContractAddress = AbstractContractAddress<BlockchainLayer1Enum.FLOW>
+export type FlowContractAddress = AbstractContractAddress<BlockchainLayer1Enum.FLOW> & {
+  __IS_FLOW_CONTRACT_ADDRESS__: true
+}
 
 // example: A.0x01658d9b94068f3c.CommonNFT
 export const flowContractRegExp = new RegExp(/^A\.0*x*[0-9a-f]{16}\.[0-9A-Za-z_]{3,}/)

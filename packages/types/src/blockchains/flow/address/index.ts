@@ -4,7 +4,9 @@ import { InvalidAddressError } from "../../common/address"
 import { createLayer1fulValidator } from "../../common/common"
 import { BlockchainLayer1Enum } from "../../union/enum"
 
-export type FlowAddress = AbstractAddress<BlockchainLayer1Enum.FLOW>
+export type FlowAddress = AbstractAddress<BlockchainLayer1Enum.FLOW> & {
+  __IS_FLOW_ADDRESS__: true
+}
 
 // example: 0x01658d9b94068f3c
 export const flowAddressRegExp = new RegExp(/^0*x*[0-9a-f]{16}$/)

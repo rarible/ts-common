@@ -3,7 +3,9 @@ import { InvalidTransactionHashError } from "../../common/hash"
 import { BlockchainLayer1Enum } from "../../union/enum"
 import { createLayer1fulValidator } from "../../common/common"
 
-export type FlowTransactionHash = AbstractTransactionHash<BlockchainLayer1Enum.FLOW>
+export type FlowTransactionHash = AbstractTransactionHash<BlockchainLayer1Enum.FLOW> & {
+  __IS_FLOW_TRANSACTION_HASH__: true
+}
 
 export const flowTransactionHashRegExp = /^[a-f0-9]{64}$/
 
