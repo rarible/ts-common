@@ -12,7 +12,7 @@
     "url": "https://github.com/rariblecom/ts-common.git"
   },
   "license": "MIT",
-  "main": "build/cjs/index.js",
+  "main": "build/index.js",
   "module": "build/esm/index.js",
   "types": "build/esm/index.d.ts",
   "files": [

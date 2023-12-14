@@ -4,7 +4,7 @@
   "compilerOptions": {
     "module": "CommonJS",
     "baseUrl": "./",
-    "outDir": "build/cjs"
+    "outDir": "build"
   },
   "exclude": ["src/**/*.test.ts"]
 }

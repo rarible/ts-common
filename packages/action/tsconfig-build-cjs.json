@@ -3,7 +3,7 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "module": "CommonJS",
-    "outDir": "build/cjs"
+    "outDir": "build"
   },
   "exclude": ["src/**/*.test.ts"]
 }
