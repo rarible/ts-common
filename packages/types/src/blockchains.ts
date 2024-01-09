@@ -16,6 +16,8 @@ const realBlockchains = [
 	"ARBITRUM",
 	"ZKSYNC",
 	"CHILIZ",
+	"LIGHTLINK",
+	"RARI",
 ]
 
 export function isBlockchainSpecified(value: string) {
