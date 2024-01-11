@@ -1,6 +1,6 @@
 {
   "name": "@rarible/eslint-config-ts",
-  "version": "0.10.0-alpha.18",
+  "version": "0.10.0-alpha.19",
   "private": false,
   "description": "Eslint config for typescript projects",
   "keywords": [
