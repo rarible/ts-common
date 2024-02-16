@@ -19,6 +19,8 @@ const realBlockchains = [
 	"LIGHTLINK",
 	"RARI",
 	"ASTARZKEVM",
+	"RARI",
+	"BASE",
 ]
 
 export function isBlockchainSpecified(value: string) {
