@@ -18,6 +18,7 @@ export enum BlockchainEnum {
   ZKSYNC = "ZKSYNC",
   RARI = "RARI",
   ASTARZKEVM = "ASTARZKEVM",
+  BASE = "BASE",
 }
 
 export const blockchains = Object.values(BlockchainEnum)
@@ -30,6 +31,7 @@ export const evmBlockchains = [
   BlockchainEnum.ZKSYNC,
   BlockchainEnum.RARI,
   BlockchainEnum.ASTARZKEVM,
+  BlockchainEnum.BASE,
 ] as const
 
 export type EVMBlockchain = (typeof evmBlockchains)[number]
@@ -46,6 +48,7 @@ export const L1BlockchainByBlockchainDictionary = {
   [BlockchainEnum.IMMUTABLEX]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.ZKSYNC]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.ASTARZKEVM]: BlockchainLayer1Enum.ETHEREUM,
+  [BlockchainEnum.BASE]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.FLOW]: BlockchainLayer1Enum.FLOW,
   [BlockchainEnum.SOLANA]: BlockchainLayer1Enum.SOLANA,
   [BlockchainEnum.TEZOS]: BlockchainLayer1Enum.TEZOS,
