@@ -20,7 +20,7 @@ export enum BlockchainEnum {
   ASTARZKEVM = "ASTARZKEVM",
   BASE = "BASE",
   ARBITRUM = "ARBITRUM",
-  LIGHTLINK = "LIGHTLINK", 
+  LIGHTLINK = "LIGHTLINK",
 }
 
 export const blockchains = Object.values(BlockchainEnum)
