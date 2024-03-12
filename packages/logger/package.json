@@ -1,6 +1,6 @@
 {
   "name": "@rarible/logger",
-  "version": "0.10.0-alpha.23",
+  "version": "0.10.0-alpha.24",
   "private": false,
   "description": "Logging utility for ts projects",
   "repository": {
@@ -21,7 +21,7 @@
     "verify": "tsc --noEmit"
   },
   "dependencies": {
-    "@rarible/utils": "^0.10.0-alpha.23",
+    "@rarible/utils": "^0.10.0-alpha.24",
     "generic-type-guard": "^3.7.2",
     "json-stringify-safe": "^5.0.1",
     "object-sizeof": "^2.6.3"
