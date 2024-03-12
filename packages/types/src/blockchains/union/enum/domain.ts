@@ -18,6 +18,7 @@ export enum BlockchainEnum {
   ZKSYNC = "ZKSYNC",
   RARI = "RARI",
   ASTARZKEVM = "ASTARZKEVM",
+  KROMA = "KROMA",
   BASE = "BASE",
   ARBITRUM = "ARBITRUM",
   LIGHTLINK = "LIGHTLINK",
@@ -38,6 +39,7 @@ export const evmBlockchains = [
   BlockchainEnum.ARBITRUM,
   BlockchainEnum.LIGHTLINK,
   BlockchainEnum.CELO,
+  BlockchainEnum.KROMA,
 ] as const
 
 export type EVMBlockchain = (typeof evmBlockchains)[number]
@@ -57,6 +59,7 @@ export const L1BlockchainByBlockchainDictionary = {
   [BlockchainEnum.ARBITRUM]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.LIGHTLINK]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.CELO]: BlockchainLayer1Enum.ETHEREUM,
+  [BlockchainEnum.KROMA]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.BASE]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.FLOW]: BlockchainLayer1Enum.FLOW,
   [BlockchainEnum.SOLANA]: BlockchainLayer1Enum.SOLANA,
