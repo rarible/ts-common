@@ -11,6 +11,7 @@ const realBlockchains = [
 	"TEZOS",
 	"POLYGON",
 	"SOLANA",
+	"ECLIPSE",
 	"IMMUTABLEX",
 	"MANTLE",
 	"ARBITRUM",
