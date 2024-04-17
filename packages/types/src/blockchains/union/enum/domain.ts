@@ -14,6 +14,7 @@ export enum BlockchainEnum {
   POLYGON = "POLYGON",
   IMMUTABLEX = "IMMUTABLEX",
   SOLANA = "SOLANA",
+  ECLIPSE = "ECLIPSE",
   MANTLE = "MANTLE",
   ZKSYNC = "ZKSYNC",
   RARI = "RARI",
@@ -66,6 +67,7 @@ export const L1BlockchainByBlockchainDictionary = {
   [BlockchainEnum.BASE]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.FLOW]: BlockchainLayer1Enum.FLOW,
   [BlockchainEnum.SOLANA]: BlockchainLayer1Enum.SOLANA,
+  [BlockchainEnum.ECLIPSE]: BlockchainLayer1Enum.SOLANA,
   [BlockchainEnum.TEZOS]: BlockchainLayer1Enum.TEZOS,
 } as const satisfies Record<BlockchainEnum, BlockchainLayer1Enum>
 
