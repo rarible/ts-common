@@ -4,6 +4,7 @@ import { randomFlowAddress } from "../../flow"
 import { randomSolanaAddress } from "../../solana"
 import { randomTezosAddress } from "../../tezos"
 import { BlockchainLayer1Enum } from "../enum"
+import { randomAptosAddress } from "../../aptos"
 
 type Dictionary = {
   [K in BlockchainLayer1Enum]: () => AbstractAddress<K>
@@ -14,6 +15,7 @@ const dictionary: Dictionary = {
   [BlockchainLayer1Enum.FLOW]: randomFlowAddress,
   [BlockchainLayer1Enum.SOLANA]: randomSolanaAddress,
   [BlockchainLayer1Enum.TEZOS]: randomTezosAddress,
+  [BlockchainLayer1Enum.APTOS]: randomAptosAddress,
 }
 
 export function getRandomAddress<T extends BlockchainLayer1Enum>(blockchain: T): AbstractAddress<T> {
