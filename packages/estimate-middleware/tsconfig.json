@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@rarible/types": ["../types/src"],
+      "@rarible/types": ["../types/src"]
     }
   }
 }
