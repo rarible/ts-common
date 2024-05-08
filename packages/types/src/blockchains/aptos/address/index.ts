@@ -1,4 +1,4 @@
-import { randomBinary } from "@rarible/types"
+import { randomBinary } from "../../../common/binary"
 import type { AbstractAddress } from "../../common"
 import { InvalidAddressError } from "../../common"
 import { createLayer1fulValidator } from "../../common/common"
