@@ -5,7 +5,6 @@
     "baseUrl": "./",
     "paths": {
       "@rarible/types": ["../types/src"],
-      "@rarible/utils": ["../utils/src"]
     }
   }
 }
