@@ -3,6 +3,7 @@ export enum BlockchainLayer1Enum {
   FLOW = "FLOW",
   TEZOS = "TEZOS",
   SOLANA = "SOLANA",
+  APTOS = "APTOS",
 }
 
 export const blockchainsLayer1 = Object.values(BlockchainLayer1Enum)
@@ -14,6 +15,7 @@ export enum BlockchainEnum {
   POLYGON = "POLYGON",
   IMMUTABLEX = "IMMUTABLEX",
   SOLANA = "SOLANA",
+  APTOS = "APTOS",
   ECLIPSE = "ECLIPSE",
   MANTLE = "MANTLE",
   ZKSYNC = "ZKSYNC",
@@ -71,6 +73,7 @@ export const L1BlockchainByBlockchainDictionary = {
   [BlockchainEnum.FLOW]: BlockchainLayer1Enum.FLOW,
   [BlockchainEnum.SOLANA]: BlockchainLayer1Enum.SOLANA,
   [BlockchainEnum.ECLIPSE]: BlockchainLayer1Enum.SOLANA,
+  [BlockchainEnum.APTOS]: BlockchainLayer1Enum.APTOS,
   [BlockchainEnum.TEZOS]: BlockchainLayer1Enum.TEZOS,
 } as const satisfies Record<BlockchainEnum, BlockchainLayer1Enum>
 
@@ -81,6 +84,7 @@ export interface BlockchainByL1Blockchain extends Record<BlockchainLayer1Enum, B
   [BlockchainLayer1Enum.FLOW]: BlockchainEnum.FLOW
   [BlockchainLayer1Enum.SOLANA]: BlockchainEnum.SOLANA
   [BlockchainLayer1Enum.TEZOS]: BlockchainEnum.TEZOS
+  [BlockchainLayer1Enum.APTOS]: BlockchainEnum.APTOS
 }
 
 export type WithLayer1Blockchain<
