@@ -25,6 +25,7 @@ export enum BlockchainEnum {
   LIGHTLINK = "LIGHTLINK",
   CELO = "CELO",
   XAI = "XAI",
+  CHILIZ = "CHILIZ",
 }
 
 export const blockchains = Object.values(BlockchainEnum)
@@ -43,6 +44,7 @@ export const evmBlockchains = [
   BlockchainEnum.CELO,
   BlockchainEnum.KROMA,
   BlockchainEnum.XAI,
+  BlockchainEnum.CHILIZ,
 ] as const
 
 export type EVMBlockchain = (typeof evmBlockchains)[number]
@@ -64,6 +66,7 @@ export const L1BlockchainByBlockchainDictionary = {
   [BlockchainEnum.CELO]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.KROMA]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.XAI]: BlockchainLayer1Enum.ETHEREUM,
+  [BlockchainEnum.CHILIZ]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.BASE]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.FLOW]: BlockchainLayer1Enum.FLOW,
   [BlockchainEnum.SOLANA]: BlockchainLayer1Enum.SOLANA,
