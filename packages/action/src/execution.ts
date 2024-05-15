@@ -9,7 +9,10 @@ export class Execution<Id, T> {
   private readonly state: PromiseState<unknown>[]
   private readonly promises: Promise<unknown>[]
 
-  constructor(private readonly input: any, private readonly steps: Step<unknown, unknown, unknown>[]) {
+  constructor(
+    private readonly input: any,
+    private readonly steps: Step<unknown, unknown, unknown>[],
+  ) {
     this.state = new Array(steps.length)
     this.promises = new Array(steps.length)
   }

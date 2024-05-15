@@ -6,13 +6,16 @@ import type { LoggerValue } from "../../domain"
 const UNKNOWN = `[unknown]` as const
 
 export function stringifyObject<T extends Record<string, unknown>>(maxByteSize: number, object: T, indent: number = 2) {
-  return Object.keys(object).reduce((prev, curr) => {
-    const key = curr as keyof T
-    const value = object[key]
-    const result = stringify(value, indent)
-    prev[key] = sizeOf(result) > maxByteSize ? `[too-big-object]` : result
-    return prev
-  }, {} as Record<keyof T, LoggerValue>)
+  return Object.keys(object).reduce(
+    (prev, curr) => {
+      const key = curr as keyof T
+      const value = object[key]
+      const result = stringify(value, indent)
+      prev[key] = sizeOf(result) > maxByteSize ? `[too-big-object]` : result
+      return prev
+    },
+    {} as Record<keyof T, LoggerValue>,
+  )
 }
 
 export function stringify(value: unknown, indent: number): LoggerValue {

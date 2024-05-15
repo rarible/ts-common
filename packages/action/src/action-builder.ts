@@ -37,7 +37,10 @@ export abstract class ActionBuilder<Ctx, Id, In, Out> extends CallableInstance<[
 }
 
 class BeforeActionBuilder<Ctx, Id, In, Out, NewIn> extends ActionBuilder<Ctx, Id, NewIn, Out> {
-  constructor(private readonly source: AB<Ctx, Id, In, Out>, private readonly map: (input: NewIn) => In | Promise<In>) {
+  constructor(
+    private readonly source: AB<Ctx, Id, In, Out>,
+    private readonly map: (input: NewIn) => In | Promise<In>,
+  ) {
     super()
   }
 
@@ -62,7 +65,10 @@ class AfterActionBuilder<Ctx, Id, In, Out, NewOut> extends ActionBuilder<Ctx, Id
 }
 
 class ThenActionBuilder<Ctx, Id, In, Out, NewId, NewOut> extends ActionBuilder<Ctx, Id | NewId, In, NewOut> {
-  constructor(private readonly ab1: AB<Ctx, Id, In, Out>, private readonly ab2: AB<Ctx, NewId, Out, NewOut>) {
+  constructor(
+    private readonly ab1: AB<Ctx, Id, In, Out>,
+    private readonly ab2: AB<Ctx, NewId, Out, NewOut>,
+  ) {
     super()
   }
 

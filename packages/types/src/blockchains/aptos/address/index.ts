@@ -7,6 +7,7 @@ import { BlockchainLayer1Enum } from "../../union/enum"
 export type AptosAddress = AbstractAddress<BlockchainLayer1Enum.APTOS>
 
 // Regular expression to validate an Aptos address.
+// eslint-disable-next-line no-useless-escape
 const aptosAddressRegExp = new RegExp(/^0[xX][0-9a-fA-F]{1,66}(\:\:[^:\s]+){0,2}$/)
 
 export function isAptosAddress(address: string): address is AptosAddress {
