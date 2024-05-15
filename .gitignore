@@ -19,7 +19,6 @@ npm-debug.log
 *.pyc
 .vagrant
 .idea
-.vscode
 npm-debug.*
 /target/
 .classpath
