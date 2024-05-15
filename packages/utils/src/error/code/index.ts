@@ -27,7 +27,11 @@ export class CodeError<T = void> extends CustomError<T> {
     })
   }
 
-  constructor(public code: number, message: string | undefined, options?: ErrorOptions<T>) {
+  constructor(
+    public code: number,
+    message: string | undefined,
+    options?: ErrorOptions<T>,
+  ) {
     super(message, options)
     this.code = code
   }
