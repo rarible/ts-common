@@ -1,6 +1,6 @@
 {
   "name": "@rarible/prettier",
-  "version": "0.10.0-alpha.29",
+  "version": "0.10.0-alpha.30",
   "private": false,
   "description": "Prettier config",
   "keywords": [

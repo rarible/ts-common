@@ -1,6 +1,6 @@
 {
   "name": "@rarible/estimate-middleware",
-  "version": "0.10.0-alpha.29",
+  "version": "0.10.0-alpha.30",
   "keywords": [
     "rarible",
     "common",
@@ -24,7 +24,7 @@
     "verify": "tsc --noEmit"
   },
   "dependencies": {
-    "@rarible/utils": "^0.10.0-alpha.29",
+    "@rarible/utils": "^0.10.0-alpha.30",
     "eth-json-rpc-middleware": "^8.0.1",
     "json-rpc-engine": "^6.1.0"
   },
