@@ -6,24 +6,66 @@
     "common",
     "types"
   ],
+  "homepage": "https://github.com/rarible/ts-common",
   "repository": {
     "type": "git",
     "url": "https://github.com/rariblecom/ts-common.git"
   },
   "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": {
+        "require": "./build/index.d.ts",
+        "import": "./esm/index.d.ts"
+      },
+      "require": "./build/index.js",
+      "import": "./esm/index.js",
+      "node": "./build/index.js",
+      "default": "./build/index.js"
+    },
+    "./*": {
+      "types": {
+        "require": "./build/*.d.ts",
+        "import": "./esm/*.d.ts"
+      },
+      "require": "./build/*.js",
+      "import": "./esm/*.js",
+      "node": "./build/*.js",
+      "default": "./build/*.js"
+    },
+    "./esm/*": {
+      "types": "./esm/*.d.ts",
+      "require": "./esm/*.js",
+      "import": "./esm/*.js",
+      "node": "./build/*.js",
+      "default": "./esm/*/index.js"
+    },
+    "./build/*": {
+      "types": "./build/*.d.ts",
+      "require": "./build/*.js",
+      "import": "./build/*.js",
+      "node": "./build/*.js",
+      "default": "./build/*/index.js"
+    }
+  },
   "main": "build/index.js",
-  "module": "build/esm/index.js",
-  "types": "build/esm/index.d.ts",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
   "files": [
-    "/build"
+    "build",
+    "esm"
   ],
   "scripts": {
-    "build": "tsc -b tsconfig-build-cjs.json tsconfig-build-esm.json",
-    "clean": "rimraf ./build",
+    "build": "run-s build:*",
+    "build:cjs": "tsc -p tsconfig.cjs.json --outDir ./build && printf '{\"type\":\"commonjs\"}' > ./build/package.json",
+    "build:esm": "tsc -p tsconfig.esm.json --outDir ./esm && printf '{\"type\":\"module\"}' > ./esm/package.json",
+    "clean": "rimraf ./build ./esm ./tsconfig.tsbuildinfo",
     "test": "jest --silent --passWithNoTests",
-    "verify": "tsc --noEmit"
+    "verify": "tsc"
   },
   "dependencies": {
+    "@rarible/types": "^0.10.0-alpha.31",
     "@rarible/utils": "^0.10.0-alpha.31",
     "eth-json-rpc-middleware": "^8.0.1",
     "json-rpc-engine": "^6.1.0"
@@ -32,6 +74,15 @@
     "ethereumjs-wallet": "^1.0.2",
     "ganache": "^7.7.7",
     "web3": "^1.8.2"
+  },
+  "peerDependencies": {
+    "tslib": ">=2.0.0 <3.0.0",
+    "typescript": ">=4.7.0 || <6.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public",

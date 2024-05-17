@@ -1,7 +1,7 @@
 import ganache from "ganache"
 import Wallet from "ethereumjs-wallet"
 import Web3 from "web3"
-import { randomAddress, randomWord } from "@rarible/types"
+import { randomEVMAddress, randomWord } from "@rarible/types"
 import { toBn } from "@rarible/utils"
 import { RpcError } from "./utils"
 import { estimate } from "."
@@ -29,7 +29,7 @@ describe("estimate middleware", () => {
 
     const receipt = await web3.eth.sendTransaction({
       from: wallet.getAddressString(),
-      to: randomAddress(),
+      to: randomEVMAddress(),
       value: 10000,
       gasPrice: 10,
     })
@@ -39,7 +39,7 @@ describe("estimate middleware", () => {
     const web3Error = new Web3(provider as any)
     const receiptError = await web3Error.eth.sendTransaction({
       from: wallet.getAddressString(),
-      to: randomAddress(),
+      to: randomEVMAddress(),
       value: 10000,
     })
     const txError = await web3.eth.getTransaction(receiptError.transactionHash)
@@ -64,7 +64,7 @@ describe("estimate middleware", () => {
       web3.eth.subscribe(
         "logs",
         {
-          address: randomAddress(),
+          address: randomEVMAddress(),
         },
         e => reject(e),
       ),

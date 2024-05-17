@@ -1,6 +1,6 @@
 import sizeOf from "object-sizeof"
 import stringifyJson from "json-stringify-safe"
-import { isErrorLike } from "@rarible/utils"
+import { isErrorLike } from "@rarible/utils/error/utils/index"
 import type { LoggerValue } from "../../domain"
 
 const UNKNOWN = `[unknown]` as const

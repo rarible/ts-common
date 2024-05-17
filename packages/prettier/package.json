@@ -1,24 +1,21 @@
 {
   "name": "@rarible/prettier",
   "version": "0.10.0-alpha.31",
-  "private": false,
   "description": "Prettier config",
   "keywords": [
     "prettier",
     "config"
   ],
+  "homepage": "https://github.com/rarible/ts-common",
   "repository": {
     "type": "git",
     "url": "https://github.com/rariblecom/ts-common.git"
   },
   "license": "MIT",
-  "main": "./index.js",
+  "main": "index.js",
   "files": [
-    "/index.js"
+    "index.js"
   ],
-  "scripts": {
-    "test": "jest --passWithNoTests"
-  },
   "peerDependencies": {
     "prettier": "^3.0.0"
   },

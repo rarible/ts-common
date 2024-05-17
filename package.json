@@ -1,6 +1,7 @@
 {
   "name": "root",
   "private": true,
+  "type": "module",
   "workspaces": [
     "packages/*"
   ],
@@ -21,7 +22,8 @@
     "lint-staged": "lint-staged",
     "version": "lerna version",
     "publish-all": "lerna publish from-package",
-    "precommit": "run-s verify lint-staged lint"
+    "precommit": "run-s verify lint-staged lint",
+    "nuke": "rm -rf node_modules; for d in packages/*/node_modules; do echo $d; rm -r $d; done"
   },
   "commitlint": {
     "extends": [
