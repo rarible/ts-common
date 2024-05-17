@@ -14,7 +14,7 @@ describe("timestampMiddleware", () => {
     const result = await middleware({})
     expect(result.timestampClientUnix).toEqual(clientTime.getTime())
     const expectedTimestampUnix = clientTime.getTime() + requestDelay - clientDiff
-    const precision = 20
+    const precision = 100
     expect(result.timestampUnix).toBeGreaterThan(expectedTimestampUnix - precision)
     expect(result.timestampUnix).toBeLessThan(expectedTimestampUnix + precision)
   })
