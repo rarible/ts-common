@@ -1,4 +1,4 @@
-import { CustomError } from "@rarible/utils"
+import { CustomError } from "@rarible/utils/error/custom/index"
 import type {
   BlockchainEnum,
   BlockchainLayer1Enum,

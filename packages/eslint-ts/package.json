@@ -1,7 +1,6 @@
 {
   "name": "@rarible/eslint-config-ts",
   "version": "0.10.0-alpha.31",
-  "private": false,
   "description": "Eslint config for typescript projects",
   "keywords": [
     "Eslint",
@@ -9,6 +8,7 @@
     "Prettier",
     "eslint-config"
   ],
+  "homepage": "https://github.com/rarible/ts-common",
   "repository": {
     "type": "git",
     "url": "https://github.com/rariblecom/ts-common.git"
@@ -18,10 +18,6 @@
   "files": [
     "index.js"
   ],
-  "scripts": {
-    "lint": "eslint --ext .js ./",
-    "lint:fix": "eslint --ext .js ./ --fix"
-  },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
@@ -32,7 +28,7 @@
   },
   "peerDependencies": {
     "eslint": ">=8.56.0 <9.0.0",
-    "typescript": ">=4.0.0 <6.0.0"
+    "typescript": ">=5.0.0 <6.0.0"
   },
   "peerDependenciesMeta": {
     "typescript": {

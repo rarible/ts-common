@@ -1,4 +1,4 @@
-import { CustomError } from "@rarible/utils"
+import { CustomError } from "@rarible/utils/error/custom/index"
 import type { AbstractAddress } from "../../common"
 import { parseBlockchain, parseBlockchainSafe, toLayerOneBlockchain, withLayer1Blockchain } from "../enum"
 import type { BlockchainEnum, L1BlockchainByBlockchain, WithBlockchain } from "../enum"

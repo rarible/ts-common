@@ -1,7 +1,6 @@
 {
   "name": "@rarible/eslint-config-react",
   "version": "0.10.0-alpha.31",
-  "private": false,
   "description": "Eslint config for react projects",
   "keywords": [
     "Eslint",
@@ -9,6 +8,7 @@
     "Prettier",
     "eslint-config"
   ],
+  "homepage": "https://github.com/rarible/ts-common",
   "repository": {
     "type": "git",
     "url": "https://github.com/rariblecom/ts-common.git"
@@ -18,19 +18,15 @@
   "files": [
     "index.js"
   ],
-  "scripts": {
-    "lint": "eslint --ext .js ./",
-    "lint:fix": "eslint --ext .js ./ --fix"
-  },
   "dependencies": {
     "@rarible/eslint-config-ts": "^0.10.0-alpha.31",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0"
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.2"
   },
   "peerDependencies": {
-    "eslint": ">=7.4.0 <9.0.0",
-    "typescript": ">=3.9.0 <6.0.0"
+    "eslint": ">=8.56.0 <9.0.0",
+    "typescript": ">=5.0.0 <6.0.0"
   },
   "publishConfig": {
     "access": "public",

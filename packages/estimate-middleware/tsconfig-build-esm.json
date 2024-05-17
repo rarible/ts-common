@@ -1,9 +1,0 @@
-{
-  "extends": ["../../tsconfig.json"],
-  "include": ["src/**/*", "./typings.d.ts"],
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "build/esm",
-  },
-  "exclude": ["src/**/*.test.ts"]
-}

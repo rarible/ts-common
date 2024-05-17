@@ -1,10 +1,4 @@
 {
-  "extends": ["../../tsconfig.json", "../../tsconfig-paths.json"],
-  "include": ["src/**/*", "./typings.d.ts"],
-  "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "@rarible/types": ["../types/src"]
-    }
-  }
+  "extends": ["../../tsconfig.json"],
+  "include": ["src", "esm", "build"]
 }

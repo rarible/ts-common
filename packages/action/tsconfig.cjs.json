@@ -1,0 +1,9 @@
+{
+  "extends": ["../../tsconfig-build.json"],
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts"],
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node"
+  }
+}

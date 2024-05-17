@@ -1,0 +1,15 @@
+{
+  "extends": ["./tsconfig.json"],
+  "compilerOptions": {
+    "target": "ES6",
+    "declaration": true,
+    "noEmit": false,
+
+    // We're relying on tslib
+    "importHelpers": true,
+    "downlevelIteration": true,
+
+    // Include incremental to speed up things
+    "incremental": true
+  }
+}
