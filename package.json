@@ -1,5 +1,6 @@
 {
   "name": "root",
+  "version": "0.10.0-alpha.32",
   "private": true,
   "type": "module",
   "workspaces": [
