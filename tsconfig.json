@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    // All of our codebase are targeting on ES6 code-compatibility
-    "module": "NodeNext",
+    "target": "ES2015",
+    "module": "Node16",
 
     // Skip declarations and emitting
     // This tsconfig inteded only for dev environment
@@ -15,18 +15,13 @@
     "strict": true,
     "noImplicitReturns": false,
 
-    // The 'bundler' resolution strategy is similar to the 'node16' and
-    // 'nodenext' strategies (in that it supports package.json "exports" and
-    // "imports" fields), but it allows us to not have to specify the file
-    // extension when importing files (which is nice, because we'll be bundling
-    // everything anyway, so the extensions are not relevant).
-    // See https://www.typescriptlang.org/tsconfig#moduleResolution
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "Node16",
     "resolveJsonModule": true,
+    "allowJs": true,
 
     // The way how we operate with third party modules
     "esModuleInterop": true,
-    "verbatimModuleSyntax": true,
+    "allowSyntheticDefaultImports": true,
 
     // Experimental decorators
     "experimentalDecorators": true,

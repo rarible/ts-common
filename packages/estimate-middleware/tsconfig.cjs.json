@@ -1,10 +1,14 @@
 {
-  "extends": ["../../tsconfig-build.json", "./tsconfig.paths.json"],
+  "extends": "../../tsconfig.build.cjs.json",
   "include": ["src"],
   "exclude": ["src/**/*.test.ts"],
   "compilerOptions": {
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "verbatimModuleSyntax": false
+    "baseUrl": ".",
+    "paths": {
+      "@rarible/utils/*": ["../utils/esm/*"],
+      "@rarible/utils": ["../utils/esm"],
+      "@rarible/types/*": ["../types/esm/*"],
+      "@rarible/types": ["../types/esm"]
+    }
   }
 }
