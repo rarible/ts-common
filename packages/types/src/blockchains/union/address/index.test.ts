@@ -1,7 +1,8 @@
-import { BlockchainEnum, BlockchainLayer1Enum, blockchains, evmBlockchains, toLayerOneBlockchain } from "../enum"
-import { randomEVMAddress } from "../../evm"
-import { getRandomAddress } from "./random"
-import { InvalidUnionAddressError, toUnionAddress } from "./utils"
+import { BlockchainEnum, BlockchainLayer1Enum, blockchains, evmBlockchains } from "../enum/domain.js"
+import { toLayerOneBlockchain } from "../enum/utils.js"
+import { randomEVMAddress } from "../../evm/address/index.js"
+import { getRandomAddress } from "./random.js"
+import { InvalidUnionAddressError, toUnionAddress } from "./utils.js"
 
 describe("toUnionAddress", () => {
   it.each(evmBlockchains)("should convert %s blockchain values to ETHEREUM L1", value => {

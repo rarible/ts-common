@@ -1,4 +1,4 @@
-import type { BlockchainLayer1Enum } from "../union/enum"
+import type { BlockchainLayer1Enum } from "../union/enum/domain.js"
 
 export type Layer1ful<T extends BlockchainLayer1Enum> = string & {
   __BLOCKCHAIN__: T

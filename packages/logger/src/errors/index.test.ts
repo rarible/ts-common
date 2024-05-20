@@ -1,4 +1,4 @@
-import { NetworkError, Warning } from "."
+import { NetworkError, Warning } from "./index.js"
 
 describe("Warning", () => {
   it("should have valid properties", () => {

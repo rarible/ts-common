@@ -1,3 +1,3 @@
-export * from "./timestamp"
-export * from "./combine"
-export * from "./domain"
+export * from "./timestamp/index.js"
+export * from "./combine.js"
+export * from "./domain.js"

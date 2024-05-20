@@ -1,4 +1,4 @@
-import type { SafeEventEmitterProvider } from "eth-json-rpc-middleware/dist/utils/cache"
+import type { SafeEventEmitterProvider } from "eth-json-rpc-middleware/dist/utils/cache.js"
 import type { JsonRpcError } from "json-rpc-engine"
 
 export function isSafeEventEmitterProvider(x: unknown): x is SafeEventEmitterProvider {

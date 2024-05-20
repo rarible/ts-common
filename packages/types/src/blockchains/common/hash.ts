@@ -1,6 +1,6 @@
 import { CustomError } from "@rarible/utils/error/custom/index"
-import type { BlockchainEnum, BlockchainLayer1Enum, L1BlockchainByBlockchain } from "../union/enum"
-import type { Layer1ful } from "./common"
+import type { BlockchainEnum, BlockchainLayer1Enum, L1BlockchainByBlockchain } from "../union/enum/index.js"
+import type { Layer1ful } from "./common.js"
 
 export type AbstractTransactionHash<T extends BlockchainLayer1Enum> = Layer1ful<T> & {
   __IS_TRANSACTION_HASH__: true

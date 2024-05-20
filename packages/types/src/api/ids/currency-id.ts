@@ -1,5 +1,5 @@
-import type { WithBlockchain } from "../../blockchains"
-import { EVM_ZERO_ADDRESS, isRealBlockchainSpecified } from "../../blockchains"
+import { EVM_ZERO_ADDRESS, isRealBlockchainSpecified } from "../../blockchains/index.js"
+import type { WithBlockchain } from "../../blockchains/index.js"
 
 export type CurrencyId = WithBlockchain & {
   __IS_CURRENCY_ID__: true

@@ -1,14 +1,15 @@
+/* eslint-disable new-cap */
 import ganache from "ganache"
 import Wallet from "ethereumjs-wallet"
 import Web3 from "web3"
 import { randomEVMAddress, randomWord } from "@rarible/types"
 import { toBn } from "@rarible/utils"
-import { RpcError } from "./utils"
-import { estimate } from "."
+import { RpcError } from "./utils.js"
+import { estimate } from "./index.js"
 
 describe("estimate middleware", () => {
   test("estimates tx before send", async () => {
-    const wallet = new Wallet(Buffer.from(randomWord().substring(2), "hex"))
+    const wallet = new Wallet.default(Buffer.from(randomWord().substring(2), "hex"))
 
     const provider = ganache.provider({
       accounts: [
@@ -20,7 +21,7 @@ describe("estimate middleware", () => {
     })
 
     const threshold = 1.100005
-    const web3 = new Web3(
+    const web3 = new Web3.default(
       estimate(provider, {
         threshold,
         force: true,
@@ -36,7 +37,7 @@ describe("estimate middleware", () => {
     const tx = await web3.eth.getTransaction(receipt.transactionHash)
     expect(tx.gas).toBe(toBn(21000).multipliedBy(1.1).toNumber())
 
-    const web3Error = new Web3(provider as any)
+    const web3Error = new Web3.default(provider as any)
     const receiptError = await web3Error.eth.sendTransaction({
       from: wallet.getAddressString(),
       to: randomEVMAddress(),
@@ -47,7 +48,7 @@ describe("estimate middleware", () => {
   })
 
   test("subscribe should throw error", async () => {
-    const wallet = new Wallet(Buffer.from(randomWord().substring(2), "hex"))
+    const wallet = new Wallet.default(Buffer.from(randomWord().substring(2), "hex"))
 
     const provider = ganache.provider({
       accounts: [
@@ -58,7 +59,7 @@ describe("estimate middleware", () => {
       ],
     })
 
-    const web3 = new Web3(estimate(provider) as any)
+    const web3 = new Web3.default(estimate(provider) as any)
 
     const error = new Promise((_, reject) =>
       web3.eth.subscribe(

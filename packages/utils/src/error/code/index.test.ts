@@ -1,4 +1,4 @@
-import { CodeError } from "."
+import { CodeError } from "./index.js"
 
 describe("CodeError", () => {
   const validCodeExamples = [

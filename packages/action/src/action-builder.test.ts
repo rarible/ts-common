@@ -1,5 +1,5 @@
-import { ActionBuilder } from "./action-builder"
-import { Action } from "./action"
+import { ActionBuilder } from "./action-builder.js"
+import { Action } from "./action.js"
 
 describe("ActionBuilder", () => {
   test("start works", async () => {

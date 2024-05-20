@@ -1,8 +1,8 @@
 import type { JsonRpcEngine, JsonRpcMiddleware, JsonRpcRequest } from "json-rpc-engine"
 import { createAsyncMiddleware, getUniqueId } from "json-rpc-engine"
-import type { Block } from "eth-json-rpc-middleware/dist/utils/cache"
+import type { Block } from "eth-json-rpc-middleware/dist/utils/cache.js"
 import { toBn } from "@rarible/utils/bn/index"
-import { extractError, RpcError } from "./utils"
+import { extractError, RpcError } from "./utils.js"
 
 /**
  * Creates async middleware for gas estimation if gas not defined

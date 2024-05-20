@@ -1,8 +1,8 @@
 import { CustomError } from "@rarible/utils/error/custom/index"
-import type { AbstractAddress } from "../../common"
-import { parseBlockchain, parseBlockchainSafe, toLayerOneBlockchain, withLayer1Blockchain } from "../enum"
-import type { BlockchainEnum, L1BlockchainByBlockchain, WithBlockchain } from "../enum"
-import { addressValidators } from "./validators"
+import type { AbstractAddress } from "../../common/address.js"
+import { parseBlockchain, parseBlockchainSafe, toLayerOneBlockchain, withLayer1Blockchain } from "../enum/utils.js"
+import type { BlockchainEnum, L1BlockchainByBlockchain, WithBlockchain } from "../enum/domain.js"
+import { addressValidators } from "./validators.js"
 
 export type UnionAddress<Index extends BlockchainEnum = BlockchainEnum> = WithBlockchain<
   Index,

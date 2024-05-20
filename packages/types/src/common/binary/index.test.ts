@@ -1,4 +1,4 @@
-import { InvalidBinaryError, ZERO_WORD, randomWord, toBinary, toWord } from "."
+import { InvalidBinaryError, ZERO_WORD, randomWord, toBinary, toWord } from "./index.js"
 
 describe("toBinary", () => {
   it("should convert to binary", () => {

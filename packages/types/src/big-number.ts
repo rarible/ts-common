@@ -1,5 +1,5 @@
-import type { BigNumberLike } from "./common/big-number"
-import { toBigNumberLike } from "./common/big-number"
+import type { BigNumberLike } from "./common/big-number.js"
+import { toBigNumberLike } from "./common/big-number.js"
 
 /**
  * @deprecated will be replaced in 0.11.0.

@@ -1,7 +1,7 @@
 import * as tg from "generic-type-guard"
-import type { ErrorOptions } from "../custom"
-import { CustomError } from "../custom"
-import { extractErrorMessage } from "../utils"
+import type { ErrorOptions } from "../custom/index.js"
+import { CustomError } from "../custom/index.js"
+import { extractErrorMessage } from "../utils/index.js"
 
 /**
  * Represents error with the specific code

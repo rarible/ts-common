@@ -1,4 +1,4 @@
-import { randomBinary } from "./common/binary"
+import { randomBinary } from "./common/binary/index.js"
 
 /**
  * @deprecated will be replaced in 0.11.0.

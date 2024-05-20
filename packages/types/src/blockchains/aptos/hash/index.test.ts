@@ -1,5 +1,5 @@
-import { InvalidTransactionHashError } from "../../common"
-import { toAptosTransactionHash } from "."
+import { InvalidTransactionHashError } from "../../common/index.js"
+import { toAptosTransactionHash } from "./index.js"
 
 describe("toAptosTransactionHash", () => {
   const validHashes = [

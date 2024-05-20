@@ -1,4 +1,4 @@
-import { getRandomId } from "./index"
+import { getRandomId } from "./index.js"
 
 describe("Id generator", () => {
   it("should crete random id", () => {

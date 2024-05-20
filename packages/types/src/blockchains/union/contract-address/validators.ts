@@ -1,11 +1,11 @@
-import type { AbstractAddress } from "../../common"
-import type { ILayer1fulValidator } from "../../common/common"
-import { evmAddressValidator } from "../../evm"
-import { flowContractAddressValidator } from "../../flow"
-import { solanaAddressValidator } from "../../solana"
-import { tezosContractAddressValidator } from "../../tezos"
-import { BlockchainLayer1Enum } from "../enum"
-import { aptosAddressValidator } from "../../aptos"
+import type { AbstractAddress } from "../../common/address.js"
+import type { ILayer1fulValidator } from "../../common/common.js"
+import { evmAddressValidator } from "../../evm/address/index.js"
+import { flowContractAddressValidator } from "../../flow/contract-address/index.js"
+import { solanaAddressValidator } from "../../solana/address/index.js"
+import { tezosContractAddressValidator } from "../../tezos/contract-address/index.js"
+import { aptosAddressValidator } from "../../aptos/address/index.js"
+import { BlockchainLayer1Enum } from "../enum/domain.js"
 
 export type ContractAddressValidatorsMap = {
   [K in BlockchainLayer1Enum]: ILayer1fulValidator<K, AbstractAddress<K>>

@@ -1,8 +1,9 @@
-import { BlockchainEnum, blockchains, evmBlockchains, toLayerOneBlockchain } from "../enum"
-import { randomEVMAddress } from "../../evm/address"
-import { randomFlowAddress } from "../../flow"
-import { getRandomContractAddress } from "./random"
-import { InvalidUnionContractAddressError, toUnionContractAddress } from "."
+import { BlockchainEnum, blockchains, evmBlockchains } from "../enum/domain.js"
+import { toLayerOneBlockchain } from "../enum/utils.js"
+import { randomEVMAddress } from "../../evm/address/index.js"
+import { randomFlowAddress } from "../../flow/address/index.js"
+import { getRandomContractAddress } from "./random.js"
+import { InvalidUnionContractAddressError, toUnionContractAddress } from "./index.js"
 
 describe("toUnionContractAddress", () => {
   it.each(evmBlockchains)("should convert %s blockchain", value => {

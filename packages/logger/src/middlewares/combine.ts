@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { Middleware } from "./domain"
+import type { Middleware } from "./domain.js"
 
 type LastMiddlewareReturnType<T extends Middleware<any, any>[]> = T extends [
   ...infer _,

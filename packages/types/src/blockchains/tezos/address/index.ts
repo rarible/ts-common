@@ -1,7 +1,7 @@
-import type { AbstractAddress } from "../../common"
-import { InvalidAddressError } from "../../common"
-import { createLayer1fulValidator } from "../../common/common"
-import { BlockchainLayer1Enum } from "../../union/enum"
+import type { AbstractAddress } from "../../common/address.js"
+import { InvalidAddressError } from "../../common/address.js"
+import { createLayer1fulValidator } from "../../common/common.js"
+import { BlockchainLayer1Enum } from "../../union/enum/domain.js"
 
 export type TezosAddress = AbstractAddress<BlockchainLayer1Enum.TEZOS>
 

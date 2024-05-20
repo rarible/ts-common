@@ -4,6 +4,7 @@
   "exclude": ["src/**/*.test.ts"],
   "compilerOptions": {
     "module": "CommonJS",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "verbatimModuleSyntax": false
   }
 }

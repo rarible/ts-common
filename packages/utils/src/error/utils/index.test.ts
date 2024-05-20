@@ -1,5 +1,5 @@
-import { CustomError } from "../custom"
-import { extractErrorName, isErrorLike } from "./index"
+import { CustomError } from "../custom/index.js"
+import { extractErrorName, isErrorLike } from "./index.js"
 
 describe("extractErrorName", () => {
   it("should extract name from error-like object", () => {

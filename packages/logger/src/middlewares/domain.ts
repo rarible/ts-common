@@ -1,4 +1,4 @@
-import type { LoggerData } from "../domain"
+import type { LoggerData } from "../domain.js"
 
 export type Middleware<In, Out> = (input: In) => Promise<Out>
 

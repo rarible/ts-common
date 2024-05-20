@@ -1,8 +1,8 @@
-import { Logger } from "./base"
-import type { LoggerConfig } from "./base"
-import { LogLevel } from "./domain"
-import type { LoggerMiddleware } from "./middlewares"
-import { CustomTransport } from "./transports/custom"
+import { Logger } from "./base.js"
+import type { LoggerConfig } from "./base.js"
+import { LogLevel } from "./domain.js"
+import type { LoggerMiddleware } from "./middlewares/index.js"
+import { CustomTransport } from "./transports/custom.js"
 
 type SimpleContext = {
   name: string

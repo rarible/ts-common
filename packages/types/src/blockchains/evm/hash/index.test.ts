@@ -1,5 +1,5 @@
-import { InvalidTransactionHashError } from "../../common"
-import { toEVMTransactionHash } from "."
+import { InvalidTransactionHashError } from "../../common/hash.js"
+import { toEVMTransactionHash } from "./index.js"
 
 const invalidValues = [
   "6a3b8323f3c1676da3437345892bc47e5801f9922d4c7cabadf48de1d7d2f683",

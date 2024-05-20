@@ -1,4 +1,4 @@
-import { randomSolanaAddress, toSolanaAddress, toSolanaAddressSafe } from "./index"
+import { randomSolanaAddress, toSolanaAddress, toSolanaAddressSafe } from "./index.js"
 
 const wrongAddresses = ["WRONG", "3GsbSZXDF8JajFjD1", "3GsbSZXDF8WRONGJ1"]
 const validAddresses = [

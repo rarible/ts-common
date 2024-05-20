@@ -1,4 +1,4 @@
-import { randomTezosContractAddress, toTezosContractAddress, toTezosContractAddressSafe } from "./index"
+import { randomTezosContractAddress, toTezosContractAddress, toTezosContractAddressSafe } from "./index.js"
 
 const wrongAddresses = [
   "WRONG", // Completely incorrect format

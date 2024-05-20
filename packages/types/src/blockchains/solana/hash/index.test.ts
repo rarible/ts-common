@@ -1,5 +1,5 @@
-import { InvalidTransactionHashError } from "../../common"
-import { toSolanaTransactionHash } from "."
+import { InvalidTransactionHashError } from "../../common/hash.js"
+import { toSolanaTransactionHash } from "./index.js"
 
 describe("toSolanaTransactionHash", () => {
   const validHashes = [
