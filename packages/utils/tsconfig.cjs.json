@@ -1,10 +1,5 @@
 {
-  "extends": ["../../tsconfig-build.json"],
+  "extends": "../../tsconfig.build.cjs.json",
   "include": ["src"],
-  "exclude": ["src/**/*.test.ts"],
-  "compilerOptions": {
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "verbatimModuleSyntax": false
-  }
+  "exclude": ["src/**/*.test.ts"]
 }

@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@rarible/utils/*": ["../utils/esm/*"],
-      "@rarible/utils": ["../utils/esm"]
-    }
-  }
-}
