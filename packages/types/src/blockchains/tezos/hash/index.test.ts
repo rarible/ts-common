@@ -1,5 +1,5 @@
-import { InvalidTransactionHashError } from "../../common"
-import { toTezosTransactionHash } from "."
+import { InvalidTransactionHashError } from "../../common/hash.js"
+import { toTezosTransactionHash } from "./index.js"
 
 describe("toTezosTransactionHash", () => {
   const validHashes = [

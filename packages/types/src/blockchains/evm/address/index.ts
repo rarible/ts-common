@@ -1,8 +1,8 @@
-import { randomBinary } from "../../../common/binary"
-import type { AbstractAddress } from "../../common/address"
-import { InvalidAddressError } from "../../common/address"
-import { createLayer1fulValidator } from "../../common/common"
-import { BlockchainLayer1Enum } from "../../union/enum"
+import { randomBinary } from "../../../common/binary/index.js"
+import type { AbstractAddress } from "../../common/address.js"
+import { InvalidAddressError } from "../../common/address.js"
+import { createLayer1fulValidator } from "../../common/common.js"
+import { BlockchainLayer1Enum } from "../../union/enum/index.js"
 
 export type EVMAddress = AbstractAddress<BlockchainLayer1Enum.ETHEREUM> & {
   __IS_EVM_ADDRESS__: true

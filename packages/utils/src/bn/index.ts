@@ -1,4 +1,4 @@
-import BN from "bignumber.js"
+import { BigNumber as BN } from "bignumber.js"
 
 type EthersBigNumber = {
   _isBigNumber: boolean

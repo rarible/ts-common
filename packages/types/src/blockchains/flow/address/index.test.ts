@@ -1,4 +1,4 @@
-import { randomFlowAddress, toFlowAddress, toFlowAddressSafe } from "./index"
+import { randomFlowAddress, toFlowAddress, toFlowAddressSafe } from "./index.js"
 
 const wrongAddresses = ["WRONG", "8c42e7e93e7c87d41", "8c42e7e93e7cWRd4"]
 const validAddresses = ["8c42e7e93e7c87d4", "b9c5714089478a07", "2c1162386b325f1b", randomFlowAddress()]

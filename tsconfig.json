@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     // All of our codebase are targeting on ES6 code-compatibility
-    "module": "ESNext",
+    "module": "NodeNext",
 
     // Skip declarations and emitting
     // This tsconfig inteded only for dev environment
@@ -21,12 +21,12 @@
     // extension when importing files (which is nice, because we'll be bundling
     // everything anyway, so the extensions are not relevant).
     // See https://www.typescriptlang.org/tsconfig#moduleResolution
-    "moduleResolution": "Bundler",
+    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
 
     // The way how we operate with third party modules
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "verbatimModuleSyntax": true,
 
     // Experimental decorators
     "experimentalDecorators": true,

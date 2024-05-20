@@ -1,4 +1,4 @@
-import { EVM_ZERO_ADDRESS, randomEVMAddress, toEVMAddress, toEVMAddressSafe } from "./index"
+import { EVM_ZERO_ADDRESS, randomEVMAddress, toEVMAddress, toEVMAddressSafe } from "./index.js"
 
 const validAddresses = [
   "0xAbFb72E2C2D7a2f17b14A6B5Bf4C0434aD7F2f34",

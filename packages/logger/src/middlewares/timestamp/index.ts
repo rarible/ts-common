@@ -1,4 +1,4 @@
-import type { LoggerMiddleware } from "../domain"
+import type { LoggerMiddleware } from "../domain.js"
 
 export type TimestampMiddlewareConfig = {
   sourceName: string

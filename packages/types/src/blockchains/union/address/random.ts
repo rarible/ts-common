@@ -1,10 +1,10 @@
-import type { AbstractAddress } from "../../common"
-import { randomEVMAddress } from "../../evm"
-import { randomFlowAddress } from "../../flow"
-import { randomSolanaAddress } from "../../solana"
-import { randomTezosAddress } from "../../tezos"
-import { BlockchainLayer1Enum } from "../enum"
-import { randomAptosAddress } from "../../aptos"
+import type { AbstractAddress } from "../../common/address.js"
+import { randomEVMAddress } from "../../evm/address/index.js"
+import { randomFlowAddress } from "../../flow/address/index.js"
+import { randomSolanaAddress } from "../../solana/address/index.js"
+import { randomTezosAddress } from "../../tezos/address/index.js"
+import { randomAptosAddress } from "../../aptos/address/index.js"
+import { BlockchainLayer1Enum } from "../enum/domain.js"
 
 type Dictionary = {
   [K in BlockchainLayer1Enum]: () => AbstractAddress<K>

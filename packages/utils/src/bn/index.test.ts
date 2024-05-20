@@ -1,5 +1,5 @@
 import { ethers } from "ethers"
-import { toBn } from "./index"
+import { toBn } from "./index.js"
 
 const testNumber = "11111111111111111111111111111111111"
 

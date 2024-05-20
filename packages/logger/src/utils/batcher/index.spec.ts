@@ -1,4 +1,4 @@
-import { Batcher } from "."
+import { Batcher } from "./index.js"
 
 describe("utils/batcher", () => {
   it("should drop values as batch", async () => {

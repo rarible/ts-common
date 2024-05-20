@@ -1,2 +1,2 @@
-export * from "./address"
-export * from "./hash"
+export * from "./address/index.js"
+export * from "./hash/index.js"

@@ -1,9 +1,8 @@
 import { CustomError } from "@rarible/utils/error/custom/index"
-import type { AbstractContractAddress } from "../../common"
-import type { BlockchainEnum, L1BlockchainByBlockchain, WithBlockchain } from "../enum"
-import { toLayerOneBlockchain } from "../enum"
-import { parseBlockchainSafe } from "../enum"
-import { contractAddressValidators } from "./validators"
+import type { AbstractContractAddress } from "../../common/contract-address.js"
+import type { BlockchainEnum, L1BlockchainByBlockchain, WithBlockchain } from "../enum/domain.js"
+import { toLayerOneBlockchain, parseBlockchainSafe } from "../enum/utils.js"
+import { contractAddressValidators } from "./validators.js"
 
 /**
  * Contract address format of union service

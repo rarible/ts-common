@@ -1,4 +1,4 @@
-import { timestampMiddleware } from "."
+import { timestampMiddleware } from "./index.js"
 
 describe("timestampMiddleware", () => {
   it.each([-1000, 1000])("offset %i", async clientDiff => {

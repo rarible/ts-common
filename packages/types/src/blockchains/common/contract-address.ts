@@ -1,6 +1,6 @@
 import { CustomError } from "@rarible/utils/error/custom/index"
-import type { BlockchainEnum, BlockchainLayer1Enum, L1BlockchainByBlockchain } from "../union/enum"
-import type { AbstractAddress } from "./address"
+import type { BlockchainEnum, BlockchainLayer1Enum, L1BlockchainByBlockchain } from "../union/enum/domain.js"
+import type { AbstractAddress } from "./address.js"
 
 export type AbstractContractAddress<T extends BlockchainLayer1Enum> = AbstractAddress<T> & {
   __IS_CONTRACT__: true

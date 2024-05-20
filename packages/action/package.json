@@ -22,9 +22,10 @@
       },
       "require": "./build/index.js",
       "import": "./esm/index.js",
-      "node": "./build/index.js",
       "default": "./build/index.js"
     },
+    "./build/": "./build/",
+    "./esm/": "./esm/",
     "./*": {
       "types": {
         "require": "./build/*.d.ts",
@@ -32,22 +33,7 @@
       },
       "require": "./build/*.js",
       "import": "./esm/*.js",
-      "node": "./build/*.js",
       "default": "./build/*.js"
-    },
-    "./esm/*": {
-      "types": "./esm/*.d.ts",
-      "require": "./esm/*.js",
-      "import": "./esm/*.js",
-      "node": "./build/*.js",
-      "default": "./esm/*/index.js"
-    },
-    "./build/*": {
-      "types": "./build/*.d.ts",
-      "require": "./build/*.js",
-      "import": "./build/*.js",
-      "node": "./build/*.js",
-      "default": "./build/*/index.js"
     }
   },
   "main": "build/index.js",

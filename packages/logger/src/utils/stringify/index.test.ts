@@ -1,4 +1,4 @@
-import { stringifyObject } from "./index"
+import { stringifyObject } from "./index.js"
 
 const dateNow = new Date()
 const objectsMapping: Record<string, any> = {

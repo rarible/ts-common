@@ -1,8 +1,8 @@
-export * from "./api"
-export * from "./common"
-export * from "./blockchains"
+export * from "./api/index.js"
+export * from "./common/index.js"
+export * from "./blockchains/index.js"
 
 // @deprecated modules
-export * from "./big-number"
-export * from "./contract-address"
-export * from "./address"
+export * from "./big-number.js"
+export * from "./contract-address.js"
+export * from "./address.js"

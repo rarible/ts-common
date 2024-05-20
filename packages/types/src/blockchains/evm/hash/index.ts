@@ -1,7 +1,7 @@
-import type { AbstractTransactionHash } from "../../common/hash"
-import { InvalidTransactionHashError } from "../../common/hash"
-import { BlockchainLayer1Enum } from "../../union/enum"
-import { createLayer1fulValidator } from "../../common/common"
+import type { AbstractTransactionHash } from "../../common/hash.js"
+import { InvalidTransactionHashError } from "../../common/hash.js"
+import { BlockchainLayer1Enum } from "../../union/enum/domain.js"
+import { createLayer1fulValidator } from "../../common/common.js"
 
 export type EVMTransactionHash = AbstractTransactionHash<BlockchainLayer1Enum.ETHEREUM> & {
   __IS_EVM_TRANSACTION_HASH__: true

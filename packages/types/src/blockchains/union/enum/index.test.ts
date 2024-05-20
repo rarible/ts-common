@@ -12,7 +12,7 @@ import {
   toLayerOneBlockchain,
   BlockchainEnum,
   BlockchainLayer1Enum,
-} from "./index"
+} from "./index.js"
 
 describe("isBlockchainSpecified", () => {
   it("should return true for all valid blockchains", () => {

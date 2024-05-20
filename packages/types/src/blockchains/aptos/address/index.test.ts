@@ -1,4 +1,4 @@
-import { randomAptosAddress, toAptosAddress, toAptosAddressSafe } from "./index"
+import { randomAptosAddress, toAptosAddress, toAptosAddressSafe } from "./index.js"
 
 const wrongAddresses = ["WRONG", "3GsbSZXDF8JajFjD1", "0x1::aptos_coin::"]
 const validAddresses = [

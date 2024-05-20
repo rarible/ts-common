@@ -1,4 +1,4 @@
-import { isRealBlockchainSpecified } from "./blockchains"
+import { isRealBlockchainSpecified } from "./blockchains/index.js"
 
 /**
  * @deprecated will be replaced in 0.11.0.

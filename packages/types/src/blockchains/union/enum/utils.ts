@@ -5,8 +5,8 @@ import type {
   L1BlockchainByBlockchain,
   WithBlockchain,
   WithLayer1Blockchain,
-} from "./domain"
-import { L1BlockchainByBlockchainDictionary, blockchains, blockchainsLayer1 } from "./domain"
+} from "./domain.js"
+import { L1BlockchainByBlockchainDictionary, blockchains, blockchainsLayer1 } from "./domain.js"
 
 export const withLayer1BlockchainRegExp = new RegExp(`^(${blockchainsLayer1.join("|")}):(.*?)$`)
 export function isBlockchainSpecified(value: string): value is WithLayer1Blockchain<BlockchainLayer1Enum, string> {

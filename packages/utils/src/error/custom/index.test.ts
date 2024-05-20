@@ -1,4 +1,4 @@
-import { CustomError } from "./index"
+import { CustomError } from "./index.js"
 
 describe("CustomError", () => {
   it("should have proper name", () => {

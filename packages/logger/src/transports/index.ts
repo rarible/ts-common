@@ -1,3 +1,3 @@
-export * from "./console"
-export * from "./http-batch"
-export * from "./custom"
+export * from "./console.js"
+export * from "./http-batch.js"
+export * from "./custom.js"

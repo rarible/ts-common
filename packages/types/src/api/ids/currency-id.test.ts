@@ -1,4 +1,4 @@
-import { toCurrencyId } from "./currency-id"
+import { toCurrencyId } from "./currency-id.js"
 
 describe("toCurrencyId", () => {
   it("should support native word", () => {

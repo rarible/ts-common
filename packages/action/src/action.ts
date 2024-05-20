@@ -1,6 +1,6 @@
 import CallableInstance from "callable-instance"
-import type { Step } from "./execution"
-import { Execution } from "./execution"
+import type { Step } from "./execution.js"
+import { Execution } from "./execution.js"
 
 export class Action<Id, In, Out> extends CallableInstance<[In], Promise<Out>> {
   private constructor(private readonly steps: Step<unknown, unknown, unknown>[]) {

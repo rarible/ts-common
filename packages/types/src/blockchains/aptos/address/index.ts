@@ -1,8 +1,8 @@
-import { randomBinary } from "../../../common/binary"
-import type { AbstractAddress } from "../../common"
-import { InvalidAddressError } from "../../common"
-import { createLayer1fulValidator } from "../../common/common"
-import { BlockchainLayer1Enum } from "../../union/enum"
+import { randomBinary } from "../../../common/binary/index.js"
+import type { AbstractAddress } from "../../common/address.js"
+import { InvalidAddressError } from "../../common/address.js"
+import { createLayer1fulValidator } from "../../common/common.js"
+import { BlockchainLayer1Enum } from "../../union/enum/domain.js"
 
 export type AptosAddress = AbstractAddress<BlockchainLayer1Enum.APTOS>
 

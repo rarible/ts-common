@@ -1,6 +1,6 @@
-import { LoggerTransport } from "../base"
-import type { LoggerData, LoggerValue } from "../domain"
-import { Batcher } from "../utils/batcher"
+import { LoggerTransport } from "../base.js"
+import type { LoggerData, LoggerValue } from "../domain.js"
+import { Batcher } from "../utils/batcher/index.js"
 
 export class HttpBatchTransport extends LoggerTransport {
   private readonly batchManager: Batcher<Record<string, LoggerValue>>

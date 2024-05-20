@@ -1,8 +1,8 @@
-import { LogLevel } from "./domain"
-import type { AbstractLogger, LoggerData, LoggerRawData, LoggerRequiredRawData, LoggerContextData } from "./domain"
-import { combineMiddlewares } from "./middlewares/combine"
-import type { LoggerMiddleware } from "./middlewares/domain"
-import { stringifyObject } from "./utils/stringify"
+import { LogLevel } from "./domain.js"
+import type { AbstractLogger, LoggerData, LoggerRawData, LoggerRequiredRawData, LoggerContextData } from "./domain.js"
+import { combineMiddlewares } from "./middlewares/combine.js"
+import type { LoggerMiddleware } from "./middlewares/domain.js"
+import { stringifyObject } from "./utils/stringify/index.js"
 
 export abstract class LoggerTransport {
   abstract handle: (entry: LoggerData) => Promise<void>
@@ -31,19 +31,21 @@ export type LoggerConfig<C extends LoggerContextData> = {
 
 export class Logger<C extends LoggerContextData = {}> implements AbstractLogger<C> {
   private contextOverrides: Partial<C> = {}
-  private readonly maxByteSize = this.config.maxByteSize ?? 1024 * 10
-  private readonly middlewares = this.config.middlewares ?? []
-  private readonly indent = this.config.indent ?? 2
-  private readonly reducedMiddleware = combineMiddlewares(...this.middlewares)
+  private readonly maxByteSize: number
+  private readonly indent: number
+  private readonly reducedMiddleware: ReturnType<typeof combineMiddlewares>
 
-  constructor(private readonly config: LoggerConfig<C>) {}
-
-  getContext = async () => {
-    return {
-      ...(await this.config.getContext()),
-      ...this.contextOverrides,
-    }
+  constructor(private readonly config: LoggerConfig<C>) {
+    this.maxByteSize = this.config.maxByteSize ?? 1024 * 10
+    this.indent = this.config.indent ?? 2
+    const middlewares = this.config.middlewares ?? []
+    this.reducedMiddleware = combineMiddlewares(...middlewares)
   }
+
+  getContext = async () => ({
+    ...(await this.config.getContext()),
+    ...this.contextOverrides,
+  })
 
   raw = async (data: LoggerRequiredRawData) => {
     try {

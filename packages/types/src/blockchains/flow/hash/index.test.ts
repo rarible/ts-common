@@ -1,5 +1,5 @@
-import { InvalidTransactionHashError } from "../../common"
-import { toFlowTransactionHash } from "."
+import { InvalidTransactionHashError } from "../../common/hash.js"
+import { toFlowTransactionHash } from "./index.js"
 
 describe("toFlowTransactionHash", () => {
   const validHashes = [

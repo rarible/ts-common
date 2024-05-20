@@ -1,7 +1,7 @@
-import type { AbstractContractAddress } from "../../common/contract-address"
-import { InvalidContractAddressError } from "../../common/contract-address"
-import { createLayer1fulValidator } from "../../common/common"
-import { BlockchainLayer1Enum } from "../../union/enum"
+import type { AbstractContractAddress } from "../../common/contract-address.js"
+import { InvalidContractAddressError } from "../../common/contract-address.js"
+import { createLayer1fulValidator } from "../../common/common.js"
+import { BlockchainLayer1Enum } from "../../union/enum/domain.js"
 
 export type FlowContractAddress = AbstractContractAddress<BlockchainLayer1Enum.FLOW> & {
   __IS_FLOW_CONTRACT_ADDRESS__: true
