@@ -82,7 +82,7 @@ module.exports = {
     "no-script-url": "warn",
     "no-self-assign": "warn",
     "no-self-compare": "warn",
-    "no-sequences": "warn",
+    "no-sequences": "off",
     "no-shadow-restricted-names": "warn",
     "no-sparse-arrays": "warn",
     "no-template-curly-in-string": "warn",
@@ -176,19 +176,16 @@ module.exports = {
         afterColon: true,
       },
     ],
+    "object-curly-spacing": ["error", "always"],
     camelcase: [
       "error",
       {
         properties: "never",
-        ignoreDestructuring: false,
+        ignoreImports: true,
+        ignoreGlobals: true,
       },
     ],
-    "no-plusplus": [
-      "error",
-      {
-        allowForLoopAfterthoughts: true,
-      },
-    ],
+    "no-plusplus": "off",
     "comma-dangle": ["error", "always-multiline"],
     "comma-style": [
       "error",
