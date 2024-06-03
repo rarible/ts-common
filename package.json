@@ -19,10 +19,9 @@
     "prepare": "husky install",
     "test": "lerna run test",
     "verify": "lerna run verify --parallel",
-    "lint-staged": "lint-staged",
     "version": "lerna version",
     "publish-all": "lerna publish from-package",
-    "precommit": "run-s verify lint-staged lint",
+    "lint-staged": "lint-staged",
     "nuke": "rm -rf node_modules; for d in packages/*/node_modules; do echo $d; rm -r $d; done"
   },
   "commitlint": {
@@ -31,12 +30,9 @@
     ]
   },
   "lint-staged": {
-    "**/src/package.json": [
-      "yarn run prettify:packages"
-    ],
-    "package.json": [
-      "yarn run prettify:packages"
-    ]
+    "**/src/package.json": "yarn run prettify:packages",
+    "package.json": "yarn run prettify:packages",
+    "*.js,*.jsx,*.ts,*.tsx": "yarn run lint:fix"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
