@@ -1,20 +1,24 @@
-import { randomAptosAddress, toAptosAddress, toAptosAddressSafe } from "./index.js"
+import { InvalidAddressError } from "../../common/address.js"
+import { randomAptosAddress, shortenAptosAddress, toAptosAddress, toAptosAddressSafe } from "./index.js"
 
-const wrongAddresses = ["WRONG", "3GsbSZXDF8JajFjD1", "0x1::aptos_coin::"]
-const validAddresses = [
-  "0x1::aptos_coin::AptosCoin",
-  "0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC",
-  "0x59e412585516ab745f68cd1949400fe8aa0172b3ae7c41c0fe155547fcdd3e27",
-  randomAptosAddress(),
+const wrongAddresses = [
+  "", // completely empty string
+  "0x", // empty address
+  "0x123g", // invalid char
+  "0x1::aptos_coin::AptosCoin", // cant be function name
+  "0x1::aptos_coin", // cant be module address
+  "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1", // too long
+  "eeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b", // missing 0x
 ]
 
 describe("toAptosAddress", () => {
   it.each(wrongAddresses)("should throw if not a Aptos address - %s", address => {
-    expect(() => toAptosAddress(address)).toThrow()
+    expect(() => toAptosAddress(address)).toThrow(InvalidAddressError)
   })
 
-  it.each(validAddresses)("should return if the Aptos address is valid - %s", address => {
-    expect(toAptosAddress(address)).toEqual(address)
+  const cases = getValidCases()
+  it.each(cases)("should return if the Aptos address is valid - $input", ({ input, output }) => {
+    expect(toAptosAddress(input)).toEqual(output)
   })
 })
 
@@ -23,8 +27,9 @@ describe("toAptosAddressSafe", () => {
     expect(toAptosAddressSafe(address)).toEqual(undefined)
   })
 
-  it.each(validAddresses)("should convert to address - %s", address => {
-    expect(toAptosAddressSafe(address)).toEqual(address)
+  const cases = getValidCases()
+  it.each(cases)("should convert to address - $input", ({ input, output }) => {
+    expect(toAptosAddressSafe(input)).toEqual(output)
   })
 })
 
@@ -36,3 +41,31 @@ describe("randomAptosAddress", () => {
     })
   })
 })
+
+describe("shortenAptosAddress", () => {
+  it("should short aptos address", () => {
+    expect(shortenAptosAddress(toAptosAddress("0x1"))).toEqual("0x1")
+  })
+})
+
+function getValidCases(): { input: string; output: string }[] {
+  const randomAddress = randomAptosAddress()
+  return [
+    {
+      input: "0x1",
+      output: "0x0000000000000000000000000000000000000000000000000000000000000001",
+    },
+    {
+      input: "0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175B",
+      output: "0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b",
+    },
+    {
+      input: "0x0000000000000000000000000000000000000000000000000000000000000001",
+      output: "0x0000000000000000000000000000000000000000000000000000000000000001",
+    },
+    {
+      input: randomAddress,
+      output: randomAddress,
+    },
+  ]
+}
