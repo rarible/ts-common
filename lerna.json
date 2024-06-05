@@ -1,7 +1,7 @@
 {
   "packages": ["packages/**/*"],
   "npmClient": "yarn",
-  "version": "0.10.0-alpha.38",
+  "version": "0.10.0-alpha.39",
   "command": {
     "publish": {
       "allowBranch": ["master", "release/*"],

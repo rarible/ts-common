@@ -1,6 +1,6 @@
 {
   "name": "@rarible/eslint-config-react",
-  "version": "0.10.0-alpha.38",
+  "version": "0.10.0-alpha.39",
   "description": "Eslint config for react projects",
   "keywords": [
     "Eslint",
