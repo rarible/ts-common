@@ -33,7 +33,7 @@ describe("toEVMAddressSafe", () => {
   })
 
   it.each(validAddresses)("should convert to address", address => {
-    expect(toEVMAddressSafe(address)).toEqual(address)
+    expect(toEVMAddressSafe(address)).toEqual(address.toLowerCase())
   })
 })
 

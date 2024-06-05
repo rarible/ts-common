@@ -22,22 +22,24 @@ export const evmAddressValidator = createLayer1fulValidator(BlockchainLayer1Enum
  */
 
 export function toEVMAddress(value: string): EVMAddress {
-  return toEVMAddressStrict(value).toLowerCase() as EVMAddress
+  const parsed = toEVMAddressSafe(value)
+  if (!parsed) throw new InvalidAddressError(BlockchainLayer1Enum.ETHEREUM, value)
+  return parsed
+}
+
+function normalizeEVMAddress<T extends string>(str: T): T {
+  return str.toLowerCase() as T
 }
 
 /**
  * Check and convert EVM-compatible addresses
- * @note instead of toEVMAddress it return original value
+ * @deprecated please use toEVMAddress instead
  */
 
-export function toEVMAddressStrict(value: string): EVMAddress {
-  const safe = toEVMAddressSafe(value)
-  if (!safe) throw new InvalidAddressError(BlockchainLayer1Enum.ETHEREUM, value)
-  return safe
-}
+export const toEVMAddressStrict = toEVMAddress
 
 export function toEVMAddressSafe(raw: string): EVMAddress | undefined {
-  if (isEVMAddress(raw)) return raw
+  if (isEVMAddress(raw)) return normalizeEVMAddress(raw)
   return undefined
 }
 
