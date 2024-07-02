@@ -29,6 +29,7 @@ const realBlockchains = [
 	"APTOS",
 	"SEI",
 	"SAAKURU",
+	"MOONBEAM",
 ]
 
 export function isBlockchainSpecified(value: string) {
