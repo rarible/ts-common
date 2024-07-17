@@ -3,7 +3,7 @@
     "packages/**/*"
   ],
   "npmClient": "yarn",
-  "version": "0.10.0-alpha.40",
+  "version": "0.10.0-alpha.41",
   "command": {
     "publish": {
       "allowBranch": [
