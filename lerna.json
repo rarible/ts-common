@@ -1,15 +1,10 @@
 {
-  "packages": [
-    "packages/**/*"
-  ],
+  "packages": ["packages/**/*"],
   "npmClient": "yarn",
   "version": "0.10.0-alpha.42",
   "command": {
     "publish": {
-      "allowBranch": [
-        "master",
-        "release/*"
-      ],
+      "allowBranch": ["master", "release/*"],
       "registry": "https://registry.npmjs.org/",
       "message": "chore: bump versions after release",
       "yes": true
