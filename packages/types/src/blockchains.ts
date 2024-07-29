@@ -23,6 +23,7 @@ const realBlockchains = [
 	"APTOS",
 	"SEI",
 	"SAAKURU",
+	"OASYS",
 	"MOONBEAM",
 	"PALM",
 	"ETHERLINK",
