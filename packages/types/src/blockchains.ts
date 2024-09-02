@@ -28,6 +28,7 @@ const realBlockchains = [
 	"PALM",
 	"ETHERLINK",
 	"LISK",
+	"ALEPHZERO",
 ]
 
 export function isBlockchainSpecified(value: string) {
