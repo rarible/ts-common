@@ -40,14 +40,27 @@ export class Logger<C extends LoggerContextData = {}> implements AbstractLogger<
     this.indent = this.config.indent ?? 2
     const middlewares = this.config.middlewares ?? []
     this.reducedMiddleware = combineMiddlewares(...middlewares)
+    this.getContext = this.getContext.bind(this)
+    this.raw = this.raw.bind(this)
+    this.data = this.data.bind(this)
+    this.message = this.message.bind(this)
+    this.trace = this.trace.bind(this)
+    this.warn = this.warn.bind(this)
+    this.error = this.error.bind(this)
+    this.info = this.info.bind(this)
+    this.debug = this.debug.bind(this)
+    this.extend = this.extend.bind(this)
+    this.updateContext = this.updateContext.bind(this)
   }
 
-  getContext = async () => ({
-    ...(await this.config.getContext()),
-    ...this.contextOverrides,
-  })
+  async getContext() {
+    return {
+      ...(await this.config.getContext()),
+      ...this.contextOverrides,
+    }
+  }
 
-  raw = async (data: LoggerRequiredRawData) => {
+  async raw(data: LoggerRequiredRawData) {
     try {
       const context = await this.getContext()
       const string = stringifyObject(this.maxByteSize, { ...data, ...context }, this.indent)
@@ -58,49 +71,52 @@ export class Logger<C extends LoggerContextData = {}> implements AbstractLogger<
     }
   }
 
-  data = (level: LogLevel, data: LoggerRawData, args: any[] = []) =>
-    this.raw({
+  data(level: LogLevel, data: LoggerRawData, args: any[] = []) {
+    return this.raw({
       level,
       message: args,
       ...data,
     })
+  }
 
-  message = (level: LogLevel, ...params: any[]) =>
-    this.raw({
+  message(level: LogLevel, ...params: any[]) {
+    return this.raw({
       level,
       message: params,
     })
+  }
 
-  trace = (...params: any[]) => {
+  trace(...params: any[]) {
     this.message(LogLevel.TRACE, ...params)
   }
 
-  warn = (...params: any[]) => {
+  warn(...params: any[]) {
     this.message(LogLevel.WARN, ...params)
   }
 
-  error = (...params: any[]) => {
+  error(...params: any[]) {
     this.message(LogLevel.ERROR, ...params)
   }
 
-  info = (...params: any[]) => {
+  info(...params: any[]) {
     this.message(LogLevel.INFO, ...params)
   }
 
-  debug = (...params: any[]) => {
+  debug(...params: any[]) {
     this.message(LogLevel.DEBUG, ...params)
   }
 
-  extend = <NewC extends LoggerContextData>(nextContext: NewC): Logger<NewC & C> =>
-    new Logger({
+  extend<NewC extends LoggerContextData>(nextContext: NewC): Logger<NewC & C> {
+    return new Logger({
       ...this.config,
       getContext: async () => ({
         ...(await this.getContext()),
         ...nextContext,
       }),
     })
+  }
 
-  updateContext = (nextContext: Partial<C>) => {
+  updateContext(nextContext: Partial<C>) {
     this.contextOverrides = {
       ...this.contextOverrides,
       ...nextContext,
