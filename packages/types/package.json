@@ -1,6 +1,6 @@
 {
   "name": "@rarible/types",
-  "version": "0.10.0-alpha.45",
+  "version": "0.10.0-alpha.46",
   "keywords": [
     "rarible",
     "common",
@@ -51,7 +51,7 @@
     "verify": "tsc"
   },
   "dependencies": {
-    "@rarible/utils": "^0.10.0-alpha.45"
+    "@rarible/utils": "^0.10.0-alpha.46"
   },
   "peerDependencies": {
     "tslib": ">=2.0.0 <3.0.0",
