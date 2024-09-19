@@ -30,6 +30,7 @@ const realBlockchains = [
 	"LISK",
 	"ALEPHZERO",
 	"MATCH",
+	"FIVIRE",
 ]
 
 export function isBlockchainSpecified(value: string) {
