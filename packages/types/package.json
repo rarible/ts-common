@@ -1,6 +1,6 @@
 {
   "name": "@rarible/types",
-  "version": "0.10.0-beta.0",
+  "version": "0.10.0-beta.1",
   "keywords": [
     "rarible",
     "common",
@@ -51,7 +51,7 @@
     "verify": "tsc"
   },
   "dependencies": {
-    "@rarible/utils": "^0.10.0-beta.0"
+    "@rarible/utils": "^0.10.0-beta.1"
   },
   "peerDependencies": {
     "tslib": ">=2.0.0 <3.0.0",
