@@ -1,4 +1,4 @@
-import { CustomError } from "@rarible/utils/error/custom/index"
+import { CustomError } from "@rarible/utils"
 import type { AbstractContractAddress } from "../../common/contract-address.js"
 import type { BlockchainEnum, L1BlockchainByBlockchain, WithBlockchain } from "../enum/domain.js"
 import { toLayerOneBlockchain, parseBlockchainSafe } from "../enum/utils.js"

@@ -1,4 +1,4 @@
-import { CustomError } from "@rarible/utils/error/custom/index"
+import { CustomError } from "@rarible/utils"
 import type {
   BlockchainEnum,
   BlockchainLayer1Enum,
@@ -38,8 +38,9 @@ export function toLayerOneBlockchain<T extends BlockchainEnum>(blockchain: T): L
   throw new Error(`Unknown blockchain - ${blockchain}`)
 }
 
-type InferBlockchainData<T extends WithBlockchain<any, any>> =
-  T extends WithBlockchain<infer C, infer B> ? [C, B] : never
+type InferBlockchainData<T extends WithBlockchain<any, any>> = T extends WithBlockchain<infer C, infer B>
+  ? [C, B]
+  : never
 
 export function parseBlockchain<T extends WithBlockchain>(value: T): InferBlockchainData<T> {
   const safe = parseBlockchainSafe(value)
