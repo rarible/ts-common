@@ -43,6 +43,7 @@ export enum BlockchainEnum {
   HEDERAEVM = "HEDERAEVM",
   VICTION = "VICTION",
   GOAT = "GOAT",
+  SETTLUS = "SETTLUS",
 }
 
 export const blockchains = Object.values(BlockchainEnum)
@@ -77,6 +78,7 @@ export const evmBlockchains = [
   BlockchainEnum.HEDERAEVM,
   BlockchainEnum.VICTION,
   BlockchainEnum.GOAT,
+  BlockchainEnum.SETTLUS,
 ] as const
 
 export type EVMBlockchain = (typeof evmBlockchains)[number]
@@ -120,6 +122,7 @@ export const L1BlockchainByBlockchainDictionary = {
   [BlockchainEnum.HEDERAEVM]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.VICTION]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.GOAT]: BlockchainLayer1Enum.ETHEREUM,
+  [BlockchainEnum.SETTLUS]: BlockchainLayer1Enum.ETHEREUM,
 } as const satisfies Record<BlockchainEnum, BlockchainLayer1Enum>
 
 export type L1BlockchainByBlockchain = typeof L1BlockchainByBlockchainDictionary
