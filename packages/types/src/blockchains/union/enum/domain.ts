@@ -37,6 +37,7 @@ export enum BlockchainEnum {
   ALEPHZERO = "ALEPHZERO",
   SHAPE = "SHAPE",
   BERACHAIN = "BERACHAIN",
+  ZKCANDY = "ZKCANDY",
   TELOS = "TELOS",
   MATCH = "MATCH",
   ABSTRACT = "ABSTRACT",
@@ -77,6 +78,7 @@ export const evmBlockchains = [
   BlockchainEnum.ABSTRACT,
   BlockchainEnum.HEDERAEVM,
   BlockchainEnum.VICTION,
+  BlockchainEnum.ZKCANDY,
   BlockchainEnum.GOAT,
   BlockchainEnum.SETTLUS,
 ] as const
@@ -120,6 +122,7 @@ export const L1BlockchainByBlockchainDictionary = {
   [BlockchainEnum.MATCH]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.ABSTRACT]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.HEDERAEVM]: BlockchainLayer1Enum.ETHEREUM,
+  [BlockchainEnum.ZKCANDY]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.VICTION]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.GOAT]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.SETTLUS]: BlockchainLayer1Enum.ETHEREUM,
