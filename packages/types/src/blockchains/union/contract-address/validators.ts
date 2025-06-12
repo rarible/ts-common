@@ -3,7 +3,6 @@ import type { ILayer1fulValidator } from "../../common/common.js"
 import { evmAddressValidator } from "../../evm/address/index.js"
 import { flowContractAddressValidator } from "../../flow/contract-address/index.js"
 import { solanaAddressValidator } from "../../solana/address/index.js"
-import { tezosContractAddressValidator } from "../../tezos/contract-address/index.js"
 import { aptosAddressValidator } from "../../aptos/address/index.js"
 import { BlockchainLayer1Enum } from "../enum/domain.js"
 
@@ -15,6 +14,5 @@ export const contractAddressValidators: ContractAddressValidatorsMap = {
   [BlockchainLayer1Enum.ETHEREUM]: evmAddressValidator,
   [BlockchainLayer1Enum.FLOW]: flowContractAddressValidator,
   [BlockchainLayer1Enum.SOLANA]: solanaAddressValidator,
-  [BlockchainLayer1Enum.TEZOS]: tezosContractAddressValidator,
   [BlockchainLayer1Enum.APTOS]: aptosAddressValidator,
 }

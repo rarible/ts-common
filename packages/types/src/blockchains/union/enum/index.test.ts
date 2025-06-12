@@ -47,7 +47,6 @@ describe("toLayerOneBlockchain", () => {
     evmBlockchains.forEach(x => expect(toLayerOneBlockchain(x)).toEqual(BlockchainLayer1Enum.ETHEREUM))
     expect(toLayerOneBlockchain(BlockchainEnum.FLOW)).toEqual(BlockchainLayer1Enum.FLOW)
     expect(toLayerOneBlockchain(BlockchainEnum.SOLANA)).toEqual(BlockchainLayer1Enum.SOLANA)
-    expect(toLayerOneBlockchain(BlockchainEnum.TEZOS)).toEqual(BlockchainLayer1Enum.TEZOS)
   })
 })
 

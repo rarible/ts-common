@@ -1,7 +1,6 @@
 export enum BlockchainLayer1Enum {
   ETHEREUM = "ETHEREUM",
   FLOW = "FLOW",
-  TEZOS = "TEZOS",
   SOLANA = "SOLANA",
   APTOS = "APTOS",
 }
@@ -11,7 +10,6 @@ export const blockchainsLayer1 = Object.values(BlockchainLayer1Enum)
 export enum BlockchainEnum {
   ETHEREUM = "ETHEREUM",
   FLOW = "FLOW",
-  TEZOS = "TEZOS",
   POLYGON = "POLYGON",
   IMMUTABLEX = "IMMUTABLEX",
   SOLANA = "SOLANA",
@@ -26,7 +24,6 @@ export enum BlockchainEnum {
   ARBITRUM = "ARBITRUM",
   LIGHTLINK = "LIGHTLINK",
   CELO = "CELO",
-  XAI = "XAI",
   CHILIZ = "CHILIZ",
   MOONBEAM = "MOONBEAM",
   PALM = "PALM",
@@ -62,7 +59,6 @@ export const evmBlockchains = [
   BlockchainEnum.LIGHTLINK,
   BlockchainEnum.CELO,
   BlockchainEnum.KROMA,
-  BlockchainEnum.XAI,
   BlockchainEnum.CHILIZ,
   BlockchainEnum.MOONBEAM,
   BlockchainEnum.PALM,
@@ -101,7 +97,6 @@ export const L1BlockchainByBlockchainDictionary = {
   [BlockchainEnum.LIGHTLINK]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.CELO]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.KROMA]: BlockchainLayer1Enum.ETHEREUM,
-  [BlockchainEnum.XAI]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.CHILIZ]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.BASE]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.MOONBEAM]: BlockchainLayer1Enum.ETHEREUM,
@@ -114,7 +109,6 @@ export const L1BlockchainByBlockchainDictionary = {
   [BlockchainEnum.SOLANA]: BlockchainLayer1Enum.SOLANA,
   [BlockchainEnum.ECLIPSE]: BlockchainLayer1Enum.SOLANA,
   [BlockchainEnum.APTOS]: BlockchainLayer1Enum.APTOS,
-  [BlockchainEnum.TEZOS]: BlockchainLayer1Enum.TEZOS,
   [BlockchainEnum.ALEPHZERO]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.SHAPE]: BlockchainLayer1Enum.ETHEREUM,
   [BlockchainEnum.BERACHAIN]: BlockchainLayer1Enum.ETHEREUM,
@@ -134,7 +128,6 @@ export interface BlockchainByL1Blockchain extends Record<BlockchainLayer1Enum, B
   [BlockchainLayer1Enum.ETHEREUM]: EVMBlockchain
   [BlockchainLayer1Enum.FLOW]: BlockchainEnum.FLOW
   [BlockchainLayer1Enum.SOLANA]: BlockchainEnum.SOLANA
-  [BlockchainLayer1Enum.TEZOS]: BlockchainEnum.TEZOS
   [BlockchainLayer1Enum.APTOS]: BlockchainEnum.APTOS
 }
 
